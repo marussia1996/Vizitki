@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from '../../logo.svg';
+import React, { FC } from 'react';
+import { Route, Switch , useLocation} from 'react-router-dom';
+import { TLocation } from '../../services/types';
 import './App.css';
 
-function App() {
+export const App:FC = () => {
+  const location = useLocation<TLocation>();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <Switch location={location}>
+        <Route exact path="/maria">
+          <h1>Привет, Мария</h1>
+        </Route>
+        <Route exact path="/vadim">
+          <h1>Привет, Вадим</h1>
+        </Route>
+        <Route exact path="/vladislav">
+          <h1>Привет, Владислав</h1>
+        </Route>
+        <Route exact path="/evgeniy">
+          <h1>Привет, Евгений</h1>
+        </Route>
+        <Route exact path="/evgeniya">
+          <h1>Привет, Евгения</h1>
+        </Route>
+      </Switch>
     </div>
-  );
+  )
 }
-
-export default App;
