@@ -7,7 +7,6 @@ export const App:FC = () => {
   const location = useLocation<TLocation>();
   return (
     <div className='app'>
-      <h1>Hello World</h1>
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
