@@ -1,6 +1,7 @@
 import React from "react";
 import { TThemeProfile } from "../../services/types/types";
 import {ReactComponent as QueteIcon} from "../../images/quete_icon.svg";
+import cx from "classnames";
 
 import styles from './Quete.module.css';
 
@@ -10,6 +11,9 @@ type Props = {
 }
 
 const Quete = ({ text, theme = TThemeProfile.DEFULT }: Props) => {
+
+    
+
     return (
         <div className={styles.Quete}>
             <QueteIcon className={styles.Icon}/>
