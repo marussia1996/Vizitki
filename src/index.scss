@@ -1,0 +1,9 @@
+@use './fonts/fonts.scss' as *;
+
+$color-bg : #666559;
+$font-name: 'IBMPlexSans';
+body {
+  margin: 0;
+  font-family: $font-name;
+}
+
