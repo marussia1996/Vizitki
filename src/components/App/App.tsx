@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { Route, Switch , useLocation} from 'react-router-dom';
 import { TLocation } from '../../services/types/types';
-import './App.css';
+import './App.scss';
 
 export const App:FC = () => {
   const location = useLocation<TLocation>();
   return (
     <div className='app'>
+      <h1>Hello World</h1>
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
