@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Switch , useLocation} from 'react-router-dom';
-import { TLocation } from '../../services/types';
+import { TLocation } from '../../services/types/types';
 import './App.css';
 
 export const App:FC = () => {
