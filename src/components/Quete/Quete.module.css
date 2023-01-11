@@ -1,0 +1,32 @@
+.Quete {
+    max-height: 117px;
+}
+
+.Icon {
+    width: 20px;
+    height: 45px;
+    stroke: #100C34;
+    padding: 0 8px 8px 0;
+    margin: 0;
+}
+
+.Icon:last-child{
+    padding: 0;
+}
+
+.IconRomantic {
+    stroke: #FF00A8;
+}
+
+.IconDaring {
+    stroke: #38EC42;
+}
+.Text {
+    display: block;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #100C34;
+    padding: 0;
+    margin: 0;
+}

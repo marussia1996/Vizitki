@@ -5,10 +5,16 @@ export type TLocation = {
   state: object;
   from?: string;
   background: {
-      pathname: string;
-      search: string;
-      hash: string;
-      state: null;
-      key: string;
+    pathname: string;
+    search: string;
+    hash: string;
+    state: null;
+    key: string;
   }
 };
+
+export enum TThemeProfile {
+  DEFULT = 'defult',
+  ROMANTIC = 'romantic',
+  DARING = 'daring'
+} 
