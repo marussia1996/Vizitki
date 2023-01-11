@@ -1,3 +1,9 @@
+//
+
+    //TUserRaw - пишем постфикс Raw у данных пришедших от сервера
+
+//
+
 export type TLocation = {
   hash: string;
   pathname: string;
