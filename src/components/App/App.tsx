@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Switch , useLocation} from 'react-router-dom';
 import { TLocation } from '../../services/types/types';
-import { Footer } from '../Footer/Footer';
 import './App.scss';
 
 export const App:FC = () => {
@@ -11,7 +10,6 @@ export const App:FC = () => {
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
-          <Footer/>
         </Route>
         <Route exact path="/vadim">
           <h1>Привет, Вадим</h1>
