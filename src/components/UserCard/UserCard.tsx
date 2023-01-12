@@ -10,7 +10,7 @@ export const UserCard: FC = () => {
       <img className={styles.photo} src={photo} alt='Фотография пользователя'></img>
     </div>
     <div className={styles.commentIcon}>
-      <CommentIcon /> 
+      <CommentIcon color='dark'/> 
     </div>
     <div className={styles.infoWrap}>
       <p className={styles.name}>Иванов Сергей</p>
