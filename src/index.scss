@@ -2,6 +2,13 @@
 
 $color-bg : #666559;
 $font-name: 'IBMPlexSans';
+
+//размеры обычного текста
+@mixin text {
+  font-size: 16px;
+  line-height: 24px;
+}
+
 body {
   margin: 0;
   font-family: $font-name;
