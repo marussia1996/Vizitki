@@ -4,36 +4,37 @@ import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
 import {  Header  } from '../Header/Header';
-import {UserCard} from '../UserCard/UserCard';
-import {SwitchInfo} from '../Switch/Switch'
+import { LoginPage } from '../../pages/LoginPage/LoginPage';
+import { Footer } from '../Footer/Footer';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
   return (
     <div className='app'>
-      <Switch location={location}>
-        <Route exact path="/maria">
-          <h1>Привет, Мария</h1>
-        </Route>
-        <Route exact path="/vadim">
-          <h1>Привет, Вадим</h1>
-        </Route>
-        <Route exact path="/vladislav">
-          <h1>Привет, Владислав</h1>
-        </Route>
-        <Route exact path="/evgeniy">
-          <h1>Привет, Евгений</h1>
-        </Route>
-        <Route exact path="/evgeniya">
-          <h1>Привет, Евгения</h1>
-          <Header />
-          <UserCard />
-          <SwitchInfo />
-        </Route>
-        <Route exact path="/alexey">
-          <AlexeyM/>
-        </Route>
-      </Switch>
+      <Header/>
+      <main className='main'>
+        <Switch location={location}>
+          <Route exact path="/">
+            <LoginPage/>
+          </Route>
+          <Route exact path="/maria">
+            <h1>Привет, Мария</h1>
+          </Route>
+          <Route exact path="/vadim">
+            <h1>Привет, Вадим</h1>
+          </Route>
+          <Route exact path="/evgeniy">
+            <h1>Привет, Евгений</h1>
+          </Route>
+          <Route exact path="/evgeniya">
+            <h1>Привет, Евгения</h1>
+          </Route>
+          <Route exact path="/alexey">
+            <AlexeyM/>
+          </Route>
+        </Switch>
+      </main>
+      <Footer/>
     </div>
   )
 }

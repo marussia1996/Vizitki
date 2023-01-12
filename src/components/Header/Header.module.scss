@@ -1,18 +1,16 @@
 @use '../../index.scss' as *;
 
 .header {
-  max-width: 1440px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 40px 0 40px 0;
+  padding: 40px;
 }
 
 .logo {
   width: 130px;
   height: 25px;
-  padding-left: 40px;
 }
 
 .userWrap {
@@ -20,7 +18,6 @@
   align-items: center;
   gap: 4px;
   max-width: 248px;
-  padding-right: 40px;
 }
 
 .userPhoto {
@@ -28,10 +25,11 @@
   width: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid gray; /*временное сво-во*/
+  border: 1px solid gray; /*временное сво-во (2px лишнии) */
 }
 
 .userName {
+  margin: 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
@@ -43,26 +41,14 @@
 @media screen and (max-width: 768px) {
   .header {
     max-width: 768px;
-    padding: 35.5px 0 35.5px 0;
-  }
-  .logo {
-    padding-left: 32px;
-  }
-  .userWrap {
-    padding-right: 32px;
+    padding: 35.5px 32px;
   }
 }
 
 @media screen and (max-width: 445px) {
   .header {
     max-width: 320px;
-    padding: 27.5px 0 27.5px 0;
-  }
-  .logo {
-    padding-left: 24px;
-  }
-  .userWrap {
-    padding-right: 24px;
+    padding: 27.5px 24px;
   }
   .userName {
     display: none;
