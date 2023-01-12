@@ -27,3 +27,10 @@ export type TButtonProps = {
   disabled: boolean;
   onClick: ()=>void;
 }
+
+export type TUserInfoProps = {
+  userName: string;
+  city: string;
+  telegram?: string; 
+  github?: string;
+}
