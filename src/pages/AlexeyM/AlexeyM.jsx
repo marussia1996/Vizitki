@@ -5,8 +5,7 @@ import { TThemeProfile } from "../../services/types/types";
 const AlexeyM = () => {
     return (
         <div>
-            dsfsdfdsfsd
-            <Quete text="TEST" theme={TThemeProfile.DEFULT}/>
+            <Quete text="Делай, что должно и&nbsp;будь, что будет." theme={TThemeProfile.ROMANTIC}/>
         </div>
     )
 }

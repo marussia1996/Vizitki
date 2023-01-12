@@ -1,5 +1,6 @@
 .Quete {
-    max-height: 117px;
+    display: block;
+    max-width: 255px;
 }
 
 .Icon {
@@ -21,6 +22,7 @@
 .IconDaring {
     stroke: #38EC42;
 }
+
 .Text {
     display: block;
     font-weight: 400;
@@ -29,4 +31,12 @@
     color: #100C34;
     padding: 0;
     margin: 0;
+}
+
+.TextRomantic {
+    color: #FF00A8;
+}
+
+.TextDaring {
+    color: #38EC42;
 }
