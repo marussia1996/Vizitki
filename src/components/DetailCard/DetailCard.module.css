@@ -1,0 +1,27 @@
+.card {
+  width: 440px;
+  padding-top: 8px;
+}
+
+.heading {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.image {
+  width: 210px;
+  height: 130px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400px;
+  margin: 0;
+}
