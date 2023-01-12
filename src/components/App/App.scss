@@ -1,5 +1,7 @@
 @use '../../index.scss' as *;
 
 .app{
+  font-family: 'IBMPlexSans', sans-serif;
   color: $color-bg;
+  margin: 0;
 }
