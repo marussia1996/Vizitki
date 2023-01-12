@@ -29,7 +29,7 @@ export type TButtonProps = {
 }
 
 export enum TThemeProfile {
-  DEFULT = 'defult',
+  DEFAULT = 'default',
   ROMANTIC = 'romantic',
   DARING = 'daring'
 } 

@@ -12,7 +12,7 @@ type Props = {
     theme?: TThemeProfile;
 }
 
-const Quete = ({ text, theme = TThemeProfile.DEFULT }: Props) => {
+const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
 
     const cxQueteIcon = cx(styles.Icon, {
         [styles['IconRomantic']]: theme === TThemeProfile.ROMANTIC,
