@@ -26,4 +26,5 @@ export type TButtonProps = {
   className: 'buttonLarge' | 'buttonSmall';
   disabled: boolean;
   onClick: ()=>void;
+  type: 'button' | 'reset' | 'submit'
 }
