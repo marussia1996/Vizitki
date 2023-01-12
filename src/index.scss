@@ -19,4 +19,7 @@ $text-black: #000000;
   line-height: $height;
   font-weight: $weight;
 }
-
+//если не добавить, то браузер добавляет margin
+body{
+  margin: 0;
+}
