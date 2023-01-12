@@ -1,0 +1,94 @@
+@use '../../index.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  max-width: 325px;
+  position: relative;
+}
+
+.photo {
+  width: 325px;
+  height: 325px;
+  border: none;
+  filter: grayscale(1);
+}
+
+.infoWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.name {
+  @include text(20px, 28px, 400);
+  color: $text-dark;
+  margin: 0;
+}
+
+.commentIcon {
+  height: 25.334970474243164px;
+  width: 25.33333396911621px;
+  position: absolute;
+  top: 18.67px;
+  left: 281px;
+  visibility: hidden;
+}
+
+.city, .messages {
+  @include text(16px, 24px, 400);
+  margin: 0;
+}
+
+.wrap:hover {
+  cursor: pointer;
+}
+  
+.wrap:hover .photo {
+  border: 2px solid #FF00A8;
+}
+  
+.wrap:hover .name {
+  color: #FF00A8;
+}
+  
+.wrap:hover .commentIcon {
+  visibility: visible;
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    max-width: 342px;
+  }
+  .photo {
+    width: 342px;
+    height: 342px;
+  }
+  .commentIcon {
+    height: 32px;
+    width: 32px;
+    top: 16px;
+    left: 294px;
+    visibility: visible;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .wrap {
+    max-width: 272px;
+  }
+  .photo {
+    width: 272px;
+    height: 272px;
+  }
+  .commentIcon {
+    height: 25.33px;
+    width: 25.33px;
+    top: 18.67px;
+    left: 228px;
+  }
+}
+
+
+

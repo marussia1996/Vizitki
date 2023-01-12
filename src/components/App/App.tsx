@@ -3,6 +3,7 @@ import { Route, Switch , useLocation} from 'react-router-dom';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
 import {Header} from '../Header/Header';
+import {UserCard} from '../UserCard/UserCard';
 import { Button } from '../Button/Button';
 
 export const App:FC = () => {
@@ -27,6 +28,7 @@ export const App:FC = () => {
         <Route exact path="/evgeniya">
           <h1>Привет, Евгения</h1>
           <Header />
+          <UserCard />
         </Route>
       </Switch>
     </div>
