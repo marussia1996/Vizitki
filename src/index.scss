@@ -17,4 +17,7 @@ $placeholder: #83828F;
   line-height: $height;
   font-weight: $weight;
 }
-
+//если не добавить, то браузер добавляет margin
+body{
+  margin: 0;
+}
