@@ -1,9 +1,20 @@
 @use './fonts/fonts.scss' as *;
 
-$color-bg : #666559;
-$font-name: 'IBMPlexSans';
-body {
-  margin: 0;
-  font-family: $font-name;
+// переменные
+
+$text-dark: #100C34;
+$neon-pink: #FF00A8;
+$neon-green: #38EC42;
+$error: #E90D41;
+$text-light: #A3A3A3;
+$input-hover: #666666;
+$placeholder: #83828F;
+
+// миксины
+
+@mixin text($size, $height, $weight) {
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
 }
 

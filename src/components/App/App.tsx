@@ -3,6 +3,9 @@ import { Route, Switch , useLocation} from 'react-router-dom';
 import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
+import {Header} from '../Header/Header';
+import {UserCard} from '../UserCard/UserCard';
+import { Button } from '../Button/Button';
 
 export const App:FC = () => {
   const location = useLocation<TLocation>();
@@ -11,6 +14,8 @@ export const App:FC = () => {
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
+          <Button className='buttonLarge' onClick={()=>{console.log('send')}} disabled={false}>Войти с Яндекс ID</Button>
+          <Button className='buttonSmall' onClick={()=>{console.log('send')}} disabled={true}>Выберите файл</Button>
         </Route>
         <Route exact path="/vadim">
           <h1>Привет, Вадим</h1>
@@ -23,6 +28,8 @@ export const App:FC = () => {
         </Route>
         <Route exact path="/evgeniya">
           <h1>Привет, Евгения</h1>
+          <Header />
+          <UserCard />
         </Route>
         <Route exact path="/alexey">
           <AlexeyM/>

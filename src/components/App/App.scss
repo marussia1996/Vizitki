@@ -1,5 +1,9 @@
 @use '../../index.scss' as *;
 
 .app{
-  color: $color-bg;
+  color: $text-dark;
+  font-family: 'IBMPlexSans', sans-serif;
+  @include text(14px, 18px, 400);
+  background-color: #fff;
+  margin: 0;
 }
