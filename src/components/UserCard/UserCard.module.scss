@@ -22,9 +22,7 @@
 }
 
 .name {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 28px;
+  @include text(20px, 28px, 400);
   color: $text-dark;
   margin: 0;
 }
@@ -39,8 +37,7 @@
 }
 
 .city, .messages {
-  font-weight: 400;
-  @include text;
+  @include text(16px, 24px, 400);
   margin: 0;
 }
 
