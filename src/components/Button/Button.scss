@@ -1,0 +1,42 @@
+.button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: linear-gradient(269.17deg, #3B23B7 30.28%, #C914E7 63.24%);
+  border-radius: 4px;
+  color: #F0F0F0;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.button:hover{
+  background: linear-gradient(269.17deg, #3F26C4 30.28%, #D315F2 63.24%);
+}
+.button:active:focus{
+  background: linear-gradient(269.17deg, #4328D1 30.28%, #DE16FF 63.24%);
+}
+.button:disabled{
+  background: #BFBFBF;
+  cursor: not-allowed;
+}
+.buttonLarge{
+  max-width: 439px;
+  padding: 20px 0;
+  font-size: 20px;
+  line-height: 28px;
+}
+.buttonSmall{
+  //на макете у этой кнопке почему-то разная ширина, оставила ту, что показана на компоненте добавления файла
+  max-width: 285px;
+  padding: 12px 0;
+  font-size: 16px;
+  line-height: 20px;
+}
+@media screen and (max-width: 320px) {
+  .buttonLarge{
+    max-width: 272px;
+    padding: 16px 0;
+  }
+}
