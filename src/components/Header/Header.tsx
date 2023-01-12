@@ -11,7 +11,7 @@ export const Header: FC = () => {
       </Link>
       {/* Если юзер авторизован блок отображается */}
         <div className={headerStyle.userWrap}>
-          <img className={headerStyle.userFoto} src='#' alt='Фотография пользователя'></img>
+          <img className={headerStyle.userPhoto} src='#' alt='Фотография пользователя'></img>
           <p className={headerStyle.userName}>Константин Константинов</p>
         </div>
     </header>
