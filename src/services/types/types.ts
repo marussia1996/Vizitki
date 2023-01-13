@@ -21,13 +21,5 @@ export type TLocation = {
   }
 };
 
-export type TButtonProps = {
-  children: ReactNode;
-  className: 'buttonLarge' | 'buttonSmall';
-  disabled: boolean;
-  onClick: ()=>void;
-  type: 'button' | 'reset' | 'submit'
-}
-
 export type TPageType = 'default' | 'romantic' | 'daring';
 

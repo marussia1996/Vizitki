@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { TButtonProps } from '../../services/types/types'
 import '../Button/Button.scss'
 
-export const Button: FC<TButtonProps> = ({children, className, disabled, onClick, type}) => {
+type Props = { text: string; className: 'buttonLarge' | 'buttonSmall'; disabled: boolean;  onClick: ()=>void; type: 'button' | 'reset' | 'submit'}
+export const Button: FC<Props> = ({text, className, disabled, onClick, type}) => {
   return (
-    <button className={`button ${className}`} disabled={disabled} onClick={onClick} type={type}>{children}</button>
+    <button className={`button ${className}`} disabled={disabled} onClick={onClick} type={type}>{text}</button>
   )
 }
