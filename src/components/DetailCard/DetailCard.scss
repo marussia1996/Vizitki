@@ -2,7 +2,7 @@
 
 .card {
   width: 440px;
-  padding-top: 8px;
+  position: relative;
 }
 
 .line {
@@ -35,9 +35,26 @@
   margin: 0;
 }
 
+.cnt {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     width: 342px;
+  }
+
+  .cnt {
+    top: 15px;
+    right: 8px;
   }
 }
 

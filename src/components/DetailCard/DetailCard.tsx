@@ -4,6 +4,7 @@ import { TPageType } from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
+import { CommentIcon } from '../CommentIcon/CommentIcon';
 
 type TProps = {
   theme: TPageType;
@@ -16,7 +17,7 @@ export default function DetailCard({ theme, heading, text, image }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
 
   useEffect(() => {
-    switch(theme) {
+    switch (theme) {
       case 'default':
         break;
       case 'romantic':
@@ -36,7 +37,9 @@ export default function DetailCard({ theme, heading, text, image }: TProps) {
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
       )}
       <p className='text'>{text}</p>
-      {/* Здесь будет компонент CommentIcon */}
+      <div className='cnt'>
+        <CommentIcon color='pink' />
+      </div>
     </div>
   )
 }
