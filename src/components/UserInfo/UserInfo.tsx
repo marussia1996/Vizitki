@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import { TUserInfoProps } from '../../services/types/types'
 import stylesUserInfo from '../UserInfo/UserInfo.module.scss'
 import IconTelegram from '../../images/telegram.svg'
 import IconGithub from '../../images/github.svg'
 
-export const UserInfo:FC<TUserInfoProps> = ({userName, city, telegram, github}) => {
+export type Props = { userName: string; city: string; telegram?: string;  github?: string;}
+
+export const UserInfo = ({userName, city, telegram, github}:Props) => {
   return (
     <div className={`${stylesUserInfo.userInfo}`}>
       <h1 className={`${stylesUserInfo.name}`}>{userName}</h1>
