@@ -18,7 +18,7 @@ export const App:FC = () => {
           <Button className='buttonSmall' onClick={()=>{console.log('send')}} disabled={true}>Выберите файл</Button>
         </Route>
         <Route exact path="/vadim">
-          <DetailCard heading='Увлечения' text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, ullam cum pariatur numquam impedit accusantium totam incidunt qui! Autem vel quisquam recusandae minus sit eius aperiam sequi debitis ipsum incidunt.' />
+          <DetailCard theme='default' heading='Увлечения' text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, ullam cum pariatur numquam impedit accusantium totam incidunt qui! Autem vel quisquam recusandae minus sit eius aperiam sequi debitis ipsum incidunt.' />
         </Route>
         <Route exact path="/vladislav">
           <h1>Привет, Владислав</h1>
