@@ -4,7 +4,6 @@ import { TLocation } from '../../services/types/types';
 import './App.scss';
 import {  Header  } from '../Header/Header';
 import {UserCard} from '../UserCard/UserCard';
-import { Button } from '../Button/Button';
 import {SwitchInfo} from '../Switch/Switch'
 
 export const App: FC = () => {
