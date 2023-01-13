@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
-import { Header } from '../Header/Header';
+import {  Header  } from '../Header/Header';
 import {UserCard} from '../UserCard/UserCard';
 import { Button } from '../Button/Button';
 
