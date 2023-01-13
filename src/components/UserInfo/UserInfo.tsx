@@ -2,7 +2,7 @@ import stylesUserInfo from '../UserInfo/UserInfo.module.scss'
 import IconTelegram from '../../images/telegram.svg'
 import IconGithub from '../../images/github.svg'
 
-export type Props = { userName: string; city: string; telegram?: string;  github?: string;}
+type Props = { userName: string; city: string; telegram?: string;  github?: string;}
 
 export const UserInfo = ({userName, city, telegram, github}:Props) => {
   return (

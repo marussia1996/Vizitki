@@ -1,3 +1,4 @@
+@use '../../index.scss' as *;
 .button{
   display: flex;
   align-items: center;
@@ -8,7 +9,6 @@
   color: #F0F0F0;
   width: 100%;
   font-family: inherit;
-  font-weight: 500;
   cursor: pointer;
 }
 .button:hover{
@@ -24,15 +24,13 @@
 .buttonLarge{
   max-width: 439px;
   padding: 20px 0;
-  font-size: 20px;
-  line-height: 28px;
+  @include text(20px, 28px, 500)
 }
 .buttonSmall{
   //на макете у этой кнопке почему-то разная ширина, оставила ту, что показана на компоненте добавления файла
   max-width: 285px;
   padding: 12px 0;
-  font-size: 16px;
-  line-height: 20px;
+  @include text(16px, 20px, 500)
 }
 @media screen and (max-width: 320px) {
   .buttonLarge{
