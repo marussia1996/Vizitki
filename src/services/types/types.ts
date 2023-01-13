@@ -27,3 +27,6 @@ export type TButtonProps = {
   disabled: boolean;
   onClick: ()=>void;
 }
+
+export type TPageType = 'default' | 'romantic' | 'daring';
+
