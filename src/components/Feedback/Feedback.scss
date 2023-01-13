@@ -20,6 +20,14 @@
 .smilesCnt {
   width: 406px;
   max-height: 52px;
+  display: flex;
+  gap: 2px;
+}
+
+.smile {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 4px;
 }
 
 .input {
@@ -37,4 +45,36 @@
 
 .input::placeholder {
   color: $text-light;
+}
+
+.feedbackTape {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  overflow-y: overlay;
+}
+
+.feedbackTape::-webkit-scrollbar {
+  width: 4px;
+}
+
+.feedbackTape::-webkit-scrollbar-thumb {
+  background-color: $placeholder;
+  border-radius: 7px;
+}
+
+.message {
+  padding-top: 8px;
+  border-top: 1px solid $text-dark;
+}
+
+.message:last-of-type  {
+  padding: 0;
+  border: none;
+}
+
+.messageText {
+  margin: 0;
+  @include text(16px, 20px, 400)
 }
