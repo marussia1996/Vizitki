@@ -5,6 +5,7 @@ import './App.scss';
 import {Header} from '../Header/Header';
 import {UserCard} from '../UserCard/UserCard';
 import { Button } from '../Button/Button';
+import {SwitchInfo} from '../Switch/Switch'
 
 export const App:FC = () => {
   const location = useLocation<TLocation>();
@@ -29,6 +30,7 @@ export const App:FC = () => {
           <h1>Привет, Евгения</h1>
           <Header />
           <UserCard />
+          <SwitchInfo />
         </Route>
       </Switch>
     </div>
