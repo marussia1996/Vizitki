@@ -1,0 +1,41 @@
+@use '../../index.scss' as *;
+
+.icon {
+  background-size: cover;
+  height: 25.334970474243164px;
+  width: 25.33333396911621px;
+}
+
+.wrap {
+  position: relative;
+  background-color: inherit;
+  border: none;
+  padding: 0;
+}
+
+.countDark {
+  background-color: $text-dark;
+  min-width: 20px;
+  height: 19px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20px;
+  right: -4px;
+}
+
+.countPink {
+  background-color: $neon-pink;
+  min-width: 20px;
+  height: 19px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20px;
+  right: -4px;
+}
+
+.number {
+  @include text(12px, 12px, 500);
+  text-align: center;
+  margin: 0;
+  color: $text-white;
+}
