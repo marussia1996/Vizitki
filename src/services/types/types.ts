@@ -29,3 +29,4 @@ export type TButtonProps = {
 }
 
 export type TPageType = 'default' | 'romantic' | 'daring';
+

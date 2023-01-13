@@ -1,0 +1,56 @@
+@use '../../index.scss' as *;
+.userInfo{
+  max-width: 443px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  color: $text-dark;
+}
+.name{
+  margin: 0;
+  @include text(60px, 60px, 500)
+}
+.city{
+  margin: 0;
+  @include text(16px, 20px, 400);
+  margin: 97px 0 22px;
+}
+.contacts{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.contact{
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+.icon{
+  object-fit: contain;
+  margin: 2.67px;
+}
+
+@media screen and (max-width: 768px) {
+  .userInfo{
+    max-width: 295px;
+  }
+  .name{
+    @include text(40px, 40px, 500)
+  }
+  .city{
+    margin: 95px 0 31px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .userInfo{
+    max-width: 236px;
+  }
+  .name{
+    @include text(32px, 40px, 500)
+  }
+  .city{
+    margin: 24px 0;
+  }
+}

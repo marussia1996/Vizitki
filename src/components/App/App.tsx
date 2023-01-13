@@ -14,8 +14,6 @@ export const App: FC = () => {
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
-          <Button className='buttonLarge' onClick={() => { console.log('send') }} disabled={false}>Войти с Яндекс ID</Button>
-          <Button className='buttonSmall' onClick={() => { console.log('send') }} disabled={true}>Выберите файл</Button>
         </Route>
         <Route exact path="/vadim">
           <h1>Привет, Вадим</h1>
