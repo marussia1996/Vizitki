@@ -1,8 +1,7 @@
-import React, { FC } from 'react'
 import stylesAddFile from '../AddFile/AddFile.module.scss'
 import { Button } from '../Button/Button'
 //пока не знаю нужны ли здесь пропсы и какие
-export const AddFile: FC = () => {
+export const AddFile = () => {
   return (
     <div className={`${stylesAddFile.wrap}`}>
       <h2 className={`${stylesAddFile.title}`}>Добавить студентов</h2>
