@@ -5,6 +5,7 @@ import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
 import { CommentIcon } from '../CommentIcon/CommentIcon';
+import Feedback from '../Feedback/Feedback';
 
 type TProps = {
   theme: TPageType;
@@ -15,6 +16,7 @@ type TProps = {
 
 export default function DetailCard({ theme, heading, text, image }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
+  const [isOpenFeedback, setFeedbackState] = useState(false);
 
   useEffect(() => {
     switch (theme) {
@@ -29,6 +31,10 @@ export default function DetailCard({ theme, heading, text, image }: TProps) {
     }
   });
 
+  const feedbackHandle = () => {
+    setFeedbackState(!isOpenFeedback);
+  }
+
   return (
     <div className='card'>
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
@@ -37,9 +43,10 @@ export default function DetailCard({ theme, heading, text, image }: TProps) {
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
       )}
       <p className='text'>{text}</p>
-      <div className='cnt'>
+      <div className='cnt' onClick={feedbackHandle}>
         <CommentIcon color='pink' />
       </div>
+      {isOpenFeedback && <Feedback />}
     </div>
   )
 }
