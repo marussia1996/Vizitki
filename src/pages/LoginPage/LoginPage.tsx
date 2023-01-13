@@ -5,7 +5,7 @@ export const LoginPage = () => {
   return (
     <section className={`${stylesLogin.loginPage}`}>
       <h1 className={`${stylesLogin.title}`}>С кем я учусь?</h1>
-      <Button className='buttonLarge' onClick={()=>{console.log('send')}} disabled={false}>Войти с Яндекс ID</Button>
+      <Button text='Войти с Яндекс ID' className='buttonLarge' onClick={()=>{console.log('send')}} disabled={false} type='submit'/>
     </section>
   )
 }
