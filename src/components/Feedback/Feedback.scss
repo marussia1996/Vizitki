@@ -2,7 +2,6 @@
 
 .modal {
   width: 100%;
-  max-height: 274px;
   position: absolute;
   top: 51px;
   left: 0;
@@ -41,7 +40,25 @@
   @include text(12px, 12px, 500);
 }
 
-.input {
+.inputAdmin {
+  resize: none;
+  border: none;
+  border-top: 1px solid #D9D9D9;
+  padding: 0;
+  padding-top: 8px;
+  margin-top: 13px;
+  @include text(15px, 18px, 400);
+}
+
+.inputAdmin:focus {
+  outline: none;
+}
+
+.inputAdmin::placeholder {
+  color: #D9D9D9;
+}
+
+.inputStudent {
   height: 36px;
   background-color: #F3F3F3;
   border: none;
@@ -49,16 +66,17 @@
   padding: 8px;
 }
 
-.input:focus {
+.inputStudent:focus {
   outline: none;
 }
 
-.input::placeholder {
+.inputStudent::placeholder {
   color: $text-light;
 }
 
 .feedbackTape {
   width: 100%;
+  max-height: 133px;
   display: flex;
   flex-direction: column-reverse;
   gap: 8px;

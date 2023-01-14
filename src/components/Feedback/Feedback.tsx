@@ -1,7 +1,13 @@
 import './Feedback.scss';
 import { messages } from './data';
 
-export default function Feedback() {
+type TProps = {
+  user: 'student' | 'admin';
+};
+
+export default function Feedback({ user }: TProps) {
+  const isAdmin = user === 'admin';
+
   return (
     <div className='modal'>
       <div className='smilesCnt'>
@@ -16,7 +22,14 @@ export default function Feedback() {
         <span className='smile'>&#128525;</span>
         <span className='smile'>&#128420;</span>
       </div>
-      <input type='text' placeholder='Обратная связь' className='input'></input>
+
+      {isAdmin && (
+        <textarea rows={2} placeholder='Обратная связь на анкету целиком  печатать сюда' className='inputAdmin'></textarea>
+      )}
+      {!isAdmin && (
+        <input type='text' placeholder='Обратная связь' className='inputStudent'></input>
+      )}
+
       {messages.length !== 0 && (<div className='feedbackTape'>
         {messages.map(item => {
           return (

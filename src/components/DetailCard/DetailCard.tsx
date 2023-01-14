@@ -49,7 +49,7 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
       <div className='cnt' onClick={feedbackHandle}>
         <CommentIcon color='pink' />
       </div>
-      {isOpenFeedback && <Feedback />}
+      {isOpenFeedback && <Feedback user='admin' />}
     </div>
   )
 }
