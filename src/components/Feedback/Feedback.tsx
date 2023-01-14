@@ -5,7 +5,7 @@ export default function Feedback() {
   return (
     <div className='modal'>
       <div className='smilesCnt'>
-        <span className='smile'>&#128077;</span>
+        <span className='smile smileActive'>&#128077;<span className='reactionsNumb'>1</span></span>
         <span className='smile'>&#128078;</span>
         <span className='smile'>&#128075;</span>
         <span className='smile'>&#128578;</span>

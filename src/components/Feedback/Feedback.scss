@@ -31,6 +31,16 @@
   cursor: pointer;
 }
 
+.smileActive {
+  border: 1px solid $neon-pink;
+  border-radius: 20px;
+}
+
+.reactionsNumb {
+  color: $neon-pink;
+  @include text(12px, 12px, 500);
+}
+
 .input {
   height: 36px;
   background-color: #F3F3F3;
