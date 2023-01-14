@@ -46,7 +46,7 @@ export default function DetailCard({ theme, heading, text, image }: TProps) {
       <div className='cnt' onClick={feedbackHandle}>
         <CommentIcon color='pink' />
       </div>
-      {isOpenFeedback && <Feedback />}
+      {isOpenFeedback && <Feedback user='admin' />}
     </div>
   )
 }
