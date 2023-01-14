@@ -28,14 +28,14 @@
   font-size: 16px;
   line-height: 16px;
   padding: 4px;
+  cursor: pointer;
 }
 
 .input {
   height: 36px;
   background-color: #F3F3F3;
   border: none;
-  font-size: 14px;
-  line-height: 20px;
+  @include text(14px, 20px, 400);
   padding: 8px;
 }
 
@@ -60,8 +60,8 @@
 }
 
 .feedbackTape::-webkit-scrollbar-thumb {
-  background-color: $placeholder;
-  border-radius: 7px;
+  background-color: #D9D9D9;
+  border-radius: 9px;
 }
 
 .message {

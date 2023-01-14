@@ -17,15 +17,16 @@ export default function Feedback() {
         <span className='smile'>&#128420;</span>
       </div>
       <input type='text' placeholder='Обратная связь' className='input'></input>
-      <div className='feedbackTape'>
+      {messages.length !== 0 && (<div className='feedbackTape'>
         {messages.map(item => {
-          return(
+          return (
             <div className='message'>
               <p className='messageText'>{item}</p>
             </div>
           )
         })}
       </div>
+      )}
     </div>
   )
 }
