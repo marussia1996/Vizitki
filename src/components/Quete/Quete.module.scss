@@ -1,0 +1,42 @@
+@use '../../index.scss' as *;
+
+.Quete {
+    display: block;
+    max-width: 255px;
+}
+
+.Icon {
+    width: 20px;
+    height: 45px;
+    padding: 0 8px 8px 0;
+    margin: 0;
+}
+
+.Icon:last-child{
+    padding: 0;
+}
+
+.IconRomantic {
+    stroke: $neon-pink;
+}
+
+.IconDaring {
+    stroke: $neon-green;
+}
+
+.Text {
+    display: block;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    padding: 0;
+    margin: 0;
+}
+
+.TextRomantic {
+    color: $neon-pink;
+}
+
+.TextDaring {
+    color: $neon-green;
+}

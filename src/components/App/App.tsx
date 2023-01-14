@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
+import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
 import {  Header  } from '../Header/Header';
@@ -28,6 +29,9 @@ export const App: FC = () => {
           <Header />
           <UserCard />
           <SwitchInfo />
+        </Route>
+        <Route exact path="/alexey">
+          <AlexeyM/>
         </Route>
       </Switch>
     </div>

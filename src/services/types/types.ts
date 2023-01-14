@@ -13,13 +13,25 @@ export type TLocation = {
   state: object;
   from?: string;
   background: {
-      pathname: string;
-      search: string;
-      hash: string;
-      state: null;
-      key: string;
+    pathname: string;
+    search: string;
+    hash: string;
+    state: null;
+    key: string;
   }
 };
 
+export type TButtonProps = {
+  children: ReactNode;
+  className: 'buttonLarge' | 'buttonSmall';
+  disabled: boolean;
+  onClick: ()=>void;
+}
+
+export enum TThemeProfile {
+  DEFAULT = 'default',
+  ROMANTIC = 'romantic',
+  DARING = 'daring'
+} 
 export type TPageType = 'default' | 'romantic' | 'daring';
 
