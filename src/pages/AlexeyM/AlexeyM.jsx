@@ -1,6 +1,7 @@
 import React from "react";
 import Quete from "../../components/Quete/Quete";
 import Scroll from "../../components/Scroll/Scroll";
+import StudentTable from "../../components/StudensTable/StudensTable";
 import { TThemeProfile } from "../../services/types/types";
 
 const AlexeyM = () => {
@@ -23,7 +24,9 @@ const AlexeyM = () => {
                     <TextMock />
                 </Scroll>
             </div>
-
+            <div>
+                <StudentTable/>
+            </div>
         </>
     )
 }
