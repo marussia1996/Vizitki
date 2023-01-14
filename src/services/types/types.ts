@@ -33,3 +33,5 @@ export enum TThemeProfile {
   ROMANTIC = 'romantic',
   DARING = 'daring'
 } 
+export type TPageType = 'default' | 'romantic' | 'daring';
+
