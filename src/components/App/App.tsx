@@ -5,6 +5,7 @@ import './App.scss';
 import {  Header  } from '../Header/Header';
 import {UserCard} from '../UserCard/UserCard';
 import {SwitchInfo} from '../Switch/Switch'
+import { InputDay } from '../InputDay/InputDay';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -13,6 +14,9 @@ export const App: FC = () => {
       <Switch location={location}>
         <Route exact path="/maria">
           <h1>Привет, Мария</h1>
+          <div className='content'>
+            <InputDay/>
+          </div>
         </Route>
         <Route exact path="/vadim">
           <h1>Привет, Вадим</h1>
