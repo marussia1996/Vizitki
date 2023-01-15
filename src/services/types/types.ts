@@ -21,11 +21,9 @@ export type TLocation = {
   }
 };
 
-export type TButtonProps = {
-  children: ReactNode;
-  className: 'buttonLarge' | 'buttonSmall';
-  disabled: boolean;
-  onClick: ()=>void;
+export enum TButtonView {
+  LARGE = 'buttonLarge',
+  SMALL = 'buttonSmall',
 }
 
 export enum TThemeProfile {
