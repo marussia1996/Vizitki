@@ -1,5 +1,4 @@
 import styles from './MaskAvatar.module.scss';
-import React, { FC } from 'react';
 import photo from '../../images/User-foto-test.png';
 import { TThemeProfile } from '../../services/types/types';
 import classnames from 'classnames';
