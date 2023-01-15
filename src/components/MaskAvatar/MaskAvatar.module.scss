@@ -1,0 +1,25 @@
+.photo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  max-width: 440px;
+  max-height: 440px;
+}
+
+.photoRomantic {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  max-width: 440px;
+  max-height: 440px;
+  border-radius: 50%;
+}
+
+.photoDaring {
+  mask-image: url(../../images/maska.png);
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+  width: 480px;
+  height: 440px;
+}

@@ -18,6 +18,6 @@ export const UserCard: FC = () => {
     {/* отображается только для админа */}
       <p className={styles.messages}>0 сообщений</p>
     </div>
-</div>
+  </div>
   )
 }
