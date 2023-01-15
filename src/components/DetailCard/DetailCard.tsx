@@ -4,6 +4,7 @@ import { TThemeProfile } from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
+import { CommentIcon } from '../CommentIcon/CommentIcon';
 
 type TProps = {
   theme?: TThemeProfile;
@@ -31,7 +32,10 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
   return (
     <div className='card'>
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
-      <h3 className='heading'>{heading.toUpperCase()}</h3>
+      <div className='headingCnt'>
+        <h3 className='heading'>{heading.toUpperCase()}</h3>
+        <CommentIcon color='dark' />
+      </div>
       {image && (
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
       )}
