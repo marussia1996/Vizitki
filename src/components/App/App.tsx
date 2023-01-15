@@ -6,6 +6,8 @@ import './App.scss';
 import {  Header  } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
+import DetailCard from '../DetailCard/DetailCard';
+import { TThemeProfile } from '../../services/types/types';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -21,7 +23,8 @@ export const App: FC = () => {
             <h1>Привет, Мария</h1>
           </Route>
           <Route exact path="/vadim">
-            <h1>Привет, Вадим</h1>
+            
+            <DetailCard theme={TThemeProfile.DARING} heading='HEADING' text='here should be something text about your hobby' />
           </Route>
           <Route exact path="/evgeniy">
             <h1>Привет, Евгений</h1>
