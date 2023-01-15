@@ -2,6 +2,7 @@ import styles from './MaskAvatar.module.scss';
 import photo from '../../images/User-foto-test.png';
 import { TThemeProfile } from '../../services/types/types';
 import classnames from 'classnames';
+import mask from '../../images/mask.png'
 
 type Props = {
   theme?: TThemeProfile;
@@ -9,7 +10,7 @@ type Props = {
 
 let cx = classnames.bind(styles);
 
-export const MaskAvatar = ({theme = TThemeProfile.DARING }: Props) => {
+export const MaskAvatar = ({theme = TThemeProfile.DEFAULT }: Props) => {
 
   const cxWrap = cx(styles.wrapDefault, {
     [styles['wrapDefault']]: theme === TThemeProfile.ROMANTIC,
@@ -24,6 +25,10 @@ export const MaskAvatar = ({theme = TThemeProfile.DARING }: Props) => {
   return (
     <div className={cxWrap}>
       <img className={cxPhoto} src={photo} alt='Фотография пользователя'/>
+      {
+        theme === TThemeProfile.DARING &&
+        <img className={styles.mask} src={mask} alt='Маска'/>
+      }
     </div>
   )
 }
