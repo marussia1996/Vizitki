@@ -2,24 +2,35 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  max-width: 440px;
-  max-height: 440px;
+  height: 100%;
+  width: 100%;
 }
 
 .photoRomantic {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  max-width: 440px;
-  max-height: 440px;
+  height: 100%;
+  width: 100%;
   border-radius: 50%;
 }
 
 .photoDaring {
   mask-image: url(../../images/maska.png);
-  mask-repeat: no-repeat;
+  -webkit-mask-image: url(../../images/maska.png);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  -webkit-mask-size: cover;
   mask-size: cover;
-  mask-position: center;
+}
+
+.wrapDefault {
+  width: 440px;
+  height: 440px;
+}
+
+.wrapDaring {
   width: 480px;
   height: 440px;
 }

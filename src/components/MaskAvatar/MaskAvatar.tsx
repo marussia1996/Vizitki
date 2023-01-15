@@ -1,19 +1,30 @@
 import styles from './MaskAvatar.module.scss';
 import React, { FC } from 'react';
-import photo from '../../images/User-foto-test.png'
+import photo from '../../images/User-foto-test.png';
+import { TThemeProfile } from '../../services/types/types';
+import classnames from 'classnames';
 
-type TTheme = {
-  theme: 'default' | 'romantic' | 'daring';
+type Props = {
+  theme?: TThemeProfile;
 }
-export const MaskAvatar: FC<TTheme> = ({theme}) => {
+
+let cx = classnames.bind(styles);
+
+export const MaskAvatar = ({theme = TThemeProfile.DEFAULT }: Props) => {
+
+  const cxWrap = cx(styles.wrapDefault, {
+    [styles['wrapDefault']]: theme === TThemeProfile.ROMANTIC,
+    [styles['wrapDaring']]: theme === TThemeProfile.DARING
+  });
+
+  const cxPhoto = cx(styles.photo, {
+    [styles['photoRomantic']]: theme === TThemeProfile.ROMANTIC,
+    [styles['photoDaring']]: theme === TThemeProfile.DARING
+  });
+
   return (
-      <img className={theme==='default'
-        ? styles.photo 
-        : theme==='romantic'
-        ? styles.photoRomantic 
-        : styles.photoDaring} 
-        src={photo} 
-        alt='Фотография пользователя'
-      />
+    <div className={cxWrap}>
+      <img className={cxPhoto} src={photo} alt='Фотография пользователя'/>
+    </div>
   )
 }
