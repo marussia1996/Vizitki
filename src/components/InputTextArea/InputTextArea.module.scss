@@ -4,28 +4,24 @@
   width: 440px;
   height: 118px;
   border: 1px solid $text-dark;
-  padding: 0;
+  padding: 14px 0 0 16px;
   resize: none;
   box-sizing: border-box;
 }
 
 .textArea::-webkit-input-placeholder {
-  padding: 14px 0 0 16px;
   color: $placeholder;
   @include text(16px, 20.8px, 400);
 }
 .textArea::-moz-placeholder {
-  padding: 14px 0 0 16px;
   color: $placeholder;
   @include text(16px, 20.8px, 400);
 }
 .textArea::-ms-input-placeholder {
-  padding: 14px 0 0 16px;
   color: $placeholder;
   @include text(16px, 20.8px, 400);
 }
 .textArea::placeholder {
-  padding: 14px 0 0 16px;
   color: $placeholder;
   @include text(16px, 20.8px, 400);
 }
