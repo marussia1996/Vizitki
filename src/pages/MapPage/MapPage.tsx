@@ -1,7 +1,7 @@
-import React from 'react'
+import YaMap from '../../components/YaMap/YaMap'
 
 export const MapPage = () => {
   return (
-    <div>MapPage</div>
+    <YaMap />
   )
 }
