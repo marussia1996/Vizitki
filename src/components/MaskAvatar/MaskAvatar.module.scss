@@ -1,3 +1,5 @@
+@use '../../index.scss' as *;
+
 .photo {
   background-repeat: no-repeat;
   background-size: contain;
@@ -16,8 +18,8 @@
 }
 
 .photoDaring {
-  mask-image: url(../../images/derzkiy.svg);
-  -webkit-mask-image: url(../../images/derzkiy.svg);
+  mask-image: url(../../images/maska.svg);
+  -webkit-mask-image: url(../../images/maska.svg);
   height: 100%;
   width: 100%;
   object-fit: cover;

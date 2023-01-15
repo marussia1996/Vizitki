@@ -9,7 +9,7 @@ type Props = {
 
 let cx = classnames.bind(styles);
 
-export const MaskAvatar = ({theme = TThemeProfile.DEFAULT }: Props) => {
+export const MaskAvatar = ({theme = TThemeProfile.DARING }: Props) => {
 
   const cxWrap = cx(styles.wrapDefault, {
     [styles['wrapDefault']]: theme === TThemeProfile.ROMANTIC,
