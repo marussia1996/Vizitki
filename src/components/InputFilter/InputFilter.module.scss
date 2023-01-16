@@ -1,0 +1,50 @@
+@use '../../index.scss' as *;
+
+.inputFilter{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap:2px;
+}
+
+.inputFilterLabel{
+  @include text(16px, 1.5, 400)
+}
+
+.inputFilterWrap{
+  position: relative;
+}
+
+.inputFilterCenter{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  margin-right: 8px;
+}
+
+.inputFilterClear{
+  background-color: transparent;
+  outline: none;
+  margin: 0;
+  padding: 3px;
+  border: 0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  color: $placeholder;
+  box-sizing: border-box;
+}
+
+.inputFilterClear:hover{
+  color: $text-dark;
+}
+
+.inputFilterClear:active{
+  color: $placeholder;
+}
+
