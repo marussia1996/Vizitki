@@ -1,14 +1,29 @@
 @use '../../index.scss' as *;
 
 .textArea {
-  width: 440px;
-  height: 118px;
+  width: 100%;
+  max-width: 440px;
+  min-height: 118px;
   border: 1px solid $text-dark;
+  @include text(16px, 24px, 400);
   padding: 14px 0 0 16px;
   resize: none;
   box-sizing: border-box;
+  border-radius: 4px;
 }
-
+.label{
+  @include text(16px, 24px, 400);
+  padding-bottom: 4px;
+}
+.textArea:focus-visible{
+  outline: none;
+}
+.textArea:hover{
+  border: 1px solid #666666;
+}
+.textArea:focus{
+  border: 1px solid #666666;
+}
 .textArea::-webkit-input-placeholder {
   color: $placeholder;
   @include text(16px, 20.8px, 400);
@@ -24,16 +39,4 @@
 .textArea::placeholder {
   color: $placeholder;
   @include text(16px, 20.8px, 400);
-}
-
-@media screen and (max-width: 768px) {
-  .textArea {
-    width: 439px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .textArea {
-    width: 272px;
-  }
 }
