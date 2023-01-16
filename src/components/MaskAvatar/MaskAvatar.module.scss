@@ -1,0 +1,32 @@
+@use '../../index.scss' as *;
+
+.photo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.photoRomantic {
+  border-radius: 50%;
+}
+
+.wrapDefault {
+  width: 460px;
+  height: 440px;
+  position: relative;
+}
+
+.wrapDaring {
+  width: 460px;
+  height: 440px;
+  position: relative;
+}
+
+.mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
