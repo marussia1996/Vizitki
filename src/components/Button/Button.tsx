@@ -11,7 +11,7 @@ interface Props
 }
 let cx = classnames.bind(styles);
 
-export const Button: FC<Props> = ({children, size, disabled, onClick, htmlType}) => {
+export const Button: FC<Props> = ({children, size = 'Large', disabled, onClick, htmlType}) => {
   const cxButton = cx(styles.button, {
     [styles[`button${size}`]]: size,
 });
