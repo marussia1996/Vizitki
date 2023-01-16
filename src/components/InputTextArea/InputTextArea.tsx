@@ -4,9 +4,10 @@ import React, { FC } from 'react'
 
 type TState = {
   state: 'quote' | 'other';
+  label?: string
 }
 
-export const InputTextArea: FC<TState> = ({state}) => {
+export const InputTextArea: FC<TState> = ({state, label}) => {
   const [valueText, setValueText] = useState('');
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValueText(e.target.value);
@@ -16,10 +17,13 @@ export const InputTextArea: FC<TState> = ({state}) => {
   const placeholderOther = 'Не более 300 символов';
   
   return (
-   <textarea className={styles.textArea} value={valueText ? valueText : ''} 
-      onChange={onChangeText}
-      placeholder={state==='quote'? placeholderQuote : placeholderOther}
-      maxLength={state==='quote'? 100 : 300}
-    />
+    <div>
+      {label && <label className={styles.label}>{label}</label>}
+      <textarea className={styles.textArea} value={valueText ? valueText : ''} 
+          onChange={onChangeText}
+          placeholder={state==='quote'? placeholderQuote : placeholderOther}
+          maxLength={state==='quote'? 100 : 300}
+        />
+    </div>
   )
 }
