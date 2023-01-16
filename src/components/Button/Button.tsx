@@ -1,9 +1,21 @@
-import React, { FC } from 'react'
-import '../Button/Button.scss'
+import React, { FC, SyntheticEvent } from 'react'
+import styles from '../Button/Button.module.scss'
+import classnames from "classnames";
 
-type Props = { text: string; className: 'buttonLarge' | 'buttonSmall'; disabled: boolean;  onClick: ()=>void; type: 'button' | 'reset' | 'submit'}
-export const Button: FC<Props> = ({text, className, disabled, onClick, type}) => {
+interface Props
+    extends React.PropsWithChildren<Omit<React.HTMLProps<HTMLButtonElement>, 'size'>> {
+    size?: 'Small' | 'Large';
+    onClick?: (() => void) | ((e: SyntheticEvent) => void);
+    htmlType: 'button' | 'submit' | 'reset';
+    disabled?: boolean; 
+}
+let cx = classnames.bind(styles);
+
+export const Button: FC<Props> = ({children, size = 'Large', disabled, onClick, htmlType}) => {
+  const cxButton = cx(styles.button, {
+    [styles[`button${size}`]]: size,
+});
   return (
-    <button className={`button ${className}`} disabled={disabled} onClick={onClick} type={type}>{text}</button>
+    <button className={cxButton} disabled={disabled} onClick={onClick} type={htmlType}>{children}</button>
   )
 }
