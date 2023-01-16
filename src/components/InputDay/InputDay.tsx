@@ -69,6 +69,7 @@ export const InputDay = () => {
         changeMonth,
       }) => (
         <div className={`${stylesDay.header}`}>
+          {/* TODO: можно заменить селекторы на инпут с поиском */}
           <select
             value={date.getFullYear()}
             onChange={({ target: { value } }) => changeYear(Number(value))}
