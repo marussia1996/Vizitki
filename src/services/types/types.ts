@@ -1,7 +1,5 @@
 //
 
-import { ReactNode } from "react";
-
     //TUserRaw - пишем постфикс Raw у данных пришедших от сервера
 
 //
@@ -20,11 +18,6 @@ export type TLocation = {
     key: string;
   }
 };
-
-export enum TButtonView {
-  LARGE = 'buttonLarge',
-  SMALL = 'buttonSmall',
-}
 
 export enum TThemeProfile {
   DEFAULT = 'default',

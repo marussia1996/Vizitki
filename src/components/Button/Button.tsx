@@ -1,22 +1,21 @@
-import React, { FC } from 'react'
-import { TButtonView } from '../../services/types/types';
+import React, { FC, SyntheticEvent } from 'react'
 import styles from '../Button/Button.module.scss'
 import classnames from "classnames";
 
-let cx = classnames.bind(styles);
-type Props = { 
-  text: string; 
-  view: TButtonView; 
-  disabled?: boolean;  
-  onClick: ()=>void; 
-  type: 'button' | 'reset' | 'submit'
+interface Props
+    extends React.PropsWithChildren<Omit<React.HTMLProps<HTMLButtonElement>, 'size'>> {
+    size?: 'Small' | 'Large';
+    onClick?: (() => void) | ((e: SyntheticEvent) => void);
+    htmlType: 'button' | 'submit' | 'reset';
+    disabled?: boolean; 
 }
-export const Button: FC<Props> = ({text, view, disabled, onClick, type}) => {
+let cx = classnames.bind(styles);
+
+export const Button: FC<Props> = ({children, size, disabled, onClick, htmlType}) => {
   const cxButton = cx(styles.button, {
-    [styles['buttonLarge']]: view === TButtonView.LARGE,
-    [styles['buttonSmall']]: view === TButtonView.SMALL
+    [styles[`button${size}`]]: size,
 });
   return (
-    <button className={cxButton} disabled={disabled} onClick={onClick} type={type}>{text}</button>
+    <button className={cxButton} disabled={disabled} onClick={onClick} type={htmlType}>{children}</button>
   )
 }
