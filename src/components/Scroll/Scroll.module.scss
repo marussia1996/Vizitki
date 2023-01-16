@@ -1,0 +1,17 @@
+.Scroll {
+    overflow-y: auto;
+    height: inherit;
+}
+
+.Scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.Scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.Scroll::-webkit-scrollbar-thumb {
+    background-color: #83828F;
+    border-radius: 7px;
+}
