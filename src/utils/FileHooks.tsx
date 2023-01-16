@@ -5,44 +5,27 @@ import {
   useRef,
   useState
 } from "react";
-// import { imageDisplaySize } from "./styles";
-export const imageDisplaySize = { width: 200, height: 200 };
 
 const fileImage = new Image();
 export const useHooks = () => {
+  //область перетаскивания картинки
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  //ссылка на input type file (который скрыт)
   const inputFileRef = useRef<HTMLInputElement>(null);
   //Здесь хранится url на картинку blob:http://localhost:3000/78a8472f-48b2-44d2-a3cd-5bf367135e5b
   const [objectURL, setObjectURL] = useState("");
+  //название выбранного файла
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
-  // const manipulateImageSize = (url: string) => {
-  //   fileImage.src = url;
-  //   fileImage.onload = () => {
-  //     const width = fileImage.naturalWidth;
-  //     const height = fileImage.naturalHeight;
-  //     const ratioWidth = width / imageDisplaySize.width;
-  //     const ratioHeight = height / imageDisplaySize.height;
-  //     if (ratioWidth > ratioHeight) {
-  //       fileImage.width = imageDisplaySize.width;
-  //       fileImage.height = height / ratioWidth;
-  //     } else {
-  //       fileImage.width = width / ratioHeight;
-  //       fileImage.height = imageDisplaySize.height;
-  //     }
-  //   };
-  // };
+  //чистка выбранного файла до
   const resetSelection = () => {
     fileImage.src = "";
     setSelectedFile(null);
-    // const imageContainer = imageContainerRef.current;
-    // if (imageContainer && fileImage.parentNode === imageContainer) {
-    //   imageContainer.removeChild(fileImage);
-    // }
     if (objectURL) {
       window.URL.revokeObjectURL(objectURL);
       setObjectURL("");
     }
   };
+  //проверка пришел ли файл и такой ли он
   const handleFiles = (files: FileList | null) => {
     resetSelection();
     if (!files || files?.length === 0) return;
@@ -58,23 +41,26 @@ export const useHooks = () => {
     if (!imageContainer) return;
     //Создание Url картинки
     const objectURL = window.URL.createObjectURL(file);
-    // manipulateImageSize(objectURL);
     imageContainer.appendChild(fileImage);
     setObjectURL(objectURL);
   };
+  //открытие диалога для загрузки файла
   const openDialog: MouseEventHandler<HTMLDivElement> = () => {
     const inputFile = inputFileRef.current;
     if (!inputFile) return;
     inputFile.click();
   };
+  //остановка перетаскивания
   const stopDragEvent: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     event.stopPropagation();
   };
+  //отслеживание изменения в инпуте
   const handleFileDialog: ChangeEventHandler<HTMLInputElement> = (event) => {
     const files = event.currentTarget.files;
     handleFiles(files);
   };
+  //отслеживание отпускания перетаскиваемого файла
   const handleDroppedFile: DragEventHandler<HTMLDivElement> = (event) => {
     stopDragEvent(event);
     const dataTransfer = event.dataTransfer;

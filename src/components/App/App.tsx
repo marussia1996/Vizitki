@@ -6,7 +6,6 @@ import './App.scss';
 import {  Header  } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
-import { InputFile } from '../InputFile/InputFile';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -20,7 +19,6 @@ export const App: FC = () => {
           </Route>
           <Route exact path="/maria">
             <h1>Привет, Мария</h1>
-            <InputFile/>
           </Route>
           <Route exact path="/vadim">
             <h1>Привет, Вадим</h1>
