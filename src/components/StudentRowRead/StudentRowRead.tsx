@@ -19,19 +19,15 @@ const StudentRowRead = ({ number, email, name, onClick = (id) => { } }: Props) =
     }
 
     return (
-        //@ts-ignore
         <Tr onClick={handleClick} >
             <Td>
-                {/* @ts-ignore */}
-                <InputText mix={styles.CellValue} value={number} disable />
+                <InputText mix={styles.CellValue} value={number} disabled />
             </Td>
             <Td>
-                {/* @ts-ignore */}
-                <InputText mix={styles.CellValue} value={email} disable />
+                <InputText mix={styles.CellValue} value={email} disabled />
             </Td>
             <Td>
-                {/* @ts-ignore */}
-                <InputText mix={styles.CellValue} value={name} disable />
+                <InputText mix={styles.CellValue} value={name} disabled />
             </Td>
         </Tr>
     )

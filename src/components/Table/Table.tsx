@@ -1,12 +1,8 @@
-import React, { ReactNode, FC, LegacyRef } from "react";
+import React, { FC, LegacyRef, HTMLProps } from "react";
 
 import styles from './Table.module.scss';
 
-type Props = {
-    children: ReactNode;
-};
-
-type PropsTable = Props & {
+type PropsTable = HTMLProps<HTMLTableElement> & {
     refTable?: LegacyRef<HTMLTableElement>;
 }
 
@@ -18,7 +14,7 @@ export const Table: FC<PropsTable> = ({ children,refTable, ...rest }) => {
     )
 };
 
-export const Thead: FC<Props> = ({ children, ...rest }) => {
+export const Thead: FC<HTMLProps<HTMLTableSectionElement>> = ({ children, ...rest }) => {
     return (
         <thead className={styles.Thead} {...rest}>
             <tr>
@@ -28,7 +24,7 @@ export const Thead: FC<Props> = ({ children, ...rest }) => {
     )
 };
 
-export const Tbody: FC<Props> = ({ children, ...rest }) => {
+export const Tbody: FC<HTMLProps<HTMLTableSectionElement>> = ({ children, ...rest }) => {
     return (
         <tbody {...rest}>
             {children}
@@ -36,7 +32,7 @@ export const Tbody: FC<Props> = ({ children, ...rest }) => {
     )
 };
 
-export const Th: FC<Props> = ({ children, ...rest }) => {
+export const Th: FC<HTMLProps<HTMLTableCellElement>> = ({ children, ...rest }) => {
     return (
         <th className={styles.Th} {...rest}>
             {children}
@@ -44,7 +40,7 @@ export const Th: FC<Props> = ({ children, ...rest }) => {
     )
 };
 
-export const Td: FC<Props> = ({ children, ...rest }) => {
+export const Td: FC<HTMLProps<HTMLTableCellElement>> = ({ children, ...rest }) => {
     return (
         <td className={styles.Td} {...rest}>
             {children}
@@ -52,7 +48,7 @@ export const Td: FC<Props> = ({ children, ...rest }) => {
     )
 };
 
-export const Tr: FC<Props> = ({ children, ...rest }) => {
+export const Tr: FC<HTMLProps<HTMLTableRowElement>> = ({ children, ...rest }) => {
     return (
         <tr className={styles.Tr} {...rest}>
             {children}

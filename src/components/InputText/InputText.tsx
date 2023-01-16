@@ -1,9 +1,8 @@
-import React, { FC } from "react";
-import cx from "classnames";
+import React, { FC, HTMLProps } from "react";
 
 import styles from './InputText.module.scss';
 
-type Props = {
+type Props = HTMLProps<HTMLInputElement> & {
     labelText?: string;
     mix?:string;
 }

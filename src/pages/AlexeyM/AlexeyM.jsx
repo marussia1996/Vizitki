@@ -1,4 +1,6 @@
 import React from "react";
+import CommentsTable from "../../components/CommentsTable/CommentsTable";
+import InputText from "../../components/InputText/InputText";
 import Quete from "../../components/Quete/Quete";
 import Scroll from "../../components/Scroll/Scroll";
 import StudentTable from "../../components/StudensTable/StudensTable";
@@ -17,6 +19,9 @@ const AlexeyM = () => {
     return (
         <>
             <div>
+                <InputText />
+            </div>
+            <div>
                 <Quete text="Делай, что должно и&nbsp;будь, что будет." theme={TThemeProfile.DARING} />
             </div>
             <div style={{ height: '300px' }}>
@@ -25,7 +30,10 @@ const AlexeyM = () => {
                 </Scroll>
             </div>
             <div>
-                <StudentTable/>
+                <StudentTable />
+            </div>
+            <div style={{ paddingTop: '100px' }}>
+                <CommentsTable />
             </div>
         </>
     )

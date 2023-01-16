@@ -41,3 +41,17 @@ export type TStudent = {
   email: string;
   name: string;
 }
+
+export type TUserInfoRaw = {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export type TCommentRaw = {
+  _id: string;
+  from: TUserInfoRaw;
+  target?: string | null;
+  text: string;
+  to: TUserInfoRaw;
+}

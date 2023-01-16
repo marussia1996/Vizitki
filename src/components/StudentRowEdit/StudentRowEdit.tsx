@@ -18,37 +18,34 @@ const StudentRowEdit = ({ form = {}, onChange = (event) => { } }: Props) => {
         onChange(event);
     }
 
-    //TODO: Поправить типизацию функции обработчика
     return (
         <Tr>
             <Td>
                 <InputText
-                    //  @ts-ignore
+                    mix={styles.Input}
                     onChange={handleChange}
                     value={form.number}
                     name={'number'}
                     type={'number'}
-                    mix={styles.Input}
                 />
             </Td>
             <Td>
                 <InputText
-                    // @ts-ignore
+                    mix={styles.Input}
                     onChange={handleChange}
                     value={form.email}
                     name={'email'}
                     type={'email'}
-                    mix={styles.Input}
+                    
                 />
             </Td>
             <Td>
                 <InputText
-                    //@ts-ignore
+                    mix={styles.Input}
                     onChange={handleChange}
                     value={form.name}
                     name={'name'}
                     type={'text'}
-                    mix={styles.Input}
                 />
             </Td>
         </Tr>
