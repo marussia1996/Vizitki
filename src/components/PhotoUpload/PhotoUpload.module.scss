@@ -1,0 +1,79 @@
+@use '../../index.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  @include text(16px, 24px, 400);
+  color: $text-dark;
+  margin: 0;
+}
+
+.description {
+  margin: 0 0 8px 0;
+  @include text(14px, 18.75px, 400);
+  color: $placeholder;
+}
+
+.input {
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: -1;
+  display: block;
+  opacity: 0;
+}
+
+.wrapPhoto {
+  width: 150px;
+  height: 150px;
+  border: 1px solid $text-dark;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label {
+  position: relative;
+  background-color: $text-white;
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: inherit;
+}
+
+.photo {
+  height: 100%;
+  object-fit: cover;
+}
+
+.button {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background:  rgba(16, 12, 52, 15%);
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+}
+
+.buttonDefault {
+  height: 25%;
+  visibility: visible;
+  opacity: 1;
+}
+
+.buttonActive {
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+}
