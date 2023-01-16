@@ -36,6 +36,7 @@ export enum TThemeProfile {
 export type TPageType = 'default' | 'romantic' | 'daring';
 
 export type TStudent = {
+  id:string;
   number: number;
   email: string;
   name: string;
