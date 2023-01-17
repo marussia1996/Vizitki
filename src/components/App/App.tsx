@@ -17,13 +17,12 @@ export const App: FC = () => {
     // console.log(postUser('maria@gm.com', 'web+11'));
     // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
     // console.log(getComments());
-    //TODO: от сервера не приходит ответ (или я его не вижу), поэтому checkResponse функция выдает ошибку. я не знаю как это решить
     //console.log(deleteComment('c824a2de0b675b0acb5a2923'));
     // console.log(getProfiles());
     // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
     // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3'));
     // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
-    console.log(postUserReactions('abfccdaa23e0bd1c4448d2f3', "job", "occaecat"))
+    console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', "job", "occaecat"))
   })
   return (
     <div className='app'>

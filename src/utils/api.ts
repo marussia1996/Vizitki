@@ -1,17 +1,23 @@
 //тестовый токен
 export const token = 'wertyu45678cfgh567'
 //проверка ответа от сервера
-const checkResponse = <T>(res: Response):Promise<T> => {
+const checkResponse = <T>(res: Response, readBody: boolean = true):Promise<T | void> => {
   if (res.ok) {
-    return res.json(); 
+    if (readBody){    
+      return res.json(); 
+    }
+    else{
+      return Promise.resolve();
+    }
   }
   return Promise.reject(
     new Error(`Произошла ошибка со статус-кодом ${res.status}`)
   );
 };
+
 //универсальная функция запроса с проверкой
-const request = <T>(url: string, options: RequestInit): Promise<T> => {
-  return fetch(url, options).then(res => checkResponse<T>(res))
+const request = <T>(url: string, options: RequestInit, readBody: boolean = true): Promise<T | void> => {
+  return fetch(url, options).then(res => checkResponse<T>(res, readBody))
 }
 type TGetUsersRaw = {
   total: number,
@@ -157,7 +163,7 @@ export const deleteComment = async(_id: string) => {
   return request(`/comments/${_id}`, {
     headers: {'Content-Type': 'text/plain', 'Authorization' : 'Bearer ' + token},
     method: "DELETE",
-  });
+  }, false);
 };
 
 //запрос профилей - по умолчанию возвращают профили из той же когорты, что и запрошенный пользователь, или ничего
@@ -227,7 +233,6 @@ export const getUserReactions = async(_id: string) => {
   });
 };
 //отправка реакций профиля пользователя //id: the user id
-//TODO: чет не так
 export const postUserReactions = async(_id: string, target: string, text: string) => {
   return request<TUserReactionsRaw>(`/profiles/${_id}/reactions`, {
     headers: {'Content-Type': 'text/plain', 'Authorization' : 'Bearer ' + token},
@@ -236,6 +241,6 @@ export const postUserReactions = async(_id: string, target: string, text: string
       "target": target,
       "text": text
     })
-  });
+  }, false);
 };
 
