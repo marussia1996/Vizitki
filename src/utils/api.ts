@@ -1,5 +1,5 @@
 //просто чтобы папка появилась
-export const baseUrl: string = "https://visitki.practicum-team.ru/api";
+export const baseUrl: string = "http://localhost:3000";
 export const token = 'wertyu45678cfgh567`'
 //проверка ответа от сервера
 const checkResponse = <T>(res: Response):Promise<T> => {
@@ -29,7 +29,7 @@ type TGetUsersRaw = {
 //запрос данных
 export const getUsers = async() => {
   return request<TGetUsersRaw>(`${baseUrl}/users`, {
-    headers: { "Content-Type": "application/json", 'Authorization': token },
+    headers: {'Authorization' : 'Bearer ' + token},
     method: "GET",
   });
 };
