@@ -26,3 +26,23 @@ export enum TThemeProfile {
 } 
 export type TPageType = 'default' | 'romantic' | 'daring';
 
+export type TStudent = {
+  id:string;
+  number: number;
+  email: string;
+  name: string;
+}
+
+export type TUserInfoRaw = {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export type TCommentRaw = {
+  _id: string;
+  from: TUserInfoRaw;
+  target?: string | null;
+  text: string;
+  to: TUserInfoRaw;
+}
