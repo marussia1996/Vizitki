@@ -5,6 +5,18 @@
   height: calc(100vh - 184px);
 }
 
+@media screen and (max-width: 768px) {
+  .map {
+    height: calc(100vh - 168px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .map {
+    height: calc(100vh - 152px);
+  }
+}
+
 .balloon {
   font-family: 'IBMPlexSans', sans-serif;
   color: $text-dark;
