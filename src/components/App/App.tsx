@@ -7,6 +7,7 @@ import { Header } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
+import {InputSearch} from '../InputSearch/InputSearch';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -29,6 +30,7 @@ export const App: FC = () => {
           </Route>
           <Route exact path="/evgeniya">
             <h1>Привет, Евгения</h1>
+            <InputSearch/>
           </Route>
           <Route exact path="/alexey">
             <AlexeyM />
