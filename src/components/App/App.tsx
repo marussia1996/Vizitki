@@ -7,6 +7,7 @@ import { Header } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
+import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -17,6 +18,9 @@ export const App: FC = () => {
         <Switch location={location}>
           <Route exact path="/">
             <LoginPage />
+          </Route>
+          <Route exact path="/profile">
+            <ProfilePage/>
           </Route>
           <Route exact path="/maria">
             <h1>Привет, Мария</h1>
