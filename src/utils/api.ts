@@ -1,5 +1,5 @@
 //просто чтобы папка появилась
-export const baseUrl: string = "http://localhost:3000";
+export const baseUrl: string = "http://localhost:3000/api";
 export const token = 'wertyu45678cfgh567`'
 //проверка ответа от сервера
 const checkResponse = <T>(res: Response):Promise<T> => {
