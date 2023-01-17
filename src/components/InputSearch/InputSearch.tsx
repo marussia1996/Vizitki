@@ -1,9 +1,9 @@
 import styles from './InputSearch.module.scss';
 import arrow from '../../images/arrow.svg';
 import Scroll from '../Scroll/Scroll';
-import { YMaps, Map } from "react-yandex-maps";
 
 export const InputSearch = () => {
+ 
   return (
     <div className={styles.wrap}>
       <label className={styles.label}></label>
@@ -24,3 +24,5 @@ export const InputSearch = () => {
     </div>
   )
 }
+
+
