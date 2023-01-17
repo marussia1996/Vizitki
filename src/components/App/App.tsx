@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
@@ -7,9 +7,13 @@ import { Header } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
+import { getUsers } from '../../utils/api';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
+  useEffect(()=>{
+    console.log(getUsers())
+  })
   return (
     <div className='app'>
       <Header />
