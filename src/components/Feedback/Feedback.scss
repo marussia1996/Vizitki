@@ -7,7 +7,7 @@
   left: 0;
   z-index: 2;
   background-color: #fff;
-  padding: 12px 12px 13px;
+  padding: 13px 12px 13px;
   border: 1px solid #CCCCCC;
   border-radius: 4px;
   box-sizing: border-box;
@@ -17,10 +17,11 @@
 }
 
 .smilesCnt {
-  width: 406px;
+  width: 100%;
   max-height: 52px;
   display: flex;
-  gap: 2px;
+  column-gap: 2px;
+  flex-wrap: wrap;
 }
 
 .smile {
@@ -28,6 +29,7 @@
   line-height: 16px;
   padding: 4px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .smileActive {
@@ -40,37 +42,20 @@
   @include text(12px, 12px, 500);
 }
 
-.inputAdmin {
-  resize: none;
-  border: none;
-  border-top: 1px solid #D9D9D9;
-  padding: 0;
-  padding-top: 8px;
-  margin-top: 13px;
-  @include text(15px, 18px, 400);
-}
-
-.inputAdmin:focus {
-  outline: none;
-}
-
-.inputAdmin::placeholder {
-  color: #D9D9D9;
-}
-
-.inputStudent {
+.input {
   height: 36px;
   background-color: #F3F3F3;
   border: none;
   @include text(14px, 20px, 400);
   padding: 8px;
+  box-sizing: border-box;
 }
 
-.inputStudent:focus {
+.input:focus {
   outline: none;
 }
 
-.inputStudent::placeholder {
+.input::placeholder {
   color: $text-light;
 }
 

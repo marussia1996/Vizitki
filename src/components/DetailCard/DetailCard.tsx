@@ -31,7 +31,7 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
     }
   });
 
-  const feedbackHandle = () => {
+  const handleFeedback = () => {
     setFeedbackState(!isOpenFeedback);
   }
 
@@ -40,16 +40,13 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
       <div className='headingCnt'>
         <h3 className='heading'>{heading.toUpperCase()}</h3>
-        <CommentIcon color='dark' />
+        <CommentIcon handleFeedback={handleFeedback} color='dark' />
       </div>
       {image && (
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
       )}
       <p className='text'>{text}</p>
-      <div className='cnt' onClick={feedbackHandle}>
-        <CommentIcon color='pink' />
-      </div>
-      {isOpenFeedback && <Feedback user='admin' />}
+      {isOpenFeedback && <Feedback />}
     </div>
   )
 }
