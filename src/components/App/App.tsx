@@ -12,11 +12,23 @@ import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { getUsers } from '../../utils/api';
+import { deleteComment, getComments, getProfiles, getUserProfile, getUserReactions, getUsers, patchUserProfile, postUser, postUserReactions, putUser, TUserProfileRaw } from '../../utils/api';
 
 export const App = () => {
   const location = useLocation<TLocation>();
+  
   useEffect(()=>{
-    console.log(getUsers())
+    // console.log(getUsers());
+    // console.log(postUser('maria@gm.com', 'web+11'));
+    // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
+    // console.log(getComments());
+    //TODO: от сервера не приходит ответ (или я его не вижу), поэтому checkResponse функция выдает ошибку. я не знаю как это решить
+    //console.log(deleteComment('c824a2de0b675b0acb5a2923'));
+    // console.log(getProfiles());
+    // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
+    // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3'));
+    // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
+    console.log(postUserReactions('abfccdaa23e0bd1c4448d2f3', "job", "occaecat"))
   })
   return (
       <div className='app'>
