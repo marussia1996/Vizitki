@@ -3,7 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
-import {  Header  } from '../Header/Header';
+import { Header } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
@@ -12,11 +12,11 @@ export const App: FC = () => {
   const location = useLocation<TLocation>();
   return (
     <div className='app'>
-      <Header/>
+      <Header />
       <main className='main'>
         <Switch location={location}>
           <Route exact path="/">
-            <LoginPage/>
+            <LoginPage />
           </Route>
           <Route exact path="/maria">
             <h1>Привет, Мария</h1>
@@ -31,14 +31,14 @@ export const App: FC = () => {
             <h1>Привет, Евгения</h1>
           </Route>
           <Route exact path="/alexey">
-            <AlexeyM/>
+            <AlexeyM />
           </Route>
           <Route exact path="/evgenys">
             <Evgenys/>
           </Route>
         </Switch>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
