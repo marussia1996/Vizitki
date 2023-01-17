@@ -6,7 +6,6 @@ import './App.scss';
 import {  Header  } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
-import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -32,9 +31,6 @@ export const App: FC = () => {
           </Route>
           <Route exact path="/alexey">
             <AlexeyM/>
-          </Route>
-          <Route exact path="/map">
-            <MapPage />
           </Route>
         </Switch>
       </main>
