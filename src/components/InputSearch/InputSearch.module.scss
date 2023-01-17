@@ -1,0 +1,56 @@
+@use '../../index.scss' as *;
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  width: inherit;
+  @include text(16px, 24px, 400);
+  color: $text-dark;
+}
+
+.input {
+  box-sizing: border-box;
+  width: inherit;
+  height: 48px;
+  // margin-top: 4px;
+  // padding-left: 16px;
+  @include text(16px, 24px, 400);
+  color: $text-dark;
+  border: 1px solid $text-dark;
+  border-radius: 4px 4px 0 0;
+  outline: none;
+  transition: all 0.5s ease-out;
+}
+
+.button {
+  position: absolute;
+  top: 14.5px;
+  right: 21px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease-out;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding-right: 6px;
+  padding-left: 6px;
+  @include text(16px, 24px, 400);
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+
+.option:hover {
+  color: $text-white;
+  background-color: $neon-pink;
+}
