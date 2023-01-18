@@ -19,6 +19,24 @@ const checkResponse = <T>(res: Response, readBody: boolean = true):Promise<T | v
 const request = <T>(url: string, options: RequestInit, readBody: boolean = true): Promise<T | void> => {
   return fetch(url, options).then(res => checkResponse<T>(res, readBody))
 }
+//TODO: надо разобраться с типами
+type InfoItem = {
+  text?: string,
+  image?: string,
+}
+type InfoBlock = {
+  $ref: InfoItem,
+  reactions?: number
+}
+
+// type Reaction = {
+//   _id: string,
+//   from:{
+//     $ref: ,
+//   }
+//   target: string
+// }
+///
 type TGetUsersRaw = {
   total: number,
   items: Array<TUserRaw>
