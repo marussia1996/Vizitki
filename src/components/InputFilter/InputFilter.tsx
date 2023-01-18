@@ -6,16 +6,17 @@ import {iconClose} from "../Icon/lib";
 
 type TInputFilterState = {
   title?: string,
-  value: string,
+  value?: string,
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   onClear: () => void;
   placeHolder?: string;
+  mix?: string;
 }
 
 
 const InputFilter: FC<TInputFilterState> = props => {
   return (
-    <div className={css.inputFilter}>
+    <div className={[css.inputFilter, props.mix].join(' ')}>
       {
         props.title && <span className={css.inputFilterLabel}>{props.title}</span>
       }
