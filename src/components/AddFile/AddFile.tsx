@@ -14,7 +14,6 @@ export const AddFile = () => {
       console.log(res.target.result);
     };
     reader.readAsText(files[0]); //TODO решить какой метод использовать для чтения файла, в каком виде нужны данные
-    console.log(JSON.stringify(files));
   }
   return (
     <div className={`${stylesAddFile.wrap}`}>
