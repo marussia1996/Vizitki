@@ -7,7 +7,7 @@ import {
 } from "react";
 
 const fileImage = new Image();
-export const useHooks = () => {
+export const useFiles = (onChange: ()=> void) => {
   //область перетаскивания картинки
   const imageContainerRef = useRef<HTMLDivElement>(null);
   //ссылка на input type file (который скрыт)
@@ -17,6 +17,7 @@ export const useHooks = () => {
   //название выбранного файла
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   //чистка выбранного файла до
+  
   const resetSelection = () => {
     fileImage.src = "";
     setSelectedFile(null);
@@ -25,6 +26,7 @@ export const useHooks = () => {
       setObjectURL("");
     }
   };
+  
   //проверка пришел ли файл и такой ли он
   const handleFiles = (files: FileList | null) => {
     resetSelection();
@@ -34,6 +36,7 @@ export const useHooks = () => {
       if (inputFileRef.current) {
         inputFileRef.current.value = "";
       }
+      onChange();
       return;
     }
     setSelectedFile(file.name);
@@ -43,7 +46,9 @@ export const useHooks = () => {
     const objectURL = window.URL.createObjectURL(file);
     imageContainer.appendChild(fileImage);
     setObjectURL(objectURL);
+    onChange();
   };
+  
   //открытие диалога для загрузки файла
   const openDialog: MouseEventHandler<HTMLDivElement> = () => {
     const inputFile = inputFileRef.current;
@@ -70,6 +75,7 @@ export const useHooks = () => {
     }
     handleFiles(files);
   };
+  
   return {
     handleDroppedFile,
     handleFileDialog,

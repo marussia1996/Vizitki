@@ -1,5 +1,5 @@
 import stylesAddFile from '../AddFile/AddFile.module.scss'
-import { Button } from '../Button/Button'
+import { Button } from '../../shared/Button/Button'
 //пока не знаю нужны ли здесь пропсы и какие
 export const AddFile = () => {
   return (
