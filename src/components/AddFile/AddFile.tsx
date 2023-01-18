@@ -6,7 +6,7 @@ export const AddFile = () => {
     let files = e.target.files;
     console.log(files);
     let reader = new FileReader();
-    reader.readAsDataURL(files[0]);
+    reader.readAsDataURL(files[0]); //TODO решить какой метод использовать для чтения файла, в каком виде нужны данные
     reader.onload = (res: any) => {
       console.log(res.target.result);
     };
