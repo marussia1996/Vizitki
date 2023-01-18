@@ -55,8 +55,11 @@ export const App: FC = () => {
     getUsers()
     .then((res) => {
       localStorage.setItem('arrayUser', JSON.stringify(res));
-    }
+      }
     )
+    .catch(()=>{
+      console.log('err')
+    })
     // console.log(getUsers());
     // console.log(postUser('maria@gm.com', 'web+11'));
     // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
@@ -68,6 +71,8 @@ export const App: FC = () => {
     // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
     //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
   })
+  const array = localStorage.getItem('arrayUser');
+  console.log(array ? JSON.parse(array) : '')
   return (
     <div className='app'>
       <Header />
