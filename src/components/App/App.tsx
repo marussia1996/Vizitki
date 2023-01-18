@@ -7,22 +7,66 @@ import { Header } from '../Header/Header';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
-import { deleteComment, getComments, getProfiles, getUserProfile, getUserReactions, getUsers, patchUserProfile, postUser, postUserReactions, putUser, TUserProfileRaw } from '../../utils/api';
+import { deleteComment, getComments, getProfiles, getUserProfile, getUserReactions, getUsers, patchUserProfile, postUser, postUserReactions, putUser, TargetRaw } from '../../utils/api';
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
-  
+  const dataTest = {
+    profile: {
+      name: "Ivan Ivanov",
+      photo: "https://placehold.co/600",
+      city: {
+        name: "blabla",
+        geocode: [
+          55.73433517114847,
+          37.59017466910319
+        ]
+      },
+      birthday: "1978-06-16",
+      quote: "cupidatat voluptate",
+      telegram: "Ut ullamco ex do sit",
+      github: "consequat nostrud",
+      template: "Ut aliqua dolore do"
+    },
+    info: {
+      hobby: {
+        text: "",
+        image: null
+      },
+      status: {
+        text: "",
+        image: null
+      },
+      job: {
+        text: "",
+        image: null
+      },
+      edu: {
+        text: "",
+        image: null
+      }
+    }
+  }
+  const commentTest = {
+    target: 'job', 
+    text: 'string' 
+  }
   useEffect(()=>{
+    getUsers()
+    .then((res) => {
+      localStorage.setItem('arrayUser', JSON.stringify(res));
+    }
+    )
     // console.log(getUsers());
     // console.log(postUser('maria@gm.com', 'web+11'));
     // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
     // console.log(getComments());
-    //console.log(deleteComment('c824a2de0b675b0acb5a2923'));
+    // console.log(deleteComment('c824a2de0b675b0acb5a2923'));
     // console.log(getProfiles());
     // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
-    // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3'));
+    // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3', dataTest));
     // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
-    console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', "job", "occaecat"))
+    //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
   })
   return (
     <div className='app'>

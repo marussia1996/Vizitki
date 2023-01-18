@@ -20,125 +20,222 @@ const request = <T>(url: string, options: RequestInit, readBody: boolean = true)
   return fetch(url, options).then(res => checkResponse<T>(res, readBody))
 }
 //TODO: надо разобраться с типами
-type InfoItem = {
-  text?: string,
-  image?: string,
-}
-type InfoBlock = {
-  $ref: InfoItem,
-  reactions?: number
-}
-
-// type Reaction = {
-//   _id: string,
-//   from:{
-//     $ref: ,
-//   }
-//   target: string
-// }
-///
-type TGetUsersRaw = {
-  total: number,
-  items: Array<TUserRaw>
-}
-type TUserRaw = {
+type BaseFiedsRaw = {
   _id: string,
   createdAt: number,
   updatedAt: number,
-  email:string,
-  cohort:string,
-  name:string
-};
-type TCommentRaw = {
-  text: string,
-  _id: string,
-  from: {
-    value: string
-  },
-  target: string, //это поле отвечает за то на что дали комментарий
-  to: {
-    _id: string,
-    name: string,
-    email: string
-  }
 }
-type TUserReactionRaw = {
-  emotion?: string,
-  text?: string,
-  _id?: string,
-  from: {
-    value: string
-  },
-  target: string
-}
-type TUserReactionsRaw = {
-  total: number,
-  items: Array<TUserReactionRaw>
-}
-type TGetCommentsRaw = {
-    total: number,
-    items: Array<TCommentRaw>,
-}
-type TProfileRaw = {
+type UserAccountRaw = {
   email: string,
   cohort: string,
-  _id: string,
-  createdAt: number,
-  updatedAt: number,
-  profile: {
+}
+type GeocodeRaw = Array<number>
+type ShortProfileRaw = {
+  name: string,
+  photo: string,
+  city: {
+    name: string,
+    geocode: GeocodeRaw,
+  }
+}
+type ProfileRaw = {
+  name: string,
+  photo: string,
+  city: {
+    name: string,
+    geocode: GeocodeRaw,
+  }
+  birthday: string,
+  quote: string,
+  telegram: string,
+  github: string,
+  template: string,
+}
+type InfoBlocksRaw = {
+  hobby: {
+    text?: string,
+    image?: string,
+    reactions?: number
+  }
+  status: {
+    text?: string,
+    image?: string,
+    reactions?: number
+  }
+  job: {
+    text?: string,
+    image?: string,
+    reactions?: number
+  }
+  edu: {
+    text?: string,
+    image?: string,
+    reactions?: number
+  }
+}
+type InfoItemsRaw ={
+  hobby: {
+    text?: string,
+    image?: string | null,
+  }
+  status: {
+    text?: string,
+    image?: string | null,
+  }
+  job: {
+    text?: string,
+    image?: string | null,
+  }
+  edu: {
+    text?: string,
+    image?: string | null,
+  }
+}
+type UserWithProfileRaw = {
+  email: string,
+  cohort: string,
+  profile:{
     name: string,
     photo: string,
     city: {
       name: string,
-      geocode: [
-        number,
-        number
-      ]
+      geocode: GeocodeRaw,
+    }
+    birthday: string,
+    quote: string,
+    telegram: string,
+    github: string,
+    template: string,
+  }
+  info: {
+    hobby: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    status: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    job: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    edu: {
+      text?: string,
+      image?: string,
+      reactions?: number
     }
   }
 }
-type TProfilesRaw = {
-  total: number,
-  items: Array<TProfileRaw>
+type Reactions = Array<CommentRaw | LikeRaw>
+type UserRaw = {
+  email: string,
+  cohort: string,
+  profile:{
+    name: string,
+    photo: string,
+    city: {
+      name: string,
+      geocode: GeocodeRaw,
+    }
+    birthday: string,
+    quote: string,
+    telegram: string,
+    github: string,
+    template: string,
+  }
+  info: {
+    hobby: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    status: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    job: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+    edu: {
+      text?: string,
+      image?: string,
+      reactions?: number
+    }
+  }
+  reactions: Reactions
 }
-export type TUserProfileRaw = {
-    email: string,
-    cohort: string,
+type UserRefRaw = {
+  _id: string,
+  name: string,
+  email: string
+}
+export type TargetRaw = 'hobby'|'status'|'job'|'edu';
+type ReactionRaw = {
+  _id: string,
+  from:{
     _id: string,
-    createdAt: number,
-    updatedAt: number,
-    profile: {
-      name: {
-        value: string
-      },
-      photo: {
-        value: string
-      },
-      city: {
-        value: string
-      },
-      birthday: string,
-      quote: string,
-      telegram: string,
-      github: string,
-      template: string
-    },
-    info: {
-      hobby: {
-        value: string
-      },
-      status: {
-        value: string
-      },
-      job: {
-        value: string
-      },
-      edu: {
-        value: string
-      }
-    },
-    reactions: number
+    name: string,
+    email: string
+  },
+  target: TargetRaw,
 }
+type CommentRaw = {
+  _id: string,
+  from:{
+    _id: string,
+    name: string,
+    email: string
+  },
+  target: TargetRaw,
+  text: string,
+}
+type LikeRaw = {
+  _id: string,
+  from:{
+    _id: string,
+    name: string,
+    email: string
+  },
+  target: TargetRaw,
+  emotion: string
+}
+type InfoItemRaw = {
+  text?: string,
+  image?: string,
+}
+type InfoBlockRaw = {
+  text?: string,
+  image?: string,
+  reactions?: number
+}
+///
+type TGetUsersRaw = {
+  total: number,
+  items: Array<BaseFiedsRaw & UserAccountRaw & {name: string}>
+}
+type TGetCommentsRaw = {
+  total: number,
+  items: Array<CommentRaw & {to: UserRefRaw}>,
+}
+
+type TUserReactionsRaw = {
+  total: number,
+  items: Array<CommentRaw & LikeRaw>
+}
+type TGetProfilesRaw = {
+  total: number,
+  items: Array<BaseFiedsRaw & UserAccountRaw & {profile: ShortProfileRaw}>
+}
+
+
+
 //запрос всех пользователей
 export const getUsers = async() => {
   return request<TGetUsersRaw>('/users', {
@@ -148,7 +245,7 @@ export const getUsers = async() => {
 };
 //отправка пользователя
 export const postUser = async(email: string, cohort: string) =>{
-  return request<TUserRaw>('/users', {
+  return request<BaseFiedsRaw & UserAccountRaw & {name: string}>('/users', {
     method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token },
       body: JSON.stringify({
@@ -159,7 +256,7 @@ export const postUser = async(email: string, cohort: string) =>{
 }
 //изменение пользователя //id: the user id
 export const putUser = async(email: string, cohort: string, _id: string) =>{
-  return request<TUserRaw>(`/users/${_id}`, {
+  return request<BaseFiedsRaw & UserAccountRaw & {name: string}>(`/users/${_id}`, {
     method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token },
       body: JSON.stringify({
@@ -186,7 +283,7 @@ export const deleteComment = async(_id: string) => {
 
 //запрос профилей - по умолчанию возвращают профили из той же когорты, что и запрошенный пользователь, или ничего
 export const getProfiles = async() => {
-  return request<TProfilesRaw>('/profiles', {
+  return request<TGetProfilesRaw>('/profiles', {
     headers: {'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token},
     method: "GET",
   });
@@ -194,52 +291,18 @@ export const getProfiles = async() => {
 
 //запрос профиля пользователя _id: the user id
 export const getUserProfile = async(_id: string) => {
-  return request<TUserProfileRaw>(`/profiles/${_id}`, {
+  return request<BaseFiedsRaw & UserWithProfileRaw & {reactions: number}>(`/profiles/${_id}`, {
     headers: {'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token},
     method: "GET",
   });
 };
 //изменение профиля пользователя //id: the user id
-//TODO: надо определиться как передавать данные и какие и тп
-export const patchUserProfile = async(_id: string) =>{
-  return request<TUserProfileRaw>(`/profiles/${_id}`, {
+export const patchUserProfile = async(_id: string, data: {profile: ProfileRaw, info: InfoItemsRaw}) =>{
+  return request<BaseFiedsRaw & UserWithProfileRaw & {reactions: number}>(`/profiles/${_id}`, {
     method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token },
       body: JSON.stringify({
-        "profile": {
-          "name": "Ivan Ivanov",
-          "photo": "https://placehold.co/600",
-          "city": {
-            "name": "blabla",
-            "geocode": [
-              55.73433517114847,
-              37.59017466910319
-            ]
-          },
-          "birthday": "1978-06-16",
-          "quote": "cupidatat voluptate",
-          "telegram": "Ut ullamco ex do sit",
-          "github": "consequat nostrud",
-          "template": "Ut aliqua dolore do"
-        },
-        "info": {
-          "hobby": {
-            "text": "",
-            "image": null
-          },
-          "status": {
-            "text": "",
-            "image": null
-          },
-          "job": {
-            "text": "",
-            "image": null
-          },
-          "edu": {
-            "text": "",
-            "image": null
-          }
-        }
+        data
       }),
     })
 }
@@ -251,13 +314,12 @@ export const getUserReactions = async(_id: string) => {
   });
 };
 //отправка реакций профиля пользователя //id: the user id
-export const postUserReactions = async(_id: string, target: string, text: string) => {
+export const postUserReactions = async(_id: string, comment: {target: string, text: string} | {target: string, emotion: string}) => {
   return request<TUserReactionsRaw>(`/profiles/${_id}/reactions`, {
     headers: {'Content-Type': 'text/plain', 'Authorization' : 'Bearer ' + token},
     method: "POST",
     body: JSON.stringify({
-      "target": target,
-      "text": text
+      comment
     })
   }, false);
 };
