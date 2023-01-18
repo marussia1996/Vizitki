@@ -1,0 +1,43 @@
+@use '../../index.scss' as *;
+
+.map {
+  width: 100%;
+  height: calc(100vh - 184px);
+}
+
+@media screen and (max-width: 768px) {
+  .map {
+    height: calc(100vh - 168px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .map {
+    height: calc(100vh - 152px);
+  }
+}
+
+.balloon {
+  font-family: 'IBMPlexSans', sans-serif;
+  color: $text-dark;
+  display: flex;
+  gap: 4px;
+}
+
+.balloonName {
+  @include text(16px, 24px, 500);
+  margin: 0;
+  margin-bottom: 2px;
+}
+
+.imgBalloon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.balloonCity {
+  margin: 0;
+  @include text(14px, 16px, 500);
+  color: $text-light;
+}
