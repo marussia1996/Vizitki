@@ -12,7 +12,6 @@ import AdminPage from '../../pages/AdminPage/AdminPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
-  console.log('App Render');
   return (
       <div className='app'>
         <Header />
