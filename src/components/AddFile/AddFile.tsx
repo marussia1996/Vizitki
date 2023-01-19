@@ -1,20 +1,20 @@
 import stylesAddFile from '../AddFile/AddFile.module.scss';
-import { useState } from 'react';
+import {ChangeEvent, FC, useState} from 'react';
 
-export const AddFile = () => {
+type TAddFileProps = {
+  onFileSelect: (file: File) => void;
+  disabled?: boolean
+}
 
-  const [files, setFiles] = useState(null);
-
-  const onChange = (e: any) => {
-    let files = e.target.files;
-    console.log(files);
-    const reader = new FileReader();
-    reader.onload = (res: any) => {
-      setFiles(res.target.result)
-      console.log(res.target.result);
-    };
-    reader.readAsText(files[0]); //TODO решить какой метод использовать для чтения файла, в каком виде нужны данные
+export const AddFile:FC<TAddFileProps> = ({onFileSelect, disabled}) => {
+  //todo: добавить кнопку вместо <label>
+  //todo: сделать ее заблокированной когда приходит disabled - значит процесс обработки файла еще не закончен
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if(e.target && e.target.files && e.target.files.length){
+      onFileSelect(e.target.files[0]);
+    }
   }
+  
   return (
     <div className={`${stylesAddFile.wrap}`}>
       <h2 className={`${stylesAddFile.title}`}>Добавить студентов</h2>
@@ -23,7 +23,7 @@ export const AddFile = () => {
         type='file'
         name='file'
         id='file'
-        accept=".xlsx, .cvs"
+        accept=".xlsx, .csv"
         className={stylesAddFile.input}
         onChange={onChange}
         required

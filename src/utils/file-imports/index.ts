@@ -4,7 +4,7 @@ type TImportFileOptions = {
   header: "A" | number | string[]
 }
 
-const defaultHeader = ['email', 'cohort', 'name'];
+const defaultHeader = ['email', 'number', 'name'];
 
 const supportedTypes = ['csv', 'xlsx'];
 
@@ -26,8 +26,6 @@ const importFromFile = <T>(file: File, options: TImportFileOptions = {
   header: defaultHeader
 }): Promise<T[]> => {
   
-  console.log(file);
-
   return new Promise<T[]>((resolve, reject) => {
     
     const validation = validateFile(file);
@@ -38,7 +36,7 @@ const importFromFile = <T>(file: File, options: TImportFileOptions = {
     
     const reader = new FileReader();
     reader.onload = (e) => {
-      const result = new Array<T>();
+      let result = new Array<T>();
       if (e.target) {
         const workbook = XLSX.read(e.target.result, {type: "binary"});
         workbook.SheetNames.forEach(sheetName => {
@@ -46,7 +44,7 @@ const importFromFile = <T>(file: File, options: TImportFileOptions = {
             raw: true,
             header: options.header
           });
-          result.concat(objects);
+          result = result.concat(objects);
         })
         resolve(result);
       }
