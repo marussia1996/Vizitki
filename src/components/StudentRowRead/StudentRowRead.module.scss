@@ -8,9 +8,13 @@
     font-size: 16px;
     line-height: 24px;
     cursor: pointer;
+    background-color: #fff;
 }
 
 
 .CellValue:hover {
-    border: 1px solid #666666;
+    border: 1px solid #83828F;
+}
+.CellValue:focus {
+  border: 1px solid #100C34;
 }

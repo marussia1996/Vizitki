@@ -7,27 +7,26 @@
   margin: 0 auto;
   padding: 40px;
 }
-
+.link{
+  color: $text-black;
+  text-decoration: none;
+}
 .logo {
   width: 130px;
   height: 25px;
 }
-
 .userWrap {
   display: flex;
   align-items: center;
   gap: 4px;
   max-width: 248px;
 }
-
 .userPhoto {
   height: 32px;
   width: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid gray; /*временное сво-во (2px лишнии) */
 }
-
 .userName {
   margin: 0;
   font-size: 16px;
