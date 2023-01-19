@@ -7,6 +7,7 @@
   border: 1px solid $text-dark;
   box-sizing: border-box;
   border-radius: 4px;
+  resize: none;
 }
 
 .textArea:hover{
@@ -15,6 +16,10 @@
 
 .textArea:focus{
   border: 1px solid $input-hover;
+}
+
+.textArea:focus-visible{
+  outline: none;
 }
 
 .textArea::placeholder{

@@ -7,9 +7,9 @@ type TInputTextAreaProps =
   React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
   & TInputWrapperProps
   & {
-  maxLength?: number,
   name: string,
   value: string
+  rows? : number
 }
 
 export const InputTextArea = forwardRef<HTMLTextAreaElement, TInputTextAreaProps>((props, ref) => {

@@ -2,7 +2,7 @@
 
 .input{
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px;
   @include text(16px, 1.5, 400);
   border: 1px solid $text-dark;
   box-sizing: border-box;
@@ -20,6 +20,10 @@
 .input::placeholder{
   color: $placeholder;
   @include text(16px, 1.5, 400);
+}
+
+input:focus-visible{
+  outline: none;
 }
 
 .input[type=number]::-webkit-outer-spin-button,

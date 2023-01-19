@@ -45,7 +45,7 @@ const Evgenys:FC = () => {
       
       <InputFile name={'file'} labelText={'Увлечения, досуг, интересы'} description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} />
       
-      <InputTextArea name={'textarea'} labelText={'textarea'} value={state.textarea} onChange={onChange} maxLength={200}/>
+      <InputTextArea name={'textarea'} labelText={'textarea'} value={state.textarea} onChange={onChange} maxLength={200} rows={5}/>
       
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange} />
       
