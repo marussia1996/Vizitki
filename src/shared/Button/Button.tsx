@@ -1,5 +1,5 @@
 import React, { FC, SyntheticEvent } from 'react'
-import styles from '../Button/Button.module.scss'
+import styles from './Button.module.scss'
 import classnames from "classnames";
 
 interface Props

@@ -3,4 +3,6 @@
   display: flex;
   margin: 0 auto;
   max-width: 600px;
+  flex-direction: column;
+  gap: 10px;
 }
