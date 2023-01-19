@@ -71,9 +71,9 @@ export const ProfilePage = () => {
         {/* TODO: надо исправить фото загрузку, чтобы изменения в этом компоненте появлялись, чтобы пропсы пробросить можно было image и тп */}
         <PhotoUpload/>
         {/* если поле не заполнено передать ошибку */}
-        <InputDay error={'Поле обязательно для заполнения'} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
+        <InputDay error={state.birthday ? '' : 'Поле обязательно для заполнения'} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
-        {/* TODO: исправить компонент поиска, подправить стили */}
+        {/* TODO: исправить компонент поиска (проброс пропсов, списка опций, ошибка и тд), подправить стили */}
         <InputSearch options={city}/>
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} onChange={onChange} />
         <InputText name={'github'} labelText={'Ник в гитхабе'} onChange={onChange} />
