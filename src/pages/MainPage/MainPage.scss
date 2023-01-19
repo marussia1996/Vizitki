@@ -1,0 +1,17 @@
+.page {
+  width: 1360px;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 1439px) {
+  .page {
+    width: 91.6666666667%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page {
+    width: 85%;
+    min-height: 272px;
+  }
+}
