@@ -9,6 +9,8 @@ import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import {InputSearch} from '../InputSearch/InputSearch';
+import {city} from '../InputSearch/test';
+import {theme} from '../InputSearch/test'
 
 export const App: FC = () => {
   const location = useLocation<TLocation>();
@@ -34,7 +36,7 @@ export const App: FC = () => {
           </Route>
           <Route exact path="/evgeniya">
             <h1>Привет, Евгения</h1>
-            <InputSearch/>
+            <InputSearch options={city}/>
           </Route>
           <Route exact path="/alexey">
             <AlexeyM />

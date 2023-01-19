@@ -5,18 +5,10 @@
   width: 100%;
 }
 
-.label {
-  width: inherit;
-  @include text(16px, 24px, 400);
-  color: $text-dark;
-}
-
 .input {
   box-sizing: border-box;
   width: inherit;
   height: 48px;
-  // margin-top: 4px;
-  // padding-left: 16px;
   @include text(16px, 24px, 400);
   color: $text-dark;
   border: 1px solid $text-dark;
@@ -27,11 +19,20 @@
 
 .button {
   position: absolute;
-  top: 14.5px;
   right: 21px;
   width: 20px;
   height: 20px;
   transition: all 0.5s ease-out;
+}
+
+.buttonDefault {
+  top: 15px;
+  rotate: 180deg;
+}
+
+.buttonActive {
+  top: 15px;
+  rotate: 0;
 }
 
 .list {
@@ -43,7 +44,6 @@
   display: flex;
   align-items: center;
   height: 36px;
-  padding-right: 6px;
   padding-left: 6px;
   @include text(16px, 24px, 400);
   transition: all 0.3s ease-out;
@@ -53,4 +53,29 @@
 .option:hover {
   color: $text-white;
   background-color: $neon-pink;
+}
+
+.wrapList {
+  position: absolute;
+  z-index: 1;
+  top: 48px;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: inherit;
+  border: 1px solid $text-dark;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  transition: all 0.3s ease-out;
+}
+
+.wrapListDefault {
+  visibility: hidden;
+  opacity: 0;
+  border-top: none;
+}
+
+.wrapListActive {
+  visibility: visible;
+  opacity: 1;
 }
