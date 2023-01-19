@@ -1,6 +1,7 @@
 @use '../../index.scss' as *;
 .wrap{
   max-width: 325px;
+  height: auto;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -14,4 +15,36 @@
   margin: 12px 0 20px;
   padding: 0;
   @include text(16px, 24px, 400)
+}
+
+.input {
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: -1;
+  display: block;
+  opacity: 0;
+}
+
+.label {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+}
+
+.button {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 285px;
+  height: 44px;
+  background: linear-gradient(269.17deg, #3B23B7 30.28%, #C914E7 63.24%);
+  border-radius: 4px;
+  @include text(16px, 20px, 500);
+  color: #F0F0F0;
 }
