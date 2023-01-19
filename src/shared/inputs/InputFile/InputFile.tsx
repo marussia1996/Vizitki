@@ -11,7 +11,7 @@ type TInputFileProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, 
   name: string
 }
 
-export const InputFile = forwardRef<HTMLInputElement, TInputFileProps>((props) => {
+export const InputFile = forwardRef<HTMLInputElement, TInputFileProps>((props, ref) => {
 
   const {labelText, mix, error, description, onFileChange, ...rest} = props;
   
