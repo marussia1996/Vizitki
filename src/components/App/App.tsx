@@ -12,7 +12,6 @@ import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { getUsers } from '../../utils/api';
-import { deleteComment, getComments, getProfiles, getUserProfile, getUserReactions, getUsers, patchUserProfile, postUser, postUserReactions, putUser, TargetRaw } from '../../utils/api';
 
 export const App = () => {
   const location = useLocation<TLocation>();
