@@ -73,7 +73,7 @@ export const ProfilePage = () => {
         {/* если поле не заполнено передать ошибку */}
         <InputDay error={'Поле обязательно для заполнения'} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
-        {/* TODO: исправить компонент поиска */}
+        {/* TODO: исправить компонент поиска, подправить стили */}
         <InputSearch options={city}/>
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} onChange={onChange} />
         <InputText name={'github'} labelText={'Ник в гитхабе'} onChange={onChange} />
