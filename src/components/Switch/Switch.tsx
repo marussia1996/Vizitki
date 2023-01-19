@@ -8,7 +8,7 @@ export const SwitchInfo = () => {
         <p>Студенты</p>
       </NavLink>
       <NavLink className={styles.text} to='/admin' activeClassName={styles.textActive} exact>
-        <p className={styles.text}>Комментарии</p>
+        <p>Комментарии</p>
       </NavLink>
     </div>
   )
