@@ -7,11 +7,31 @@ import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 import stylesProfile from '../ProfilePage/ProfilePage.module.scss'
 import InputText from '../../shared/inputs/InputText/InputText';
 import { Button } from '../../shared/Button/Button';
+import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
+
+export const city = [
+  'Абаза', 
+  'Абакан', 
+  'Абдулино', 
+  'Абинск', 
+  'Агидель', 
+  'Агрыз', 
+  'Адыгейск', 
+  'Азнакаево'
+]
+  
+export const theme = [
+  'серьезный', 
+  'романтический', 
+  'дерзкий'
+]
 
 type TInputState = {
-  birthday?: Date
+  birthday?: Date,
+  city: string,
   telegram: string,
   github: string,
+  template: string,
   quote: string,
   hobbiesFile: File | undefined,
   hobbiesText: string,
@@ -26,6 +46,8 @@ export const ProfilePage = () => {
     birthday: undefined,
     telegram: '',
     github: '',
+    city: '',
+    template: '',
     quote: '',
     hobbiesFile: undefined,
     hobbiesText: '',
@@ -46,14 +68,17 @@ export const ProfilePage = () => {
   return (
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
-        {/* TODO: надо переписать фото загрузку, чтобы изменения в этом компоненте появлялись */}
+        {/* TODO: надо исправить фото загрузку, чтобы изменения в этом компоненте появлялись, чтобы пропсы пробросить можно было image и тп */}
         <PhotoUpload/>
+        {/* если поле не заполнено передать ошибку */}
         <InputDay error={'Поле обязательно для заполнения'} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
-        {/* TODO: добавить компонент поиска по городам */}
+        {/* TODO: исправить компонент поиска */}
+        <InputSearch options={city}/>
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} onChange={onChange} />
         <InputText name={'github'} labelText={'Ник в гитхабе'} onChange={onChange} />
-        {/* TODO: добавить компонент поиска по шаблонам */}
+        {/* TODO: исправить компонент поиска */}
+        <InputSearch options={theme}/>
         <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange} maxLength={100} rows={4}/>
         <div>
           <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'} description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} />
