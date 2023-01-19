@@ -17,8 +17,14 @@ export const InputSearch:FC<TProps> = ({ options }) => {
 
   const onChange = (e: any) => {
     setInputValue(e.target.value);
+    setActive(true);
   };
 
+  const filterFunction = 
+     options.filter((option)=> {
+      return option.toLowerCase().includes(inputValue.toLowerCase())
+    })
+    
   const onClickButton = () => {
     handleToggle();
     setInputValue('');
@@ -52,7 +58,7 @@ export const InputSearch:FC<TProps> = ({ options }) => {
         style={{ height: height }}>
         <Scroll>
           <ul className={styles.list}>
-            {options.map((option: string, index: number) => {
+            {filterFunction.map((option: string, index: number) => {
               return (
                 <li className={styles.option} key={index}
                   onClick={(e) => {onChange(e); onClickOption(option)}}
