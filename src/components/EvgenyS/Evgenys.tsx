@@ -7,7 +7,9 @@ import {TInputChange} from "../../shared/inputs";
 import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 import Icon from '../../shared/Icon/Icon';
-import { arrowUpIcon } from '../../shared/Icon/lib';
+import {arrowUpIcon} from '../../shared/Icon/lib';
+import {TThemeProfile} from "../../services/types/types";
+import {useTheme} from "../../hooks/theme/useTheme";
 
 type TInputState = {
   filter: string,
@@ -18,6 +20,8 @@ type TInputState = {
 }
 
 const Evgenys:FC = () => {
+
+  const {theme, setTheme} = useTheme();
   
   const [state, setState] = useState<TInputState>({
     filter: '',
@@ -30,11 +34,28 @@ const Evgenys:FC = () => {
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]:e.target.value})
   }
+  
+  const changeTheme = () => {
+    switch (theme) {
+      case TThemeProfile.DEFAULT:
+        setTheme(TThemeProfile.ROMANTIC);
+        break;
+      case TThemeProfile.ROMANTIC:
+        setTheme(TThemeProfile.DARING);
+        break;
+      case TThemeProfile.DARING:
+        setTheme(TThemeProfile.DEFAULT);
+        break;
+    }
+  }
      
   console.log(state);
   
   return (
     <div className={css.container}>
+
+      <button onClick={changeTheme}>{theme}</button>
+      
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
       onDateChange={onChange}
       />
@@ -51,6 +72,7 @@ const Evgenys:FC = () => {
       
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange} />
       <Icon path={arrowUpIcon} fill={'none'} width={'24px'} height={'24px'}/>
+      
     </div>
   );
 };
