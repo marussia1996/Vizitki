@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CommentsTable from "../../components/CommentsTable/CommentsTable";
 import InputText from "../../shared/inputs/InputText/InputText";
-import Quete from "../../components/Quete/Quete";
 import Scroll from "../../components/Scroll/Scroll";
 import StudentTable from "../../components/StudensTable/StudensTable";
 import { TThemeProfile } from "../../services/types/types";
+import Quete from "../../components/Quete/Quete";
 
 const AlexeyM = () => {
 

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { TThemeProfile } from "../../services/types/types";
 import { ReactComponent as QueteIcon } from "../../images/quete_icon.svg";
 import classnames from "classnames";
 
 import styles from './Quete.module.scss';
+import Feedback from "../Feedback/Feedback";
+import { CommentIcon } from "../CommentIcon/CommentIcon";
 
 let cx = classnames.bind(styles);
 
@@ -13,6 +15,11 @@ type Props = {
 }
 
 const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
+    const [isOpenFeedback, setFeedbackState] = useState(false);
+
+    const handleFeedback = () => {
+        setFeedbackState(!isOpenFeedback);
+    }
 
     const cxQueteIcon = cx(styles.Icon, {
         [styles['IconRomantic']]: theme === TThemeProfile.ROMANTIC,
@@ -25,11 +32,19 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
     })
 
     return (
-        <div className={styles.Quete}>
-            <QueteIcon className={cxQueteIcon} />
-            <QueteIcon className={cxQueteIcon} />
-            <span className={cxText}>{text}</span>
-        </div>
+        <>
+            <div className={styles.Quete}>
+                <CommentIcon
+                    handleFeedback={handleFeedback}
+                    color='dark'
+                    mix={styles.CommentButton}
+                />
+                <QueteIcon className={cxQueteIcon} />
+                <QueteIcon className={cxQueteIcon} />
+                <span className={cxText}>{text}</span>
+                {isOpenFeedback && <Feedback />}
+            </div>
+        </>
     );
 }
 

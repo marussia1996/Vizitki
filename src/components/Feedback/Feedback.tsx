@@ -1,6 +1,7 @@
 import './Feedback.scss';
 import { messages } from './data';
 
+//TODO: Добавить закрытие по кнопке Escape
 export default function Feedback() {
   return (
     <div className='modal'>
