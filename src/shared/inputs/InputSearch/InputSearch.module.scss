@@ -1,0 +1,84 @@
+@use '../../../index' as *;
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  box-sizing: border-box;
+  width: inherit;
+  height: 48px;
+  @include text(16px, 24px, 400);
+  color: $text-dark;
+  border: 1px solid $text-dark;
+  border-radius: 4px 4px 0 0;
+  outline: none;
+  transition: all 0.5s ease-out;
+  padding-left: 16px;
+}
+
+.button {
+  position: absolute;
+  right: 21px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+}
+
+.buttonDefault {
+  top: 15px;
+  rotate: 0;
+}
+
+.buttonActive {
+  top: 15px;
+  rotate: 180deg;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding-left: 16px;
+  @include text(16px, 24px, 400);
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+
+.option:hover {
+  color: $text-white;
+  background-color: $neon-pink;
+}
+
+.wrapList {
+  position: absolute;
+  z-index: 1;
+  top: 48px;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: inherit;
+  border: 1px solid $text-dark;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  transition: all 0.3s ease-out;
+  max-height: min-content;
+}
+
+.wrapListDefault {
+  visibility: hidden;
+  opacity: 0;
+  border-top: none;
+}
+
+.wrapListActive {
+  visibility: visible;
+  opacity: 1;
+}
