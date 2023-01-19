@@ -41,6 +41,7 @@ type TInputState = {
   eduText: string,
 }
 export const ProfilePage = () => {
+  //TODO: запрос данных пользователя 
   const [state, setState] = useState<TInputState>({
     birthday: undefined,
     telegram: '',
