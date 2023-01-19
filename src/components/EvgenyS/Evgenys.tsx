@@ -6,6 +6,8 @@ import {InputFile} from "../../shared/inputs/InputFile/InputFile";
 import {TInputChange} from "../../shared/inputs";
 import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
+import Icon from '../../shared/Icon/Icon';
+import { arrowUpIcon } from '../../shared/Icon/lib';
 
 type TInputState = {
   filter: string,
@@ -48,7 +50,7 @@ const Evgenys:FC = () => {
       <InputTextArea name={'textarea'} labelText={'textarea'} value={state.textarea} onChange={onChange} maxLength={200} rows={5}/>
       
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange} />
-      
+      <Icon path={arrowUpIcon} fill={'none'} width={'24px'} height={'24px'}/>
     </div>
   );
 };
