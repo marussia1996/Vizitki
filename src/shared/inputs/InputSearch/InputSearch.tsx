@@ -1,7 +1,7 @@
 import styles from './InputSearch.module.scss';
-import Icon from '../../shared/Icon/Icon';
-import { arrowUpIcon } from '../../shared/Icon/lib';
-import Scroll from '../Scroll/Scroll';
+import Icon from '../../Icon/Icon';
+import { arrowUpIcon } from '../../Icon/lib';
+import Scroll from '../../../components/Scroll/Scroll';
 import React, { FC, useState, useRef } from "react";
 
 type TProps = {
