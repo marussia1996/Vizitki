@@ -32,21 +32,14 @@ export const useFiles = (onChange: ()=> void) => {
     resetSelection();
     if (!files || files?.length === 0) return;
     const file = files[0];
-    if (!file.type.includes("image/")) {
-      if (inputFileRef.current) {
-        inputFileRef.current.value = "";
-      }
-      onChange();
-      return;
-    }
     setSelectedFile(file.name);
+    onChange();
     const imageContainer = imageContainerRef.current;
     if (!imageContainer) return;
     //Создание Url картинки
     const objectURL = window.URL.createObjectURL(file);
     imageContainer.appendChild(fileImage);
     setObjectURL(objectURL);
-    onChange();
   };
   
   //открытие диалога для загрузки файла

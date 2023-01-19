@@ -1,18 +1,19 @@
 import styles from './InputFile.module.scss'
 import {useFiles} from '../../../hooks/files/useFiles';
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
-import {FC} from "react";
+import React, {DetailedHTMLProps, forwardRef, InputHTMLAttributes} from "react";
 import Icon from "../../Icon/Icon";
 import {iconFile} from "../../Icon/lib";
 import {TInputChange} from "../index";
 
-type TInputFileProps = TInputWrapperProps & {
+type TInputFileProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & TInputWrapperProps & {
   onFileChange: (e:TInputChange<File>)=>void;
   name: string
 }
-export const InputFile: FC<TInputFileProps> = (props) => {
 
-  const {labelText, mix, error, description} = props;
+export const InputFile = forwardRef<HTMLInputElement, TInputFileProps>((props) => {
+
+  const {labelText, mix, error, description, onFileChange, ...rest} = props;
   
   const onChange = () => {
     if(inputFileRef.current){
@@ -22,7 +23,8 @@ export const InputFile: FC<TInputFileProps> = (props) => {
           value: inputFileRef.current.files ? inputFileRef.current.files[0] : undefined
         }
       }
-      props.onFileChange(e);
+      
+      onFileChange(e);
     }
   }
   
@@ -49,8 +51,8 @@ export const InputFile: FC<TInputFileProps> = (props) => {
             className={styles.input}
             type="file"
             ref={inputFileRef}
-            accept="image/*"
             onChange={handleFileDialog}
+            {...rest}
           />
           <div className={styles.wrapper}>
             <Icon path={iconFile} width={'18px'} height={'20px'} stroke={'none'}/>
@@ -59,4 +61,4 @@ export const InputFile: FC<TInputFileProps> = (props) => {
       </div>
     </InputWrapper>
   )
-}
+})
