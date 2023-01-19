@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import InputText from "../InputText/InputText";
+import InputText from "../../shared/inputs/InputText/InputText";
 import { TStudentForm } from "../StudensTable/StudensTable";
 import { Td, Tr } from "../Table/Table";
 

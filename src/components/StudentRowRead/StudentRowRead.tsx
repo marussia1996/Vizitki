@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import InputText from "../InputText/InputText";
+import InputText from "../../shared/inputs/InputText/InputText";
 import { Td, Tr } from "../Table/Table";
 
 import styles from './StudentRowRead.module.scss';

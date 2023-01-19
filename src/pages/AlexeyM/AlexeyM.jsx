@@ -1,6 +1,6 @@
 import React from "react";
 import CommentsTable from "../../components/CommentsTable/CommentsTable";
-import InputText from "../../components/InputText/InputText";
+import InputText from "../../shared/inputs/InputText/InputText";
 import Quete from "../../components/Quete/Quete";
 import Scroll from "../../components/Scroll/Scroll";
 import StudentTable from "../../components/StudensTable/StudensTable";
