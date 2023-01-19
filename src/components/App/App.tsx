@@ -9,6 +9,8 @@ import { Footer } from '../Footer/Footer';
 import Evgenys from "../EvgenyS/Evgenys";
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import AdminPage from '../../pages/AdminPage/AdminPage';
+import { MainPage } from '../../pages/MainPage/MainPage';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 export const App = () => {
   const location = useLocation<TLocation>();
@@ -17,7 +19,7 @@ export const App = () => {
         <Header />
         <main className='main'>
           <Switch location={location}>
-            <Route exact path="/">
+            <Route exact path="/login">
               <LoginPage />
             </Route>
             <Route exact path="/profile">
@@ -44,6 +46,9 @@ export const App = () => {
             <Route path="/admin">
               <AdminPage />
             </Route>
+            <ProtectedRoute exact path="/">
+              <MainPage />
+            </ProtectedRoute>
           </Switch>
         </main>
         <Footer />
