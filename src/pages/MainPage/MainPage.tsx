@@ -4,8 +4,21 @@ import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
+import { Redirect } from 'react-router';
+import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
+  const userRaw = localStorage.getItem('user');
+  if(userRaw && userRaw.includes('curator')){
+    return <Redirect to='/admin'/>
+  }
+    getUsers()
+    .then((res)=>{
+      localStorage.setItem('users', JSON.stringify(res))
+    })
+    .catch(()=>{
+      console.log('err')
+    })
   return (
     <div className="page">
       <div className='content'>
