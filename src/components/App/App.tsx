@@ -11,6 +11,7 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
@@ -43,6 +44,9 @@ export const App = () => {
             <Route exact path="/evgenys">
               <Evgenys />
             </Route>
+            <ProtectedRoute exact path="/map">
+              <MapPage />
+            </ProtectedRoute>
             <Route path="/admin">
               <AdminPage />
             </Route>
