@@ -8,14 +8,15 @@ import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 import Icon from '../../shared/Icon/Icon';
 import {arrowUpIcon} from '../../shared/Icon/lib';
-import importFromFile from "../../utils/file-imports";
+import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
 
 type TInputState = {
   filter: string,
   text: string,
   file: File | undefined,
   textarea: string,
-  date?: Date
+  date?: Date,
+  photo: undefined;
 }
 
 const Evgenys: FC = () => {
@@ -25,28 +26,21 @@ const Evgenys: FC = () => {
     text: '',
     file: undefined,
     textarea: '',
-    date: undefined
+    date: undefined,
+    photo: undefined
   });
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]: e.target.value})
   }
 
-  const onFileChange = async (e: TInputChange<File>) => {
-    if (e.target.value) {
-      try {
-        const users = await importFromFile(e.target.value);
-        console.log(users); 
-      }catch (e){
-        console.log(e);
-      }
-    }
-  }
-
   console.log(state);
 
   return (
     <div className={css.container}>
+
+      <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}
       />
@@ -60,7 +54,7 @@ const Evgenys: FC = () => {
                  onChange={onChange}/>
 
       <InputFile name={'file'} labelText={'Увлечения, досуг, интересы'}
-                 description={'Рекомендуемый размер фото 230х129'} onFileChange={onFileChange} accept={".xlsx, .csv"}/>
+                 description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} accept={".xlsx, .csv"}/>
 
       <InputTextArea name={'textarea'} labelText={'textarea'} value={state.textarea} onChange={onChange} maxLength={200}
                      rows={5}/>
