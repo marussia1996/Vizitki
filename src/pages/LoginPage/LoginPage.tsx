@@ -4,6 +4,11 @@ import { TLocation } from '../../services/types/types'
 import { Button } from '../../shared/Button/Button'
 import { redirectToYandex } from '../../utils/auth'
 import stylesLogin from '../LoginPage/LoginPage.module.scss'
+type LoginPageProps = {
+  response_type: string,
+  client_id: string,
+  redirect_uri: string
+}
 
 
 export const LoginPage = () => {
