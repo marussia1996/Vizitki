@@ -7,8 +7,9 @@ import {TInputChange} from "../../shared/inputs";
 import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 import Icon from '../../shared/Icon/Icon';
-import {arrowUpIcon} from '../../shared/Icon/lib';
+import {iconArrowUp} from '../../shared/Icon/lib';
 import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
+import {InputSearch} from "../../shared/inputs/InputSearch/InputSearch";
 
 type TInputState = {
   filter: string,
@@ -41,6 +42,8 @@ const Evgenys: FC = () => {
 
       <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
 
+      <InputSearch options={['test', '123']}/>
+
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}
       />
@@ -60,7 +63,8 @@ const Evgenys: FC = () => {
                      rows={5}/>
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
-      <Icon path={arrowUpIcon} fill={'none'} width={'24px'} height={'24px'}/>
+
+      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']}/>
     </div>
   );
 };
