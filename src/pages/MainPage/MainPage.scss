@@ -6,7 +6,6 @@
   display: grid;
   grid-template-columns: repeat(4, 325px);
   column-gap: 20px;
-  row-gap: 40px;
 }
 
 .linkCnt {
@@ -24,6 +23,8 @@
 }
 
 .cardsCnt {
+  margin-top: 40px;
+
   grid-column-start: 1;
   grid-row-start: 2;
 
@@ -34,10 +35,22 @@
   row-gap: 39px;
 }
 
+.loaderCnt {
+  width: 100%;
+  height: 207px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
 @media screen and (max-width: 1439px) {
   .page {
     grid-template-columns: repeat(2, 342px);
-    row-gap: 32px;
   }
 
   .linkCnt {
@@ -45,6 +58,8 @@
   }
 
   .cardsCnt {
+    margin-top: 32px;
+
     grid-template-columns: repeat(2, 342px);
     row-gap: 31px;
   }
@@ -61,6 +76,8 @@
   }
 
   .cardsCnt {
+    margin-top: 24px;
+
     grid-template-columns: 272px;
     grid-row-start: 3;
     row-gap: 24px;
