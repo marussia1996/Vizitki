@@ -34,7 +34,7 @@ export const LoginPage = () => {
       cohort: 'web-12',
       image: '' 
     }
-    localStorage.setItem('user', JSON.stringify(admin))
+    localStorage.setItem('user', JSON.stringify(student))
   }
   const userRaw = localStorage.getItem('user');
   if(userRaw && userRaw.includes('curator')){
