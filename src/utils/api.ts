@@ -16,7 +16,13 @@ const checkResponse = <T>(res: Response, readBody: boolean = true):Promise<T | v
     new Error(`Произошла ошибка со статус-кодом ${res.status}`)
   );
 };
-
+const response_type='code';
+const client_id ='e0363480e511432f87948725fe869e7f';
+const redirect_uri = 'http%3A%2F%2Flocalhost%3A3000%2Flogin';
+//получение jwt 
+export const GetJWTToken = async() =>{
+  return fetch(`https://oauth.yandex.ru/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}`,)
+}
 //универсальная функция запроса с проверкой
 const request = <T>(url: string, options: RequestInit, readBody: boolean = true): Promise<T | void> => {
   return fetch(url, options).then(res => checkResponse<T>(res, readBody))

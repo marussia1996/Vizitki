@@ -8,7 +8,7 @@ import userPhoto from '../../images/User-foto-test.png'
 export const Header: FC = () => {
   //TODO: надо исправить то откуда берется значение зареган пользователь или нет
   //TODO: заполнить данные в шапке исходя из данных о пользователе
-  const user = 'gyujik';
+  const user = localStorage.getItem('access_token');
 
   return (
     <header className={headerStyle.header}>
