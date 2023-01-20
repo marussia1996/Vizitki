@@ -1,17 +1,68 @@
+@use '../../index.scss' as *;
+
 .page {
-  width: 1360px;
   align-self: flex-start;
+
+  display: grid;
+  grid-template-columns: repeat(4, 325px);
+  column-gap: 20px;
+  row-gap: 40px;
+}
+
+.linkCnt {
+  grid-column-start: 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.link {
+  @include text(16px, 24px, 400);
+  text-decoration: none;
+  color: $text-dark;
+}
+
+.cardsCnt {
+  grid-column-start: 1;
+  grid-row-start: 2;
+
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+
+  column-gap: 20px;
+  row-gap: 39px;
 }
 
 @media screen and (max-width: 1439px) {
   .page {
-    width: 91.6666666667%;
+    grid-template-columns: repeat(2, 342px);
+    row-gap: 32px;
+  }
+
+  .linkCnt {
+    grid-column-start: 2;
+  }
+
+  .cardsCnt {
+    grid-template-columns: repeat(2, 342px);
+    row-gap: 31px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .page {
-    width: 85%;
-    min-height: 272px;
+    grid-template-columns: 272px;
+  }
+
+  .linkCnt {
+    grid-column-start: 1;
+    grid-row-start: 1;
+  }
+
+  .cardsCnt {
+    grid-template-columns: 272px;
+    grid-row-start: 3;
+    row-gap: 24px;
   }
 }
