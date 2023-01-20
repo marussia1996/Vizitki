@@ -34,10 +34,26 @@
 .socialNetwork {
   display: flex;
   gap: 20px;
+  cursor: pointer;
 }
 
 .wrapComponents {
   display: flex;
   gap: 85px;
   align-items: center;
+  cursor: pointer;
+}
+
+.wrapPosts {
+  margin-top: 72px;
+  
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 56px 70px;
+  margin-bottom: 96px;
+  list-style-type: none;
+  padding: 0;
 }
