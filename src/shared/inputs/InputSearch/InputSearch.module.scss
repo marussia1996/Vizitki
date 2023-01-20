@@ -5,35 +5,34 @@
   width: 100%;
 }
 
-.input {
-  box-sizing: border-box;
-  width: inherit;
-  height: 48px;
-  @include text(16px, 24px, 400);
-  color: $text-dark;
-  border: 1px solid $text-dark;
-  border-radius: 4px 4px 0 0;
-  outline: none;
-  transition: all 0.5s ease-out;
-  padding-left: 16px;
+.wrapRight {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin-right: 8px;
 }
 
 .button {
-  position: absolute;
-  right: 21px;
-  width: 20px;
-  height: 20px;
   transition: all 0.5s ease-out;
+  outline: none;
+  padding: 4px;
+  margin: 0;
+  border: 0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
   cursor: pointer;
-}
-
-.buttonDefault {
-  top: 15px;
-  rotate: 0;
+  color: $text-dark;
+  box-sizing: border-box;
+  background: none;
+  transform-origin: center;
 }
 
 .buttonActive {
-  top: 15px;
   rotate: 180deg;
 }
 
@@ -70,6 +69,8 @@
   border-radius: 0 0 4px 4px;
   transition: all 0.3s ease-out;
   max-height: min-content;
+  background: white;
+  box-shadow: 0 0 4px rgba(78, 59, 255, 0.25);
 }
 
 .wrapListDefault {

@@ -18,13 +18,8 @@
   color: $placeholder;
 }
 
-.input {
-  width: 0;
-  height: 0;
-  position: absolute;
-  z-index: -1;
-  display: block;
-  opacity: 0;
+.hidden {
+  display: none;
 }
 
 .wrapPhoto {
@@ -36,19 +31,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.label {
   position: relative;
-  background-color: $text-white;
-  display: flex;
-  flex-direction: column;
-  width: inherit;
-  height: inherit;
+  cursor: pointer;
 }
 
 .photo {
-  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -61,19 +49,21 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background:  rgba(16, 12, 52, 15%);
+  background: rgba(16, 12, 52, 0.15);
   transition: all 0.5s ease-out;
-  cursor: pointer;
-}
-
-.buttonDefault {
   height: 25%;
-  visibility: visible;
   opacity: 1;
 }
 
-.buttonActive {
-  height: 0;
-  visibility: hidden;
+.notVisible {
   opacity: 0;
+}
+
+.camera {
+  width: 20px;
+  height: 17px;
+}
+
+.wrapPhoto:hover .button {
+  opacity: 1;
 }

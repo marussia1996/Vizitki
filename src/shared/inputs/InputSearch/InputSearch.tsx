@@ -1,18 +1,21 @@
 import styles from './InputSearch.module.scss';
 import Icon from '../../Icon/Icon';
-import { arrowUpIcon } from '../../Icon/lib';
+import {iconArrowUp} from '../../Icon/lib';
 import Scroll from '../../../components/Scroll/Scroll';
-import React, { FC, useState, useRef } from "react";
+import React, {FC, useState} from "react";
+import Input from "../Input/Input";
+import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
 
-type TProps = {
+type TProps = TInputWrapperProps & {
   options: string[];
 }
 
-export const InputSearch:FC<TProps> = ({ options }) => {
+export const InputSearch: FC<TProps> = (props) => {
+
+  const {labelText, mix, error, description, options, ...rest} = props;
 
   const [inputValue, setInputValue] = React.useState('');
   const [isActive, setActive] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
   const height = !isActive ? 0 : options.length >= 5 ? '192px' : `${options.length * 36}px`;
 
   const onChange = (e: any) => {
@@ -20,11 +23,11 @@ export const InputSearch:FC<TProps> = ({ options }) => {
     setActive(true);
   };
 
-  const filterFunction = 
-     options.filter((option)=> {
+  const filterFunction =
+    options.filter((option) => {
       return option.toLowerCase().includes(inputValue.toLowerCase())
     })
-    
+
   const onClickButton = () => {
     handleToggle();
     setInputValue('');
@@ -38,39 +41,38 @@ export const InputSearch:FC<TProps> = ({ options }) => {
     setInputValue(option);
     setActive(false);
   };
- 
+
   return (
-    <div className={styles.wrap}>
-      <input
-        type='text'
-        id='suggest'
-        value={inputValue}
-        className={styles.input}
-        onChange={onChange}
-        ref={ref}
-        required
-      />
-      <span className={`${styles.button} ${!isActive ? styles.buttonDefault : styles.buttonActive}`}
-        onClick={onClickButton}>
-        <Icon path={arrowUpIcon} fill={'none'} width={'24px'} height={'24px'}/>
-      </span>
-      <div className={`${styles.wrapList} ${!isActive ? styles.wrapListDefault : styles.wrapListActive}`}
-        style={{ height: height }}>
-        <Scroll>
-          <ul className={styles.list}>
-            {filterFunction.map((option: string, index: number) => {
-              return (
-                <li className={styles.option} key={index}
-                  onClick={(e) => {onChange(e); onClickOption(option)}}
-                >
-                  {option}
-                </li>
-              )
-            })}
-          </ul>
-        </Scroll>
+    <InputWrapper>
+      <div className={styles.wrap}>
+        <Input type={'text'}/>
+        <div className={styles.wrapRight}>
+          <button className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
+                  onClick={onClickButton}>
+            <Icon path={iconArrowUp} fill={'none'} width={'18px'} height={'10px'}/>
+          </button>
+        </div>
+        <div className={`${styles.wrapList} ${!isActive ? styles.wrapListDefault : styles.wrapListActive}`}
+             style={{height: height}}>
+          <Scroll>
+            <ul className={styles.list}>
+              {filterFunction.map((option: string, index: number) => {
+                return (
+                  <li className={styles.option} key={index}
+                      onClick={(e) => {
+                        onChange(e);
+                        onClickOption(option)
+                      }}
+                  >
+                    {option}
+                  </li>
+                )
+              })}
+            </ul>
+          </Scroll>
+        </div>
       </div>
-    </div>
+    </InputWrapper>
   )
 }
 

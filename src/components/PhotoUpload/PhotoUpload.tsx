@@ -1,72 +1,57 @@
 import styles from './PhotoUpload.module.scss';
-import { MouseEventHandler, FC, useState, useCallback, useMemo } from 'react';
+import React, {FC, useRef} from 'react';
 import camera from '../../images/camera.svg';
+import {TInputChange} from "../../shared/inputs";
 
-type TPhoto = {
-  form?: any;
-  setValue?: any;
-}
-export const PhotoUpload = ({ form, setValue }: TPhoto) => {
+type TInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+  onFileChange?: (e: TInputChange<string>) => void;
+};
 
-  const [image, setImage] = useState() as any;
-  const [isVisible, setIsVisible] = useState(true);
-  const [hover, setHover] = useState(false);
+export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange, ...rest}) => {
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const handleImageChange = (e: any) => {
-    const [image] = e.currentTarget.files;
-    setImage(URL.createObjectURL(image));
-    setValue({ ...form, [e.currentTarget.name]: URL.createObjectURL(image) });
+    const [image] = e.target.files;
+    const url = image ? URL.createObjectURL(image) : undefined;
+    if (image) {
+      image.src = url;
+      image.className = styles.photo;
+    }
+    if (onFileChange) {
+      onFileChange({
+        target: {
+          name: name || '',
+          value: url
+        }
+      })
+    }
   };
 
-  const handleVisibleButton = useCallback(() => {
-    if (image !== undefined && !hover) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-    if (image !== undefined && hover) {
-      setIsVisible(true);
-    }
-  }, [hover, image]);
-
-  useMemo(() => {
-    handleVisibleButton();
-  }, [handleVisibleButton]);
-
-  const handleHover: MouseEventHandler<HTMLLabelElement> = (e) => {
-    if (e.type === 'mouseenter') {
-      setHover(true);
-    } else setHover(false);
+  const onClick = () => {
+    inputRef.current?.click();
   }
 
   return (
     <div className={styles.wrap}>
       <p className={styles.title}>Загрузите фото *</p>
       <p className={styles.description}>(размер не менее 440х440)</p>
+      <div className={styles.wrapPhoto} onClick={onClick}>
+        <img alt='Фото' className={value ? styles.photo : styles.hidden} src={value as string} ref={imageRef}/>
+        <div className={value ? styles.button + ' ' + styles.notVisible : styles.button}>
+          <img src={camera} className={styles.camera}/>
+        </div>
+      </div>
       <input
         type='file'
-        name='photo'
-        id='photo'
+        name={name}
         accept='image/*'
-        className={styles.input}
+        className={styles.hidden}
         onChange={handleImageChange}
         required
+        ref={inputRef}
       />
-      <div className={styles.wrapPhoto}>
-        <label
-          className={styles.label}
-          htmlFor='photo'
-          onMouseLeave={handleHover}
-          onMouseEnter={handleHover}
-        >
-          <img src={image} alt='' className={styles.photo} />
-          <span className={`${styles.button} ${isVisible 
-            ? styles.buttonDefault 
-            : styles.buttonActive}`}>
-            <img src={camera}/>
-          </span>
-        </label>
-      </div>
     </div>
   );
 };

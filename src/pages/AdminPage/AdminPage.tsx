@@ -1,12 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {ChangeEvent, useRef, useState} from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { AddFile } from "../../components/AddFile/AddFile";
 import CommentsTable from "../../components/CommentsTable/CommentsTable";
 import InputFilter from "../../shared/inputs/InputFilter/InputFilter";
 import StudentTable from "../../components/StudensTable/StudensTable";
 import { SwitchInfo } from "../../components/Switch/Switch";
-
 import styles from './AdminPage.module.scss';
+import {useFetching} from "../../hooks/useFetching";
+import importFromFile from "../../utils/file-imports";
+import {TStudent} from "../../services/types/types";
+import * as uuid from "uuid";
 
 const AdminPage = () => {
     //TODO: функция фильтрации по значению в inputFilter
@@ -17,7 +20,7 @@ const AdminPage = () => {
     //TODO: показ ошибки, если данные по фильтру не найдены
     let { path } = useRouteMatch();
 
-    const [filter, setFilter] = useState<string>()
+    const [filter, setFilter] = useState<string>('')
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setFilter(event.target.value);
@@ -25,6 +28,18 @@ const AdminPage = () => {
 
     const handleClearFilter = () => {
         setFilter('');
+    }
+
+    type AddStudentHandle = React.ElementRef<typeof StudentTable>;
+    const addStudentRef = useRef<AddStudentHandle>(null);
+    const {isLoading, error, fetching} = useFetching(async ([file])=> {
+      const data = await importFromFile<TStudent>(file);
+      data.forEach(s=>s.id = uuid.v4())
+      addStudentRef.current?.addStudents(data);
+    });
+    
+    const onFileSelect = (file: File) => {
+      fetching(file);
     }
 
     return (
@@ -49,15 +64,17 @@ const AdminPage = () => {
                 </Route>
                 <Route path={`${path}/users`} exact>
                     <div className={styles.AddFile}>
-                        <AddFile />
+                        <AddFile onFileSelect={onFileSelect} disabled={isLoading} />
                     </div>
                     <div className={styles.TableContent}>
-                        <StudentTable />
+                        <StudentTable ref={addStudentRef} />
                     </div>
                 </Route>
             </Switch>
         </section>
     )
 }
+
+//todo: добавить отображение ошибки ниже <AddFile>
 
 export default AdminPage;

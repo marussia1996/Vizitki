@@ -40,13 +40,13 @@ export const useFiles = (onChange: ()=> void) => {
       return;
     }
     setSelectedFile(file.name);
+    onChange();
     const imageContainer = imageContainerRef.current;
     if (!imageContainer) return;
     //Создание Url картинки
     const objectURL = window.URL.createObjectURL(file);
     imageContainer.appendChild(fileImage);
     setObjectURL(objectURL);
-    onChange();
   };
   
   //открытие диалога для загрузки файла
