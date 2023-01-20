@@ -16,16 +16,6 @@ import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
-  const response_type='token';
-  const client_id ='e0363480e511432f87948725fe869e7f';
-  const redirect_uri = 'http%3A%2F%2Flocalhost%3A3000%2Flogin';
-  const client_secret = '164de9d6956b453a8bf09998aa50220d';
-
-  //если хаш есть, то есть ответ от яндекса пришел, то достаем токен
-  if(location.hash){
-    const access_token = location.hash.match(/#access_token=([\w-]+)/);
-    access_token && localStorage.setItem('access_token', access_token[1])
-  }
   const dataTest = {
     profile: {
       name: "Ivan Ivanov",
