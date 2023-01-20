@@ -1,24 +1,21 @@
-import { buffer } from 'node:stream/consumers';
-import { Redirect, useLocation, useParams, useRouteMatch } from 'react-router'
+import { FC } from 'react'
+import { Redirect, useLocation} from 'react-router'
 import { Button } from '../../shared/Button/Button'
 import stylesLogin from '../LoginPage/LoginPage.module.scss'
+type LoginPageProps = {
+  response_type: string,
+  client_id: string,
+  redirect_uri: string
+}
 
-export const LoginPage = () => {
-  const response_type='token';
-  const client_id ='e0363480e511432f87948725fe869e7f';
-  const redirect_uri = 'http%3A%2F%2Flocalhost%3A3000%2Flogin';
-  const client_secret = '164de9d6956b453a8bf09998aa50220d';
-
+export const LoginPage:FC<LoginPageProps> = ({response_type, client_id, redirect_uri}) => {
+  
+  //клик по кнопке перенаправляет на страницу регистрации через яндекс
   const handleClick = () =>{
     window.location.assign(`https://oauth.yandex.ru/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}`);
   }
-  const location = useLocation();
-  console.log('hash');
-  console.log(location.hash);
-  if(location.hash){
-    const access_token = location.hash.match(/#access_token=([\w-]+)/);
-    access_token && localStorage.setItem('access_token', access_token[1])
-  }
+  
+  
   if(localStorage.getItem('access_token')){
     return <Redirect to='/'/>
   }
