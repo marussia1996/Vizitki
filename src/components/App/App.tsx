@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
 import './App.scss';
@@ -16,16 +16,6 @@ import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
-  const response_type='token';
-  const client_id ='e0363480e511432f87948725fe869e7f';
-  const redirect_uri = 'http%3A%2F%2Flocalhost%3A3000%2Flogin';
-  const client_secret = '164de9d6956b453a8bf09998aa50220d';
-
-  //если хаш есть, то есть ответ от яндекса пришел, то достаем токен
-  if(location.hash){
-    const access_token = location.hash.match(/#access_token=([\w-]+)/);
-    access_token && localStorage.setItem('access_token', access_token[1])
-  }
   const dataTest = {
     profile: {
       name: "Ivan Ivanov",
@@ -66,35 +56,30 @@ export const App = () => {
     target: 'job', 
     text: 'string' 
   }
-  useEffect(()=>{
-    getUsers()
-    .then((res) => {
-      localStorage.setItem('arrayUser', JSON.stringify(res));
-      }
-    )
-    .catch(()=>{
-      console.log('err')
-    })
-    // console.log(getUsers());
-    // console.log(postUser('maria@gm.com', 'web+11'));
-    // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
-    // console.log(getComments());
-    // console.log(deleteComment('c824a2de0b675b0acb5a2923'));
-    // console.log(getProfiles());
-    // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
-    // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3', dataTest));
-    // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
-    //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
-  })
-  const array = localStorage.getItem('arrayUser');
-  console.log(array ? JSON.parse(array) : '')
+
+  // useEffect(()=>{
+
+  //   // console.log(getUsers());
+  //   // console.log(postUser('maria@gm.com', 'web+11'));
+  //   // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
+  //   // console.log(getComments());
+  //   // console.log(deleteComment('c824a2de0b675b0acb5a2923'));
+  //   // console.log(getProfiles());
+  //   // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
+  //   // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3', dataTest));
+  //   // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
+  //   //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
+  // })
+
+  // const array = localStorage.getItem('arrayUser');
+  // console.log(array ? JSON.parse(array) : '')
   return (
       <div className='app'>
         <Header />
         <main className='main'>
           <Switch location={location}>
             <Route exact path="/login">
-              <LoginPage response_type={response_type} redirect_uri={redirect_uri} client_id={client_id}/>
+              <LoginPage/>
             </Route>
             <Route exact path="/profile">
               <ProfilePage />
