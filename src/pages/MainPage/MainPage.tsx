@@ -8,16 +8,18 @@ import Loader from '../../components/Loader/Loader';
 export const MainPage = () => {
   return (
     <div className="page">
-      <InputSearch options={city} />
-      <div className='linkCnt'>
-        <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
-      </div>
-      <div className='cardsCnt'>
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
+      <div className='content'>
+        <InputSearch options={city} />
+        <div className='linkCnt'>
+          <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
+        </div>
+        <div className='cardsCnt'>
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+        </div>
       </div>
       <div className='loaderCnt'>
         <Loader />

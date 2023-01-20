@@ -2,7 +2,9 @@
 
 .page {
   align-self: flex-start;
+}
 
+.content {
   display: grid;
   grid-template-columns: repeat(4, 325px);
   column-gap: 20px;
@@ -49,7 +51,7 @@
 }
 
 @media screen and (max-width: 1439px) {
-  .page {
+  .content {
     grid-template-columns: repeat(2, 342px);
   }
 
@@ -63,10 +65,14 @@
     grid-template-columns: repeat(2, 342px);
     row-gap: 31px;
   }
+
+  .loaderCnt {
+    height: 163px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .page {
+  .content {
     grid-template-columns: 272px;
   }
 
@@ -81,5 +87,9 @@
     grid-template-columns: 272px;
     grid-row-start: 3;
     row-gap: 24px;
+  }
+
+  .loaderCnt {
+    height: 196px;
   }
 }
