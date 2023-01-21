@@ -57,22 +57,6 @@ export const App = () => {
     text: 'string' 
   }
 
-  // useEffect(()=>{
-
-  //   // console.log(getUsers());
-  //   // console.log(postUser('maria@gm.com', 'web+11'));
-  //   // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
-  //   // console.log(getComments());
-  //   // console.log(deleteComment('c824a2de0b675b0acb5a2923'));
-  //   // console.log(getProfiles());
-  //   // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
-  //   // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3', dataTest));
-  //   // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
-  //   //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
-  // })
-
-  // const array = localStorage.getItem('arrayUser');
-  // console.log(array ? JSON.parse(array) : '')
   return (
       <div className='app'>
         <Header />
@@ -105,9 +89,9 @@ export const App = () => {
             <ProtectedRoute exact path="/map">
               <MapPage />
             </ProtectedRoute>
-            <Route path="/admin">
+            <ProtectedRoute path="/admin">
               <AdminPage />
-            </Route>
+            </ProtectedRoute>
             <ProtectedRoute exact path="/">
               <MainPage />
             </ProtectedRoute>
