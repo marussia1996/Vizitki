@@ -4,3 +4,9 @@ export type TInputChange<T> = {
     value?: T
   }
 }
+
+export const createInputChange = <T>(name: string | undefined, value: T): TInputChange<T> => {
+  return {
+    target: {name: name || '', value}
+  }
+}

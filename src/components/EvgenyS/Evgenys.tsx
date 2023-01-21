@@ -6,8 +6,7 @@ import {InputFile} from "../../shared/inputs/InputFile/InputFile";
 import {TInputChange} from "../../shared/inputs";
 import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
-import Icon from '../../shared/Icon/Icon';
-import {iconArrowUp} from '../../shared/Icon/lib';
+
 import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
 import {InputSearch} from "../../shared/inputs/InputSearch/InputSearch";
 
@@ -18,6 +17,7 @@ type TInputState = {
   textarea: string,
   date?: Date,
   photo: undefined;
+  inputSearch?: string
 }
 
 const Evgenys: FC = () => {
@@ -28,7 +28,8 @@ const Evgenys: FC = () => {
     file: undefined,
     textarea: '',
     date: undefined,
-    photo: undefined
+    photo: undefined,
+    inputSearch: undefined
   });
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
@@ -42,7 +43,7 @@ const Evgenys: FC = () => {
 
       <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
 
-      <InputSearch options={['test', '123']}/>
+      <InputSearch options={['test', '123']} value={state.inputSearch} onChange={onChange} name={'inputSearch'}/>
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}

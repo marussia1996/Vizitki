@@ -3,6 +3,9 @@
 .wrap {
   position: relative;
   width: 100%;
+  @include text(16px, 1.5, 400);
+  margin: 0;
+  padding: 0;
 }
 
 .wrapRight {
@@ -58,28 +61,25 @@
 
 .wrapList {
   position: absolute;
-  z-index: 1;
-  top: 48px;
-  right: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: inherit;
   border: 1px solid $text-dark;
   border-top: none;
   border-radius: 0 0 4px 4px;
-  transition: all 0.3s ease-out;
-  max-height: min-content;
+  z-index: 1;
+  inset: auto;
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 2s ease-out;
   background: white;
   box-shadow: 0 0 4px rgba(78, 59, 255, 0.25);
+  height: min-content;
+  max-height: 200px;
+  display: none;
 }
 
-.wrapListDefault {
-  visibility: hidden;
-  opacity: 0;
-  border-top: none;
+.wrapListVisible {
+  display: block;
 }
 
-.wrapListActive {
-  visibility: visible;
-  opacity: 1;
+.inputActive {
+  border-radius: 4px 4px 0 0;
 }
