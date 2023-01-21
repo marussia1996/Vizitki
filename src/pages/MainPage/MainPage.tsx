@@ -4,8 +4,11 @@ import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
+import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
+  getUsers()
+  .then((res)=>{console.log(res)})
   return (
     <div className="page">
       <div className='content'>

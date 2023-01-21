@@ -15,6 +15,7 @@ const checkResponse = <T>(res: Response, readBody: boolean = true):Promise<T | v
     new Error(`Произошла ошибка со статус-кодом ${res.status}`)
   );
 };
+
 const token = getUserToken();
 
 //универсальная функция запроса с проверкой
