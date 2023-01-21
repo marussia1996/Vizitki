@@ -1,28 +1,29 @@
 @use '../../../index' as *;
 
-.input{
+.input {
   width: 100%;
   padding: 12px;
   @include text(16px, 1.5, 400);
   border: 1px solid $text-dark;
   box-sizing: border-box;
   border-radius: 4px;
+  display: flex;
 }
 
-.input:hover{
+.input:hover {
   border: 1px solid $input-hover;
 }
 
-.input:focus{
+.input:focus {
   border: 1px solid $input-hover;
 }
 
-.input::placeholder{
+.input::placeholder {
   color: $placeholder;
   @include text(16px, 1.5, 400);
 }
 
-input:focus-visible{
+input:focus-visible {
   outline: none;
 }
 
