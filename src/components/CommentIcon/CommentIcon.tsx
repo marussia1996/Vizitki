@@ -2,13 +2,13 @@ import styles from './CommentIcon.module.scss';
 import message from '../../images/Union.svg';
 import React, { FC } from 'react';
 
-export type TColor = {
+export type TProps = {
   color: 'dark' | 'pink';
   handleFeedback: () => void;
   mix?: string;
 }
 
-export const CommentIcon: FC<TColor> = ({color, handleFeedback, mix}) => {
+export const CommentIcon: FC<TProps> = ({color, handleFeedback, mix}) => {
   const mixButton = [styles.wrap, mix].join(' ');
   return (
     <button className={mixButton} onClick={handleFeedback}>

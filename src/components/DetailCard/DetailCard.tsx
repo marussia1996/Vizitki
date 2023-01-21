@@ -40,7 +40,7 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
       <div className='headingCnt'>
         <h3 className='heading'>{heading.toUpperCase()}</h3>
-        <CommentIcon handleFeedback={handleFeedback} color='dark' />
+        <CommentIcon handleFeedback={handleFeedback} color='dark'/>
       </div>
       {image && (
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
