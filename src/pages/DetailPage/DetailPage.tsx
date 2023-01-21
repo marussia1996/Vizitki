@@ -1,44 +1,95 @@
-import React from 'react';
+import {useEffect, } from 'react';
 import styles from './DetailPage.module.scss';
-import Icon from '../../shared/Icon/Icon';
-import {telegramIcon} from '../../shared/Icon/lib';
-import {githubIcon} from '../../shared/Icon/lib';
 import {MaskAvatar} from '../../components/MaskAvatar/MaskAvatar';
 import Quete from '../../components/Quete/Quete';
 import DetailCard from '../../components/DetailCard/DetailCard';
-import photo from '../../images/photo-test.png';
 import {UserInfo} from '../../components/UserInfo/UserInfo';
+import { useParams } from "react-router-dom";
+import {getUserProfile} from '../../utils/api';
+import {TThemeProfile} from '../../services/types/types';
 
 export const DetailPage = () => {
+  const { _id } = useParams<{_id: string}>();
+
+  useEffect(()=>{
+    getUserProfile("abfccdaa23e0bd1c4448d2f3")
+    .then((res) => {
+      localStorage.setItem('user', JSON.stringify(res));
+      }
+    )
+    .catch(()=>{
+      console.log('err')
+    })
+  })
+
+  const userRaw = localStorage.getItem('user');
+  const user = userRaw && JSON.parse(userRaw);
+  //TODO: как-то тупо выглядит смена темы, но пока ничего другого в голову не приходит
   return (
     <section className={styles.section}>
       <div className={styles.wrapUser}>
         <div className={styles.user}>
-          <UserInfo userName='Виктория Листвиновская' city='Калуга'/>
+          <UserInfo userName={user.profile.name} 
+            city={user.profile.city.name} 
+            telegram={user.profile.telegram}  
+            github={user.profile.github}
+          />
       	</div>
         <div className={styles.wrapComponents}>
-          <MaskAvatar/>
-          <Quete text='Делай, что должно и будь, что будет.'/>
+          <MaskAvatar photo={user.profile.photo} theme={user.profile.template === null 
+            ? TThemeProfile.DEFAULT 
+            : user.profile.template === 'romantic' 
+            ? TThemeProfile.ROMANTIC 
+            : TThemeProfile.DARING}/> 
+          {user.profile.quote !== '' ? (
+            <Quete text={user.profile.quote}
+              theme={user.profile.template === null 
+                ? TThemeProfile.DEFAULT 
+                : user.profile.template === 'romantic' 
+                ? TThemeProfile.ROMANTIC 
+                : TThemeProfile.DARING}/>
+          ) : null}
         </div>
       </div>
       <div className={styles.wrapPosts}>
         <ul className={styles.posts}>
           <li>
-            <DetailCard heading='Увлечения' text='Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки. Увлекаюсь программированием, игрой на гитаре, вышиваю крестиком и играю в настолки.'
-              image={photo}/>
+            <DetailCard heading='Увлечения' text={user.info.hobby.text}
+              image={user.info.hobby.image}
+              theme={user.profile.template === null 
+                ? TThemeProfile.DEFAULT 
+                : user.profile.template === 'romantic' 
+                ? TThemeProfile.ROMANTIC 
+                : TThemeProfile.DARING}/>
           </li>
           <li>
-            <DetailCard heading='Семья' text='Замужем, двое детей, собака. Живу в городе Калуга, люблю этот маленький городок. С собакой часто ходим на прогулки и наблюдаем за природой.'
-              image={photo}/>
+            <DetailCard heading='Семья' text={user.info.status.text}
+              image={user.info.status.image}
+              theme={user.profile.template === null 
+                ? TThemeProfile.DEFAULT 
+                : user.profile.template === 'romantic' 
+                ? TThemeProfile.ROMANTIC 
+                : TThemeProfile.DARING}/>
           </li>
           <li>
-            <DetailCard heading='Сфера' text='Работаю в сфере гостиничного бизнеса, управляющим отелем. Люблю работать с людьми, постоянно вижу новых людей, общаюсь с посетителями, управляю персоналом, обучаю и принимаю на работу новых сотрудников.'/>
+            <DetailCard heading='Сфера' text={user.info.job.text}
+              image={user.info.job.image}
+              theme={user.profile.template === null 
+                ? TThemeProfile.DEFAULT 
+                : user.profile.template === 'romantic' 
+                ? TThemeProfile.ROMANTIC 
+                : TThemeProfile.DARING}/>
           </li>
           <li>
-            <DetailCard heading='Учеба' text='Надоело работать в одной сфере, хочу сменить деятельность, нет шансов на рост, хочу быть айтишником. В детстве любила информатику, компьютерные игры и разбираться с программами. Вот вспомнила деские мечты и решила воплотить их в реальность. Надеюсь, что у меня все получится.'/>
+            <DetailCard heading='Учеба' text={user.info.edu.text}
+              image={user.info.edu.image}
+              theme={user.profile.template === null 
+                ? TThemeProfile.DEFAULT 
+                : user.profile.template === 'romantic' 
+                ? TThemeProfile.ROMANTIC 
+                : TThemeProfile.DARING}/>
           </li>
         </ul>
-
       </div>
     </section>
   )

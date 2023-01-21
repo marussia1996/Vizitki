@@ -1,16 +1,16 @@
 import styles from './MaskAvatar.module.scss';
-import photo from '../../images/User-foto-test.png';
 import { TThemeProfile } from '../../services/types/types';
 import classnames from 'classnames';
 import mask from '../../images/mask.png'
 
 type TProps = {
   theme?: TThemeProfile;
+  photo: string;
 }
 
 let cx = classnames.bind(styles);
 
-export const MaskAvatar = ({ theme = TThemeProfile.DEFAULT }: TProps) => {
+export const MaskAvatar = ({ theme = TThemeProfile.DEFAULT, photo }: TProps) => {
 
   const cxWrap = cx(styles.wrapDefault, {
     [styles['wrapDefault']]: theme === TThemeProfile.ROMANTIC,

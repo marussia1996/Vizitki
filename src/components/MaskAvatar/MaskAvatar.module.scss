@@ -30,3 +30,17 @@
   top: 0;
   left: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .wrapDefault {
+    width: 342px;
+    height: 342px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .wrapDefault {
+    width: 272px;
+    height: 272px;
+  }
+}

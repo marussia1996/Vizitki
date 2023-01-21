@@ -2,6 +2,7 @@
 
 .section {
   margin: 8px 110px 0 40px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
@@ -10,6 +11,7 @@
 .wrapUser {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
 }
 
 .user {
@@ -25,7 +27,6 @@
 
 .wrapPosts {
   margin-top: 72px;
-  
 }
 
 .posts {
@@ -35,4 +36,43 @@
   margin-bottom: 96px;
   list-style-type: none;
   padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .section {
+    margin: 8px 32px 0 32px;
+  }
+  .wrapComponents {
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .user {
+    align-self: center;
+  }
+  .wrapPosts {
+    margin-top: 32px;
+  }
+  .posts {
+    grid-gap: 40px 20px;
+    margin-bottom: 76px;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .section {
+    margin: 8px 24px 0 24px;
+  }
+  .wrapUser {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    gap: 32px;
+  }
+  .posts {
+    grid-gap: 40px 20px;
+    margin-bottom: 76px;
+    grid-template-columns: 0;
+    grid-template-rows: repeat(4, auto);
+    gap: 32px;
+  }
 }
