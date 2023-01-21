@@ -4,18 +4,8 @@ import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
-import { Redirect } from 'react-router';
-import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
-
-    getUsers()
-    .then((res)=>{
-      localStorage.setItem('users', JSON.stringify(res))
-    })
-    .catch(()=>{
-      console.log('err')
-    })
   return (
     <div className="page">
       <div className='content'>
