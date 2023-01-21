@@ -13,9 +13,12 @@ export const redirectToYandex = () =>{
 //функция проверки авторизован ли пользователь
 export const getUserToken = () =>{
   const accessTokenTimeRefresh = localStorage.getItem('accessTokenTimeRefresh');
-  const accessToken = localStorage.getItem('accessToken')
-  if((accessTokenTimeRefresh === null) || expiredToken(accessTokenTimeRefresh) || accessToken === null){
-    localStorage.clear();
+  const accessToken = localStorage.getItem('accessToken');
+  if(accessTokenTimeRefresh === null || expiredToken(accessTokenTimeRefresh) || accessToken === null){
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('accessTokenTimeRefresh');
+    // localStorage.clear();
     return null
   }else{
     return accessToken;
