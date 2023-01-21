@@ -90,6 +90,9 @@ export const App = () => {
             <Route exact path="/profile">
               <ProfilePage />
             </Route>
+            <Route exact path="/students/:id">
+              <DetailPage/>
+            </Route>
             <Route exact path="/maria">
               <h1>Привет, Мария</h1>
             </Route>

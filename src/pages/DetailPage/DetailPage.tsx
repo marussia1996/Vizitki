@@ -16,6 +16,7 @@ export const DetailPage = () => {
     
     .then((res) => {
       localStorage.setItem('user', JSON.stringify(res));
+      console.log(getUserProfile(id))
       }
     )
     .catch(()=>{
@@ -24,6 +25,7 @@ export const DetailPage = () => {
   })
 
   const userRaw = localStorage.getItem('user');
+  console.log(userRaw)
   const user = userRaw && JSON.parse(userRaw);
   console.log(user)
   
