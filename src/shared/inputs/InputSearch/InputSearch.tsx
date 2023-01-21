@@ -2,65 +2,76 @@ import styles from './InputSearch.module.scss';
 import Icon from '../../Icon/Icon';
 import {iconArrowUp} from '../../Icon/lib';
 import Scroll from '../../../components/Scroll/Scroll';
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Input from "../Input/Input";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
+import classNames from "classnames";
+import {createInputChange, TInputChange} from "../index";
 
 type TProps = TInputWrapperProps & {
+  name?: string,
   options: string[];
+  value?: string;
+  onChange?: (e: TInputChange<string>) => void;
 }
 
 export const InputSearch: FC<TProps> = (props) => {
 
-  const {labelText, mix, error, description, options, ...rest} = props;
+  const {labelText, mix, error, description, options, value, name, onChange} = props;
 
-  const [inputValue, setInputValue] = React.useState('');
   const [isActive, setActive] = useState(false);
-  const height = !isActive ? 0 : options.length >= 5 ? '192px' : `${options.length * 36}px`;
 
-  const onChange = (e: any) => {
-    setInputValue(e.target.value);
-    setActive(true);
-  };
+  const [text, setText] = useState<string>('');
+
+  const mainDivRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const clickHandle = (e: MouseEvent) => {
+      if (mainDivRef.current && e.target && !mainDivRef.current.contains(e.target as Node)) {
+        setActive(false);
+      }
+    }
+    if (isActive) {
+      document.addEventListener('click', clickHandle);
+      inputRef.current?.focus();
+    }
+    setText(isActive ? '' : value || '')
+    return () => {
+      document.removeEventListener('click', clickHandle);
+    }
+  }, [isActive])
 
   const filterFunction =
     options.filter((option) => {
-      return option.toLowerCase().includes(inputValue.toLowerCase())
+      return option.toLowerCase().includes(text.toLowerCase())
     })
 
-  const onClickButton = () => {
-    handleToggle();
-    setInputValue('');
-  };
-
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
-
   const onClickOption = (option: string) => {
-    setInputValue(option);
+    if (onChange) {
+      onChange(createInputChange(name, option))
+    }
     setActive(false);
   };
 
   return (
-    <InputWrapper>
-      <div className={styles.wrap}>
-        <Input type={'text'}/>
+    <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
+      <div className={styles.wrap} ref={mainDivRef}>
+        <Input type={'text'} value={text} onChange={e => setText(e.target.value)}
+               className={classNames({[styles.inputActive]: isActive})} onFocus={() => setActive(true)} ref={inputRef}/>
         <div className={styles.wrapRight}>
           <button className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
-                  onClick={onClickButton}>
+                  onClick={() => setActive(!isActive)}>
             <Icon path={iconArrowUp} fill={'none'} width={'18px'} height={'10px'}/>
           </button>
         </div>
-        <div className={`${styles.wrapList} ${!isActive ? styles.wrapListDefault : styles.wrapListActive}`}
-             style={{height: height}}>
+        <div className={classNames(styles.wrapList, {[styles.wrapListVisible]: isActive})}>
           <Scroll>
             <ul className={styles.list}>
               {filterFunction.map((option: string, index: number) => {
                 return (
                   <li className={styles.option} key={index}
-                      onClick={(e) => {
-                        onChange(e);
+                      onClick={() => {
                         onClickOption(option)
                       }}
                   >
