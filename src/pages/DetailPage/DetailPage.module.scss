@@ -1,0 +1,43 @@
+@use '../../index.scss' as *;
+
+.section {
+  margin: 8px 110px 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.wrapUser {
+  display: flex;
+  align-items: flex-end;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  margin-right: 67px;
+}
+
+.userName {
+  @include text(60px, 60px, 500);
+  max-width: 443px;
+  color: $text-dark;
+  margin: 0 0 97px 0;
+}
+
+.userCity {
+  @include text(16px, 24px, 400);
+  color: $text-dark;
+  margin: 0 0 22px 0;
+}
+
+.socialNetwork {
+  display: flex;
+  gap: 20px;
+}
+
+.wrapComponents {
+  display: flex;
+  gap: 85px;
+  align-items: center;
+}

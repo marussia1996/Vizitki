@@ -11,6 +11,7 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import {DetailPage} from '../../pages/DetailPage/DetailPage';
 import { getUsers } from '../../utils/api';
 
 export const App = () => {
@@ -98,7 +99,8 @@ export const App = () => {
               <h1>Привет, Евгений</h1>
             </Route>
             <Route exact path="/evgeniya">
-              <h1>Привет, Евгения</h1>
+              <DetailPage/>
+
             </Route>
             <Route exact path="/alexey">
               <AlexeyM />
