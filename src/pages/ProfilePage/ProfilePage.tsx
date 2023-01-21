@@ -8,7 +8,6 @@ import stylesProfile from '../ProfilePage/ProfilePage.module.scss'
 import InputText from '../../shared/inputs/InputText/InputText';
 import { Button } from '../../shared/Button/Button';
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
-import { stat } from 'fs';
 
 export const city = [
   'Абаза', 
@@ -30,9 +29,9 @@ export const theme = [
 type TInputState = {
   photo: string,
   birthday?: Date,
-  errBirthday: boolean,
+  // errBirthday: boolean,
   city: string,
-  errCity: boolean,
+  // errCity: boolean,
   telegram: string,
   github: string,
   template: string,
@@ -51,8 +50,8 @@ export const ProfilePage = () => {
   const [state, setState] = useState<TInputState>({
     photo: '',
     birthday: undefined,
-    errBirthday: false,
-    errCity: false,
+    // errBirthday: false,
+    // errCity: false,
     telegram: '',
     github: '',
     city: '',
@@ -65,33 +64,33 @@ export const ProfilePage = () => {
     jobText: '',
     eduText: ''
   });
-  const validity = () =>{
-    let valid = true;
-    if(state.birthday === undefined && state.city === ''){
-      valid = false;
-      setState({...state, ['errBirthday']:true, ['errCity']:true})
-    }else if(state.birthday === undefined){
-      valid = false;
-      setState({...state, ['errBirthday']:true, ['errCity']:false})
-    }else if(state.city === ''){
-      valid = false;
-      setState({...state, ['errBirthday']:false, ['errCity']:true})
-    }else{
-      valid = true;
-      setState({...state, ['errBirthday']:false, ['errCity']:false})
-    }
-    return valid;
-  }
+  // const validity = () =>{
+  //   let valid = true;
+  //   if(state.birthday === undefined && state.city === ''){
+  //     valid = false;
+  //     setState({...state, ['errBirthday']:true, ['errCity']:true})
+  //   }else if(state.birthday === undefined){
+  //     valid = false;
+  //     setState({...state, ['errBirthday']:true, ['errCity']:false})
+  //   }else if(state.city === ''){
+  //     valid = false;
+  //     setState({...state, ['errBirthday']:false, ['errCity']:true})
+  //   }else{
+  //     valid = true;
+  //     setState({...state, ['errBirthday']:false, ['errCity']:false})
+  //   }
+  //   return valid;
+  // }
   //TODO: валидация по заполнению поля birthday и city
   const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    if(validity()){
-      console.log('valid')
-      
+    if(state.birthday === undefined || state.city === ''){
+      alert('Заполните все необходимые поля')
     }
     else{
-      console.log('no valid')
+      console.log('valid')
       console.log(state)
+      alert('форма изменена')
     }
     //TODO: отправка формы на сервер
     
@@ -103,9 +102,9 @@ export const ProfilePage = () => {
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
+        <InputDay error={state.birthday === undefined ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
-        <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
+        <InputSearch labelText={'Выберите город *'} error={state.city === '' ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} onChange={onChange} />
         <InputText name={'github'} labelText={'Ник в гитхабе'} onChange={onChange} />
         <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange} name={'template'}/>
