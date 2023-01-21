@@ -5,11 +5,13 @@ import React, { FC } from 'react';
 export type TColor = {
   color: 'dark' | 'pink';
   handleFeedback: () => void;
+  mix?: string;
 }
 
-export const CommentIcon: FC<TColor> = ({color, handleFeedback}) => {
+export const CommentIcon: FC<TColor> = ({color, handleFeedback, mix}) => {
+  const mixButton = [styles.wrap, mix].join(' ');
   return (
-    <button className={styles.wrap} onClick={handleFeedback}>
+    <button className={mixButton} onClick={handleFeedback}>
       <img className={styles.icon} src={message} alt='Иконка сообщения'/>
       <div className={color === 'dark'? styles.countDark : styles.countPink}>
         <span className={styles.number}>22</span>
