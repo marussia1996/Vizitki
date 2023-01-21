@@ -34,12 +34,16 @@ export const LoginPage = () => {
       cohort: 'web-12',
       image: '' 
     }
-    localStorage.setItem('user', JSON.stringify(student))
+    localStorage.setItem('user', JSON.stringify(admin))
   }
-  
-  if(localStorage.getItem('user')){
+  const userRaw = localStorage.getItem('user');
+  if(userRaw && userRaw.includes('curator')){
+    return <Redirect to='/admin'/>
+  }
+  else if(localStorage.getItem('user')){
     return <Redirect to='/'/>
   }
+
   return (
     <section className={`${stylesLogin.loginPage}`}>
       <h1 className={`${stylesLogin.title}`}>С кем я учусь?</h1>
