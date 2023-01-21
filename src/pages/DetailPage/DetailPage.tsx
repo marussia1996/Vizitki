@@ -7,18 +7,14 @@ import {MaskAvatar} from '../../components/MaskAvatar/MaskAvatar';
 import Quete from '../../components/Quete/Quete';
 import DetailCard from '../../components/DetailCard/DetailCard';
 import photo from '../../images/photo-test.png';
+import {UserInfo} from '../../components/UserInfo/UserInfo';
 
 export const DetailPage = () => {
   return (
     <section className={styles.section}>
       <div className={styles.wrapUser}>
         <div className={styles.user}>
-  				<h2 className={styles.userName}>Виктория Листвиновская</h2>
-      		<p className={styles.userCity}>Калуга</p>
-      		<div className={styles.socialNetwork}>
-            <Icon path={telegramIcon} width={'32px'} height={'32px'}/>
-            <Icon path={githubIcon} width={'32px'} height={'32px'}/>
-      		</div>
+          <UserInfo userName='Виктория Листвиновская' city='Калуга'/>
       	</div>
         <div className={styles.wrapComponents}>
           <MaskAvatar/>

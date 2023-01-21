@@ -13,28 +13,7 @@
 }
 
 .user {
-  display: flex;
-  flex-direction: column;
   margin-right: 67px;
-}
-
-.userName {
-  @include text(60px, 60px, 500);
-  max-width: 443px;
-  color: $text-dark;
-  margin: 0 0 97px 0;
-}
-
-.userCity {
-  @include text(16px, 24px, 400);
-  color: $text-dark;
-  margin: 0 0 22px 0;
-}
-
-.socialNetwork {
-  display: flex;
-  gap: 20px;
-  cursor: pointer;
 }
 
 .wrapComponents {
