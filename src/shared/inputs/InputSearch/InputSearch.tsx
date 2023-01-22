@@ -57,7 +57,7 @@ export const InputSearch: FC<TProps> = (props) => {
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={styles.wrap} ref={mainDivRef}>
-        <Input type={'text'} value={value} onChange={onChange}
+        <Input type={'text'} value={value} onChange={onChange} id="suggest"
                className={classNames({[styles.inputActive]: isActive})} onFocus={() => setActive(true)} ref={inputRef}/>
         <div className={styles.wrapRight}>
           <button type='button' className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}

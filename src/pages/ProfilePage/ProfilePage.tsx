@@ -8,8 +8,8 @@ import stylesProfile from '../ProfilePage/ProfilePage.module.scss'
 import InputText from '../../shared/inputs/InputText/InputText';
 import { Button } from '../../shared/Button/Button';
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
-import { getUserProfile } from '../../utils/api';
-import { TThemeProfile, UserWithProfileRaw } from '../../services/types/types';
+import { getUserProfile, patchUserProfile } from '../../utils/api';
+import { UserWithProfileRaw } from '../../services/types/types';
 
 export const city = [
   'Абаза', 
@@ -38,17 +38,16 @@ export type TInputState = {
   github: string,
   template: string,
   quote: string,
-  hobbiesFile: string | undefined,
+  hobbiesFile: string,
   hobbiesText: string,
-  familyFile: string | undefined,
+  familyFile: string,
   familyText: string,
   jobText: string,
   eduText: string,
 }
 export const ProfilePage = () => {
-  //Получить ид пользователя из локалстору текущего чтобы запросить данные о этом пользователе
   const userRaw = localStorage.getItem('user');
-  //TODO: запрос данных пользователя 
+  const user = userRaw && JSON.parse(userRaw);
   const [state, setState] = useState<TInputState>({
     photo: '',
     birthday: undefined,
@@ -59,9 +58,9 @@ export const ProfilePage = () => {
     city: '',
     template: '',
     quote: '',
-    hobbiesFile: undefined,
+    hobbiesFile: '',
     hobbiesText: '',
-    familyFile: undefined,
+    familyFile: '',
     familyText: '',
     jobText: '',
     eduText: ''
@@ -78,11 +77,9 @@ export const ProfilePage = () => {
     return (!state.errBirthday && !state.errCity);
   }
   useEffect(()=>{
-    const user = userRaw && JSON.parse(userRaw);
     getUserProfile(user._id)
     .then((res)=>
       {
-        console.log(res)
         loaderData(res);
       }
     )
@@ -90,7 +87,7 @@ export const ProfilePage = () => {
   const loaderData = (data:UserWithProfileRaw )=>{
     const obj: TInputState = {
       photo: data.profile.photo,
-      birthday: new Date(data.profile.birthday),
+      birthday: data.profile.birthday ? new Date(data.profile.birthday) : undefined,
       errBirthday: false,
       errCity: false,
       telegram: data.profile.telegram,
@@ -118,6 +115,17 @@ export const ProfilePage = () => {
     }
     return theme[0];
   }
+  const themeEncode = (userTheme: string) =>{
+    if(userTheme !== theme[0]){
+      if(userTheme === theme[1]){
+        return 'romantic'
+      }
+      if(userTheme === theme[2]){
+        return 'derzkiy'
+      }
+    }
+    return ''
+  }
   useEffect(()=>{
     state.errBirthday = false;
     setState({...state})
@@ -131,14 +139,45 @@ export const ProfilePage = () => {
     e.preventDefault();
     if(!validity()){
       alert('Заполните все необходимые поля')
-      console.log(state)
     }
     else{
       alert('форма изменена')
-      console.log(state)
-    }
-    //TODO: отправка формы на сервер
-    
+      const uploadData = {
+        profile: {
+        name: user.name,
+        photo: state.photo,
+        city: {
+          name: state.city,
+          geocode: [1,1],
+        },
+        birthday: String(state.birthday),
+        quote: state.quote,
+        telegram: state.telegram,
+        github: state.github,
+        template: themeEncode(state.template),
+        },
+        info:{
+          hobby: {
+            text: state.hobbiesText,
+            image: state.hobbiesFile,
+          },
+          status: {
+            text: state.familyText,
+            image: state.familyFile,
+          },
+          job: {
+            text: state.jobText,
+            image: '',
+          },
+          edu: {
+            text: state.eduText,
+            image: '',
+          }
+        }
+      }
+      console.log(uploadData)
+      patchUserProfile(user._id, uploadData)
+    }    
   }
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]:e.target.value})
@@ -148,6 +187,7 @@ export const ProfilePage = () => {
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+        <input type="text" id="suggest"/>
         <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
         <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
