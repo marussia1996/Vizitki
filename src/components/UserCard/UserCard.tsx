@@ -24,6 +24,8 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
     });
   }, []);
 
+  console.log(state);
+
   //FIXME когда будет нормальный бэкенд надо будет заменить 'job' на 'profile', или что там будет
   const profileComments = state?.items.filter(item => item.target === 'job');
 
@@ -45,7 +47,7 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
         {/* отображается только для админа */}
         <p className={styles.messages}>{state?.total + ' сообщений'}</p>
       </div>
-      {isOpenFeedback && <Feedback />}
+      {isOpenFeedback && <Feedback comments={profileComments} />}
     </div>
   )
 }
