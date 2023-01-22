@@ -111,8 +111,8 @@ export const getUserReactions = async(_id: string) => {
 };
 //отправка реакций профиля пользователя //id: the user id
 export const postUserReactions = async(_id: string, comment: {target: string, text: string} | {target: string, emotion: string}) => {
-  return requestJson<TUserReactionsRaw>(`/profiles/${_id}/reactions`, {
-    headers: {'Content-Type': 'application/json'},
+  return requestText(`/profiles/${_id}/reactions`, {
+    headers: {'Content-Type': 'text/plain'},
     method: "POST",
     body: JSON.stringify({
       comment

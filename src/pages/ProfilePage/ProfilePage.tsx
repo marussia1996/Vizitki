@@ -8,6 +8,8 @@ import stylesProfile from '../ProfilePage/ProfilePage.module.scss'
 import InputText from '../../shared/inputs/InputText/InputText';
 import { Button } from '../../shared/Button/Button';
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
+import { getUserProfile } from '../../utils/api';
+import { TThemeProfile, UserWithProfileRaw } from '../../services/types/types';
 
 export const city = [
   'Абаза', 
@@ -26,7 +28,7 @@ export const theme = [
   'дерзкий'
 ]
 //TODO: лучше использовать стринг для ошибок
-type TInputState = {
+export type TInputState = {
   photo: string,
   birthday?: Date,
   errBirthday: boolean,
@@ -36,16 +38,16 @@ type TInputState = {
   github: string,
   template: string,
   quote: string,
-  hobbiesFile: File | undefined,
+  hobbiesFile: string | undefined,
   hobbiesText: string,
-  familyFile: File | undefined,
+  familyFile: string | undefined,
   familyText: string,
   jobText: string,
   eduText: string,
 }
 export const ProfilePage = () => {
+  //Получить ид пользователя из локалстору текущего чтобы запросить данные о этом пользователе
   const userRaw = localStorage.getItem('user');
-  const user = userRaw && JSON.parse(userRaw);
   //TODO: запрос данных пользователя 
   const [state, setState] = useState<TInputState>({
     photo: '',
@@ -65,7 +67,6 @@ export const ProfilePage = () => {
     eduText: ''
   });
   const validity = () =>{
-    console.log(state)
     if(state.birthday === undefined){
       state.errBirthday = true;
       setState({...state})
@@ -74,8 +75,50 @@ export const ProfilePage = () => {
       state.errCity = true;
       setState({...state})
     }
-    console.log(state)
     return (!state.errBirthday && !state.errCity);
+  }
+  useEffect(()=>{
+    const user = userRaw && JSON.parse(userRaw);
+    getUserProfile(user._id)
+    .then((res)=>
+      {
+        console.log(res)
+        loaderData(res);
+      }
+    )
+  },[])
+  const loaderData = (data:UserWithProfileRaw )=>{
+    const obj: TInputState = {
+      photo: data.profile.photo,
+      birthday: new Date(data.profile.birthday),
+      errBirthday: false,
+      errCity: false,
+      telegram: data.profile.telegram,
+      github: data.profile.github,
+      city: data.profile.city.name,
+      template: themeParse(data.profile.template),
+      quote: data.profile.quote,
+      hobbiesFile: data.info.hobby.image,
+      hobbiesText: data.info.hobby.text,
+      familyFile: data.info.status.image,
+      familyText: data.info.status.text,
+      jobText: data.info.job.text,
+      eduText: data.info.job.text
+    }
+    console.log(obj)
+    setState({...obj})
+    
+  }
+  const themeParse = (themeRaw: string) => {
+    if(themeRaw !== null){
+      if(themeRaw === 'romantic'){
+        return theme[1]
+      }
+      if(themeRaw === 'derzkiy'){
+        return theme[2]
+      }
+    }
+    return theme[0];
   }
   useEffect(()=>{
     state.errBirthday = false;
@@ -92,8 +135,6 @@ export const ProfilePage = () => {
       alert('Заполните все необходимые поля')
     }
     else{
-      console.log('valid')
-      console.log(state)
       alert('форма изменена')
     }
     //TODO: отправка формы на сервер

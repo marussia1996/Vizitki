@@ -11,7 +11,7 @@ import {createInputChange, TInputChange} from "../index";
 type TProps = TInputWrapperProps & {
   name?: string,
   options: string[];
-  value?: string;
+  value: string;
   onChange?: (e: TInputChange<string>) => void;
 }
 
@@ -21,7 +21,7 @@ export const InputSearch: FC<TProps> = (props) => {
 
   const [isActive, setActive] = useState(false);
 
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<string>(value);
 
   const mainDivRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,10 +57,10 @@ export const InputSearch: FC<TProps> = (props) => {
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={styles.wrap} ref={mainDivRef}>
-        <Input type={'text'} value={text} onChange={e => setText(e.target.value)}
+        <Input type={'text'} value={value} onChange={onChange}
                className={classNames({[styles.inputActive]: isActive})} onFocus={() => setActive(true)} ref={inputRef}/>
         <div className={styles.wrapRight}>
-          <button className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
+          <button type='button' className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
                   onClick={() => setActive(!isActive)}>
             <Icon path={iconArrowUp} fill={'none'} width={'18px'} height={'10px'}/>
           </button>

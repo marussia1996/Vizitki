@@ -23,16 +23,18 @@ export const LoginPage = () => {
     accessToken && localStorage.setItem('accessToken', accessToken[1])
     //фейк на получение данных о пользователе
     const admin = {
+      _id: 'fghju5678ijhgbhj',
       email: 'hjkll',
       name: 'blblblb',
       curator: 'web-12', 
       image: '' 
     }
     const student = {
-      email: 'hjkll',
-      name: 'blblblb',
-      cohort: 'web-12',
-      image: '' 
+      _id: 'abfccdaa23e0bd1c4448d2f3',
+      email: 'Chaim.Armstrong@gmail.com',
+      name: 'Ricky Fadel',
+      cohort: 'web+16',
+      image: 'https://loremflickr.com/640/480/cats' 
     }
     localStorage.setItem('user', JSON.stringify(student))
   }

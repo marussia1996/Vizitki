@@ -136,23 +136,23 @@ export type UserWithProfileRaw = {
   }
   info: {
     hobby: {
-      text?: string,
-      image?: string,
+      text: string,
+      image?: string | undefined,
       reactions?: number
     }
     status: {
-      text?: string,
-      image?: string,
+      text: string,
+      image?: string | undefined,
       reactions?: number
     }
     job: {
-      text?: string,
-      image?: string,
+      text: string,
+      image?: string | undefined,
       reactions?: number
     }
     edu: {
-      text?: string,
-      image?: string,
+      text: string,
+      image?: string | undefined,
       reactions?: number
     }
   }
