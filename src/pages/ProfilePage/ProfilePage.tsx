@@ -10,6 +10,7 @@ import { Button } from '../../shared/Button/Button';
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { getUserProfile, patchUserProfile } from '../../utils/api';
 import { UserWithProfileRaw } from '../../services/types/types';
+import { YMaps, withYMaps } from "react-yandex-maps";
 
 export const city = [
   'Абаза', 
@@ -45,7 +46,25 @@ export type TInputState = {
   jobText: string,
   eduText: string,
 }
+
+//@ts-ignore
+function MapSuggestComponent(props) {
+  const { ymaps } = props;
+
+  React.useEffect(() => {
+    const suggestView = new ymaps.SuggestView("suggest");
+  }, [ymaps.SuggestView]);
+
+  return <input type="text" id="suggest" className={`${stylesProfile.input}`} />;
+}
 export const ProfilePage = () => {
+  const SuggestComponent = React.useMemo(() => {
+    return withYMaps(MapSuggestComponent, true, [
+      "SuggestView",
+      "geocode",
+      "coordSystem.geo"
+    ]);
+  }, []);
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
   const [state, setState] = useState<TInputState>({
@@ -187,7 +206,11 @@ export const ProfilePage = () => {
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <input type="text" id="suggest"/>
+        <YMaps
+          enterprise
+          query={{ apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2" }}>
+        <SuggestComponent />
+        </YMaps>
         <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
         <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
