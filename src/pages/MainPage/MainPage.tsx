@@ -9,10 +9,14 @@ import { getProfiles } from '../../utils/api';
 import { TGetProfilesRaw } from '../../services/types/types';
 
 export const MainPage = () => {
-  const [state, setState] = useState<TGetProfilesRaw | void  | null>(null);
+  const [state, setState] = useState<TGetProfilesRaw | null>(null);
 
   useEffect(() => {
-    getProfiles().then(res => setState(res));
+    getProfiles().then((res) => {
+      if(res) {
+        setState(res);
+      }
+    });
   }, []);
 
   console.log(state);
@@ -26,16 +30,18 @@ export const MainPage = () => {
         </div>
         <div className='cardsCnt'>
           {state?.items.map((student) => {
-            const {name, photo, city} = student.profile;
+            const { name, photo, city } = student.profile;
             return (
-              <UserCard name={name} photo={photo} city={city.name} />
+              <UserCard name={name} photo={photo} city={city.name} id={student._id} />
             )
           })}
         </div>
       </div>
-      <div className='loaderCnt'>
-        <Loader />
-      </div>
+      {!state && (
+        <div className='loaderCnt'>
+          <Loader />
+        </div>
+      )}
     </div>
   )
 }

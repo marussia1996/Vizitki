@@ -6,16 +6,19 @@ export type TColor = {
   color: 'dark' | 'pink';
   handleFeedback: () => void;
   mix?: string;
+  commentsQuantity?: number;
 }
 
-export const CommentIcon: FC<TColor> = ({color, handleFeedback, mix}) => {
+export const CommentIcon: FC<TColor> = ({ color, handleFeedback, mix, commentsQuantity }) => {
   const mixButton = [styles.wrap, mix].join(' ');
   return (
     <button className={mixButton} onClick={handleFeedback}>
-      <img className={styles.icon} src={message} alt='Иконка сообщения'/>
-      <div className={color === 'dark'? styles.countDark : styles.countPink}>
-        <span className={styles.number}>22</span>
-      </div>
+      <img className={styles.icon} src={message} alt='Иконка сообщения' />
+      {commentsQuantity && (
+        <div className={color === 'dark' ? styles.countDark : styles.countPink}>
+          <span className={styles.number}>{commentsQuantity}</span>
+        </div>
+      )}
     </button>
   )
 }
