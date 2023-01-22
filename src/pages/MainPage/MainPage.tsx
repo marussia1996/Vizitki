@@ -2,14 +2,14 @@ import './MainPage.scss';
 import { useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom"
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
-import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
+import { city } from '../../shared/inputs/InputSearch/test'; //FIXME ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
 import { getProfiles } from '../../utils/api';
 import { TGetProfilesRaw } from '../../services/types/types';
 
 export const MainPage = () => {
-  const [state, setState] = useState<TGetProfilesRaw | null>(null);
+  const [state, setState] = useState<TGetProfilesRaw>();
 
   useEffect(() => {
     getProfiles().then((res) => {
@@ -18,8 +18,6 @@ export const MainPage = () => {
       }
     });
   }, []);
-
-  console.log(state);
 
   return (
     <div className="page">
