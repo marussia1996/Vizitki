@@ -1,10 +1,15 @@
 import styles from './UserCard.module.scss';
 import React, { FC, useState } from 'react'
-import photo from '../../images/User-foto-test.png';
 import {CommentIcon} from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
 
-export const UserCard: FC = () => {
+type TProps = {
+  name: string;
+  photo: string;
+  city: string;
+};
+
+export const UserCard: FC<TProps> = ({name, photo, city}) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
 
   const handleFeedback = () => {
@@ -20,8 +25,8 @@ export const UserCard: FC = () => {
       <CommentIcon handleFeedback={handleFeedback} color='dark'/> 
     </div>
     <div className={styles.infoWrap}>
-      <p className={styles.name}>Иванов Сергей</p>
-      <p className={styles.city}>Москва</p>
+      <p className={styles.name}>{name}</p>
+      <p className={styles.city}>{city}</p>
     {/* отображается только для админа */}
       <p className={styles.messages}>0 сообщений</p>
     </div>
