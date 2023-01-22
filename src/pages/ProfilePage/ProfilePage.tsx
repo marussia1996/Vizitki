@@ -105,9 +105,7 @@ export const ProfilePage = () => {
       jobText: data.info.job.text,
       eduText: data.info.job.text
     }
-    console.log(obj)
     setState({...obj})
-    
   }
   const themeParse = (themeRaw: string) => {
     if(themeRaw !== null){
@@ -133,9 +131,11 @@ export const ProfilePage = () => {
     e.preventDefault();
     if(!validity()){
       alert('Заполните все необходимые поля')
+      console.log(state)
     }
     else{
       alert('форма изменена')
+      console.log(state)
     }
     //TODO: отправка формы на сервер
     
@@ -143,6 +143,7 @@ export const ProfilePage = () => {
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]:e.target.value})
   }
+  
   return (
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
@@ -150,8 +151,8 @@ export const ProfilePage = () => {
         <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
         <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
-        <InputText name={'telegram'} labelText={'Ник в телеграмм'} onChange={onChange} />
-        <InputText name={'github'} labelText={'Ник в гитхабе'} onChange={onChange} />
+        <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange} />
+        <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange} />
         <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange} name={'template'}/>
         <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange} maxLength={100} rows={4}/>
         <div>
