@@ -7,7 +7,7 @@ import Input from "../Input/Input";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
 import classNames from "classnames";
 import {createInputChange, TInputChange} from "../index";
-import { YMaps, withYMaps } from "react-yandex-maps";
+import {YMaps, withYMaps} from "react-yandex-maps";
 import './suggest.scss'
 
 type TProps = TInputWrapperProps & {
@@ -22,19 +22,30 @@ type TProps = TInputWrapperProps & {
 export const InputSuggest: FC<TProps> = (props) => {
   //@ts-ignore
   function MapSuggestComponent(props) {
-    const { ymaps } = props;
+    const {ymaps} = props;
     React.useEffect(() => {
+      setActive(false);
       const suggestView = new ymaps.SuggestView("suggest", {
-        results: 10,
+        results: 10
       });
       suggestView.events.add('select', (e: any) => {
-        const { value } = e.get('item');
+        const {value} = e.get('item');
         console.log(value);
+        ymaps.geocode(value, {results: 1}).then((res: any) => {
+          const geoObject = res.geoObjects.get(0);
+          console.log(geoObject);
+          console.log(geoObject.geometry.getCoordinates());
+          console.log(geoObject.properties.get('metaDataProperty'));
+          console.log(geoObject.getAdministrativeAreas());
+        }).catch((e: any) => console.log(e))
+        ;
       });
     }, [ymaps.SuggestView]);
 
-    return <Input type="text" id="suggest" placeholder={placeholder} className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>;
+    return <Input type="text" id="suggest" placeholder={placeholder}
+                  className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>;
   }
+
   const SuggestComponent = React.useMemo(() => {
     return withYMaps(MapSuggestComponent, true, [
       "SuggestView",
@@ -77,8 +88,8 @@ export const InputSuggest: FC<TProps> = (props) => {
       <div className={styles.wrap} ref={mainDivRef}>
         <YMaps
           enterprise
-          query={{ apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2" }}>
-        <SuggestComponent />
+          query={{apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2"}}>
+          <SuggestComponent/>
         </YMaps>
         <div className={styles.wrapRight}>
           <button type='button' className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
