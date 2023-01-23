@@ -10,7 +10,7 @@ import { Button } from '../../shared/Button/Button';
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { getUserProfile, patchUserProfile } from '../../utils/api';
 import { UserWithProfileRaw } from '../../services/types/types';
-import { YMaps, withYMaps } from "react-yandex-maps";
+import { InputSuggest } from '../../shared/inputs/InputSuggest/InputSuggest';
 
 export const city = [
   'Абаза', 
@@ -45,26 +45,10 @@ export type TInputState = {
   familyText: string,
   jobText: string,
   eduText: string,
+  cityFilter: string,
 }
 
-//@ts-ignore
-function MapSuggestComponent(props) {
-  const { ymaps } = props;
-
-  React.useEffect(() => {
-    const suggestView = new ymaps.SuggestView("suggest");
-  }, [ymaps.SuggestView]);
-
-  return <input type="text" id="suggest" className={`${stylesProfile.input}`} />;
-}
 export const ProfilePage = () => {
-  const SuggestComponent = React.useMemo(() => {
-    return withYMaps(MapSuggestComponent, true, [
-      "SuggestView",
-      "geocode",
-      "coordSystem.geo"
-    ]);
-  }, []);
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
   const [state, setState] = useState<TInputState>({
@@ -82,7 +66,8 @@ export const ProfilePage = () => {
     familyFile: '',
     familyText: '',
     jobText: '',
-    eduText: ''
+    eduText: '',
+    cityFilter: '',
   });
   const validity = () =>{
     if(state.birthday === undefined){
@@ -119,7 +104,8 @@ export const ProfilePage = () => {
       familyFile: data.info.status.image,
       familyText: data.info.status.text,
       jobText: data.info.job.text,
-      eduText: data.info.job.text
+      eduText: data.info.job.text,
+      cityFilter: ''
     }
     setState(obj)
   }
@@ -206,11 +192,8 @@ export const ProfilePage = () => {
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <YMaps
-          enterprise
-          query={{ apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2" }}>
-        <SuggestComponent />
-        </YMaps>
+        <InputSuggest placeholder='Все города' options={city} value={state.city} onChange={onChange} name={'city'}/>
+        <InputSuggest labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeholder='' options={city} value={state.cityFilter} onChange={onChange} name={'cityFilter'}/>
         <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
         <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
