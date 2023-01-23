@@ -2,15 +2,21 @@ import './Feedback.scss';
 import { messages } from './data';
 import { CommentRaw, LikeRaw } from '../../services/types/types';
 import { v4 as createUUID } from 'uuid';
+<<<<<<< HEAD
 import { KeyboardEventHandler, useRef } from 'react';
 import { postUserReactions } from '../../utils/api';
 
 type TProps = {
   id: string;
+=======
+
+type TProps = {
+>>>>>>> 89fd32dccff75e3fac536172232f2b4418c8f09e
   comments?: Array<CommentRaw & LikeRaw>;
 };
 
 //TODO: Добавить закрытие по кнопке Escape
+<<<<<<< HEAD
 export default function Feedback({ comments, id }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -22,6 +28,9 @@ export default function Feedback({ comments, id }: TProps) {
     }
   }
 
+=======
+export default function Feedback({ comments }: TProps) {
+>>>>>>> 89fd32dccff75e3fac536172232f2b4418c8f09e
   return (
     <div className='modal'>
       <div className='smilesCnt'>
