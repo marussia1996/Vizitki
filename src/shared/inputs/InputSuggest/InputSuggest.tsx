@@ -15,7 +15,8 @@ type TProps = TInputWrapperProps & {
   options: string[];
   value: string;
   onChange?: (e: TInputChange<string>) => void;
-  placeholder?: string
+  placeholder?: string,
+  getCityName: (value:string)=> void
 }
 
 
@@ -30,6 +31,7 @@ export const InputSuggest: FC<TProps> = (props) => {
       });
       suggestView.events.add('select', (e: any) => {
         const {value} = e.get('item');
+        getCityName(value);
         console.log(value);
         ymaps.geocode(value, {results: 1}).then((res: any) => {
           const geoObject = res.geoObjects.get(0);
@@ -54,7 +56,7 @@ export const InputSuggest: FC<TProps> = (props) => {
     ]);
   }, []);
 
-  const {labelText, mix, error, description, options, value, name, placeholder, onChange} = props;
+  const {labelText, mix, error, description, options, value, name, placeholder, onChange, getCityName} = props;
 
   const [isActive, setActive] = useState(false);
 

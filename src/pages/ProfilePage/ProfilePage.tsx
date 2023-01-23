@@ -85,8 +85,12 @@ export const ProfilePage = () => {
     .then((res)=>
       {
         loaderData(res);
+        
       }
     )
+    // .then( () =>
+    //   console.log(state)
+    // )
   },[])
   const loaderData = (data:UserWithProfileRaw )=>{
     const obj: TInputState = {
@@ -132,12 +136,12 @@ export const ProfilePage = () => {
     return ''
   }
   useEffect(()=>{
-    state.errBirthday = false;
-    setState({...state})
+    // state.errBirthday = false;
+    setState({...state, errBirthday: false})
   },[state.birthday])
   useEffect(()=>{
-    state.errCity = false;
-    setState({...state})
+    // state.errCity = false;
+    setState({...state, errCity: false})
   },[state.city])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
@@ -188,18 +192,24 @@ export const ProfilePage = () => {
     setState({...state, [e.target.name]:e.target.value})
   }
   
+  const getCityName = (value: string) => {
+    console.log(value);
+    setState({...state, ['city']:value})
+    // setState({...state, ['city']: value})
+  }
+  console.log(state)
   return (
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <InputSuggest placeholder='Все города' options={city} value={state.city} onChange={onChange} name={'city'}/>
-        <InputSuggest labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeholder='' options={city} value={state.cityFilter} onChange={onChange} name={'cityFilter'}/>
+        {/* <InputSuggest placeholder='Все города' options={city} value={state.city} onChange={onChange} name={'city'}/> */}
+        <InputSuggest labelText={'Выберите город *'} getCityName={getCityName} error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeholder='' options={city} value={state.city} onChange={onChange} name={'city'}/>
         <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
         onDateChange={onChange}/>
-        <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
+        {/* <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/> */}
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange} />
         <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange} />
-        <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange} name={'template'}/>
+        {/* <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange} name={'template'}/> */}
         <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange} maxLength={100} rows={4}/>
         <div>
           <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'} description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} />
