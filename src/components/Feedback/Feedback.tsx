@@ -1,6 +1,7 @@
 import './Feedback.scss';
 import { messages } from './data';
 import { CommentRaw, LikeRaw } from '../../services/types/types';
+import { v4 as createUUID } from 'uuid';
 
 type TProps = {
   comments?: Array<CommentRaw & LikeRaw>;
@@ -28,7 +29,7 @@ export default function Feedback({ comments }: TProps) {
       {messages.length !== 0 && (<div className='feedbackTape'>
         {comments?.map(item => {
           return (
-            <div className='message'>
+            <div className='message' key={createUUID()}>
               <p className='messageText'>{item.text}</p>
             </div>
           )
