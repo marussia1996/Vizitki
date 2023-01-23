@@ -42,6 +42,10 @@ export const InputSuggest: FC<TProps> = (props) => {
         }).catch((e: any) => console.log(e))
         ;
       });
+      return () => {
+        suggestView.events.remove('select');
+        suggestView.destroy();
+      };
     }, [ymaps.SuggestView]);
 
     return <Input type="text" id="suggest" placeholder={placeholder}

@@ -69,17 +69,17 @@ export const ProfilePage = () => {
     eduText: '',
     cityFilter: '',
   });
-  const validity = () =>{
-    if(state.birthday === undefined){
-      state.errBirthday = true;
-      setState({...state})
-    }
-    if(state.city === ''){
-      state.errCity = true;
-      setState({...state})
-    }
-    return (!state.errBirthday && !state.errCity);
-  }
+  // const validity = () =>{
+  //   if(state.birthday === undefined){
+  //     state.errBirthday = true;
+  //     setState({...state})
+  //   }
+  //   if(state.city === ''){
+  //     state.errCity = true;
+  //     setState({...state})
+  //   }
+  //   return (!state.errBirthday && !state.errCity);
+  // }
   useEffect(()=>{
     getUserProfile(user._id)
     .then((res)=>
@@ -135,21 +135,21 @@ export const ProfilePage = () => {
     }
     return ''
   }
-  useEffect(()=>{
-    // state.errBirthday = false;
-    setState({...state, errBirthday: false})
-  },[state.birthday])
-  useEffect(()=>{
-    // state.errCity = false;
-    setState({...state, errCity: false})
-  },[state.city])
+  // useEffect(()=>{
+  //   // state.errBirthday = false;
+  //   setState({...state, errBirthday: false})
+  // },[state.birthday])
+  // useEffect(()=>{
+  //   // state.errCity = false;
+  //   setState({...state, errCity: false})
+  // },[state.city])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    if(!validity()){
-      alert('Заполните все необходимые поля')
-    }
-    else{
+    // if(!validity()){
+    //   alert('Заполните все необходимые поля')
+    // }
+    // else{
       alert('форма изменена')
       const uploadData = {
         profile: {
@@ -186,17 +186,17 @@ export const ProfilePage = () => {
       }
       console.log(uploadData)
       patchUserProfile(user._id, uploadData)
-    }    
+    // }    
   }
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]:e.target.value})
   }
-  
+  const [cityName, setCityName] = useState<string>(''); 
   const getCityName = (value: string) => {
-    console.log(value);
-    setState({...state, ['city']:value})
-    // setState({...state, ['city']: value})
+    setCityName(value)
+    setState({...state, ['city']: cityName})
   }
+  console.log(cityName);
   console.log(state)
   return (
     <section className={`${stylesProfile.profilePage}`}>
