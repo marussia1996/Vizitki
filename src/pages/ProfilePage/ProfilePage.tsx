@@ -121,7 +121,7 @@ export const ProfilePage = () => {
       jobText: data.info.job.text,
       eduText: data.info.job.text
     }
-    setState({...obj})
+    setState(obj)
   }
   const themeParse = (themeRaw: string) => {
     if(themeRaw !== null){
@@ -178,11 +178,11 @@ export const ProfilePage = () => {
         info:{
           hobby: {
             text: state.hobbiesText,
-            image: state.hobbiesFile,
+            image: 'https://placehold.co/600x400?font=roboto',
           },
           status: {
             text: state.familyText,
-            image: state.familyFile,
+            image: 'https://placehold.co/600x400?font=roboto',
           },
           job: {
             text: state.jobText,
