@@ -42,6 +42,18 @@ Cервис для самопрезентации студентов Яндек�
 - Собрать проект ```npm run build```
 - Запустить проект ```npm start```
 
+## Авторы
+:heavy_check_mark: [Вадим Белоусов](https://github.com/TheVadiratti)
+
+:heavy_check_mark: [Евгений Самойлов](https://github.com/evgsamalex)
+
+:heavy_check_mark: [Мария Широкова](https://github.com/marussia1996)
+
+:heavy_check_mark: [Евгения Костыря](https://github.com/Ev-Kos)
+
+:heavy_check_mark: [Алексей Макаров](https://github.com/forfrontskill)
+
+
 
 
 
