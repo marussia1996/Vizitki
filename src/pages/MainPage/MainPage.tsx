@@ -7,6 +7,7 @@ import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
 import { getProfiles } from '../../utils/api';
 import { TGetProfilesRaw } from '../../services/types/types';
+import { v4 as createUUID } from 'uuid';
 
 export const MainPage = () => {
   const [state, setState] = useState<TGetProfilesRaw>();
@@ -27,10 +28,10 @@ export const MainPage = () => {
           <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
         </div>
         <div className='cardsCnt'>
-          {state?.items.map((student) => {
+          {state?.items.map(student => {
             const { name, photo, city } = student.profile;
             return (
-              <UserCard name={name} photo={photo} city={city.name} id={student._id} />
+              <UserCard name={name} photo={photo} city={city.name} id={student._id} key={createUUID()} />
             )
           })}
         </div>
