@@ -1,4 +1,4 @@
-import {useEffect, FC} from 'react';
+import {useEffect, FC, useState} from 'react';
 import styles from './DetailPage.module.scss';
 import {MaskAvatar} from '../../components/MaskAvatar/MaskAvatar';
 import Quete from '../../components/Quete/Quete';
@@ -6,30 +6,31 @@ import DetailCard from '../../components/DetailCard/DetailCard';
 import {UserInfo} from '../../components/UserInfo/UserInfo';
 import { useParams } from "react-router-dom";
 import {getUserProfile} from '../../utils/api';
-import {TThemeProfile} from '../../services/types/types';
+import {BaseFiedsRaw, TThemeProfile, UserWithProfileRaw} from '../../services/types/types';
 
 export const DetailPage = () => {
   const { id } = useParams<{id: string}>();
+  const [user, setUser] = useState<BaseFiedsRaw & UserWithProfileRaw & {
+    reactions: number;}>()
 
   useEffect(()=>{
     getUserProfile(id)
-    
     .then((res) => {
-      localStorage.setItem('user', JSON.stringify(res));
-      console.log(getUserProfile(id))
+      setUser(res);
       }
     )
     .catch(()=>{
       console.log('err')
     })
-  })
+  }, [id])
 
-  const userRaw = localStorage.getItem('user');
-  console.log(userRaw)
-  const user = userRaw && JSON.parse(userRaw);
-  console.log(user)
+  const changeTheme = () => 
+    user?.profile.template === null 
+      ? TThemeProfile.DEFAULT 
+      : user?.profile.template === 'romantic' 
+      ? TThemeProfile.ROMANTIC 
+      : TThemeProfile.DARING
   
-  //TODO: как-то тупо выглядит смена темы, но пока ничего другого в голову не приходит
   return (
     <>
       {user && (<section className={styles.section}>
@@ -42,58 +43,34 @@ export const DetailPage = () => {
             />
       	  </div>
           <div className={styles.wrapComponents}>
-            <MaskAvatar photo={user.profile.photo} theme={user.profile.template === null 
-              ? TThemeProfile.DEFAULT 
-              : user.profile.template === 'romantic' 
-              ? TThemeProfile.ROMANTIC 
-              : TThemeProfile.DARING}/> 
+            <MaskAvatar photo={user.profile.photo} theme={changeTheme()}/> 
             {user.profile.quote !== '' ? (
               <Quete text={user.profile.quote}
-                theme={user.profile.template === null 
-                  ? TThemeProfile.DEFAULT 
-                  : user.profile.template === 'romantic' 
-                  ? TThemeProfile.ROMANTIC 
-                  : TThemeProfile.DARING}/>
-            ) : null}
+                theme={changeTheme()}/>
+            ) : ''}
           </div>
         </div>
         <div className={styles.wrapPosts}>
           <ul className={styles.posts}>
             <li>
-              <DetailCard heading='Увлечения' text={user.info.hobby.text}
+              <DetailCard heading='Увлечения' text={user.info.hobby.text ?user.info.hobby.text : ''}
                 image={user.info.hobby.image}
-                theme={user.profile.template === null 
-                  ? TThemeProfile.DEFAULT 
-                  : user.profile.template === 'romantic' 
-                  ? TThemeProfile.ROMANTIC 
-                  : TThemeProfile.DARING}/>
+                theme={changeTheme()}/>
             </li>
             <li>
-              <DetailCard heading='Семья' text={user.info.status.text}
+              <DetailCard heading='Семья' text={user.info.status.text ?user.info.status.text : ''}
                 image={user.info.status.image}
-                theme={user.profile.template === null 
-                  ? TThemeProfile.DEFAULT 
-                  : user.profile.template === 'romantic' 
-                  ? TThemeProfile.ROMANTIC 
-                  : TThemeProfile.DARING}/>
+                theme={changeTheme()}/>
             </li>
             <li>
-              <DetailCard heading='Сфера' text={user.info.job.text}
+              <DetailCard heading='Сфера' text={user.info.job.text ?user.info.job.text : ''}
                 image={user.info.job.image}
-                theme={user.profile.template === null 
-                  ? TThemeProfile.DEFAULT 
-                  : user.profile.template === 'romantic' 
-                  ? TThemeProfile.ROMANTIC 
-                  : TThemeProfile.DARING}/>
+                theme={changeTheme()}/>
             </li>
             <li>
-              <DetailCard heading='Учеба' text={user.info.edu.text}
+              <DetailCard heading='Учеба' text={user.info.edu.text ?user.info.edu.text : ''}
                 image={user.info.edu.image}
-                theme={user.profile.template === null 
-                  ? TThemeProfile.DEFAULT 
-                  : user.profile.template === 'romantic' 
-                  ? TThemeProfile.ROMANTIC 
-                  : TThemeProfile.DARING}/>
+                theme={changeTheme()}/>
             </li>
           </ul>
         </div>

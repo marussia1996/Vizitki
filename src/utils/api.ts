@@ -78,11 +78,11 @@ export const getProfiles = async() => {
 };
 
 //запрос профиля пользователя _id: the user id
-export const getUserProfile = async(_id: string) => {
+export const getUserProfile = (_id: string) => {
   return request<BaseFiedsRaw & UserWithProfileRaw & {reactions: number}>(`/profiles/${_id}`, {
     headers: {'Content-Type': 'application/json', 'Authorization' : 'Bearer ' + token},
     method: "GET",
-  });
+  })as Promise<BaseFiedsRaw & UserWithProfileRaw & {reactions: number}>;
 };
 //изменение профиля пользователя //id: the user id
 export const patchUserProfile = async(_id: string, data: {profile: ProfileRaw, info: InfoItemsRaw}) =>{

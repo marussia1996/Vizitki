@@ -19,10 +19,10 @@
 }
 
 .wrapComponents {
-  display: flex;
+  display: grid;
+  grid-template-columns: 440px 255px;
   gap: 85px;
   align-items: center;
-  cursor: pointer;
 }
 
 .wrapPosts {
@@ -43,6 +43,7 @@
     margin: 8px 32px 0 32px;
   }
   .wrapComponents {
+    display: flex;
     flex-direction: column;
     gap: 32px;
     align-items: flex-start;
