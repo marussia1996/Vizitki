@@ -21,6 +21,7 @@ export const InputFile = forwardRef<HTMLInputElement, TInputFileProps>((props, r
     if (inputFileRef.current) {
       const image = inputFileRef.current.files ? inputFileRef.current.files[0] : undefined;
       const url = image ? URL.createObjectURL(image) : '';
+      //const urlMatch = url.match(/blob:([\w:\/-]+)/);
       const e: TInputChange<string> = {
         target: {
           name: props.name || '',
@@ -41,7 +42,7 @@ export const InputFile = forwardRef<HTMLInputElement, TInputFileProps>((props, r
     selectedFile,
     stopDragEvent
   } = useFiles(onChange);
-
+  
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={styles.content}

@@ -17,7 +17,7 @@ type TInputState = {
   textarea: string,
   date?: Date,
   photo: undefined;
-  inputSearch?: string
+  inputSearch: string
 }
 
 const Evgenys: FC = () => {
@@ -29,7 +29,7 @@ const Evgenys: FC = () => {
     textarea: '',
     date: undefined,
     photo: undefined,
-    inputSearch: undefined
+    inputSearch: ''
   });
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
@@ -65,7 +65,7 @@ const Evgenys: FC = () => {
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
 
-      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']}/>
+      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>
     </div>
   );
 };
