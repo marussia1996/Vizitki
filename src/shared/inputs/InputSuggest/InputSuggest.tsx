@@ -23,10 +23,13 @@ export const InputSuggest: FC<TProps> = (props) => {
   //@ts-ignore
   function MapSuggestComponent(props) {
     const { ymaps } = props;
-
     React.useEffect(() => {
       const suggestView = new ymaps.SuggestView("suggest", {
         results: 10,
+      });
+      suggestView.events.add('select', (e: any) => {
+        const { value } = e.get('item');
+        console.log(value);
       });
     }, [ymaps.SuggestView]);
 
