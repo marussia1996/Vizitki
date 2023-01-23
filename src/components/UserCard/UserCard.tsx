@@ -52,7 +52,7 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
         {/* отображается только для админа */}
         <p className={styles.messages}>{state?.total + ' сообщений'}</p>
       </div>
-      {isOpenFeedback && <Feedback comments={profileComments} />}
+      {isOpenFeedback && <Feedback comments={profileComments} id={id} />}
     </div>
   )
 }
