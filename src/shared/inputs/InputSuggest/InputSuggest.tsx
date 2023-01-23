@@ -1,4 +1,4 @@
-import styles from './InputSearch.module.scss';
+import styles from './InputSuggest.module.scss';
 import Icon from '../../Icon/Icon';
 import {iconArrowUp} from '../../Icon/lib';
 import Scroll from '../../../components/Scroll/Scroll';
@@ -7,17 +7,43 @@ import Input from "../Input/Input";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
 import classNames from "classnames";
 import {createInputChange, TInputChange} from "../index";
+import { YMaps, withYMaps } from "react-yandex-maps";
+import './suggest.scss'
 
 type TProps = TInputWrapperProps & {
   name?: string,
   options: string[];
   value: string;
   onChange?: (e: TInputChange<string>) => void;
+  placeholder?: string
 }
 
-export const InputSearch: FC<TProps> = (props) => {
 
-  const {labelText, mix, error, description, options, value, name, onChange} = props;
+export const InputSuggest: FC<TProps> = (props) => {
+  //@ts-ignore
+  function MapSuggestComponent(props) {
+    const { ymaps } = props;
+    React.useEffect(() => {
+      const suggestView = new ymaps.SuggestView("suggest", {
+        results: 10,
+      });
+      suggestView.events.add('select', (e: any) => {
+        const { value } = e.get('item');
+        console.log(value);
+      });
+    }, [ymaps.SuggestView]);
+
+    return <Input type="text" id="suggest" placeholder={placeholder} className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>;
+  }
+  const SuggestComponent = React.useMemo(() => {
+    return withYMaps(MapSuggestComponent, true, [
+      "SuggestView",
+      "geocode",
+      "coordSystem.geo"
+    ]);
+  }, []);
+
+  const {labelText, mix, error, description, options, value, name, placeholder, onChange} = props;
 
   const [isActive, setActive] = useState(false);
 
@@ -25,7 +51,11 @@ export const InputSearch: FC<TProps> = (props) => {
 
   const mainDivRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
+//TODO: при вводе хоть одной буквы, надо изменить иконку стрелки
+//при нажатии на enter в инпуте происходит submit событие, хз как это исправить
+//надо достать как-то выбранное значение
+//надо определить значение координат выбранного города
+//как-то запихнуть скролл
   useEffect(() => {
     const clickHandle = (e: MouseEvent) => {
       if (mainDivRef.current && e.target && !mainDivRef.current.contains(e.target as Node)) {
@@ -42,49 +72,24 @@ export const InputSearch: FC<TProps> = (props) => {
     }
   }, [isActive])
 
-  const filterFunction =
-    options.filter((option) => {
-      return option.toLowerCase().includes(text.toLowerCase())
-    })
-
-  const onClickOption = (option: string) => {
-    if (onChange) {
-      onChange(createInputChange(name, option))
-    }
-    setActive(false);
-  };
-
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={styles.wrap} ref={mainDivRef}>
-        <Input type={'text'} value={value} onChange={onChange}
-               className={classNames({[styles.inputActive]: isActive})} onFocus={() => setActive(true)} ref={inputRef}/>
+        <YMaps
+          enterprise
+          query={{ apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2" }}>
+        <SuggestComponent />
+        </YMaps>
         <div className={styles.wrapRight}>
           <button type='button' className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
                   onClick={() => setActive(!isActive)}>
             <Icon path={iconArrowUp} fill={'none'} width={'18px'} height={'10px'}/>
           </button>
         </div>
-        <div className={classNames(styles.wrapList, {[styles.wrapListVisible]: isActive})}>
-          <Scroll>
-            <ul className={styles.list}>
-              {filterFunction.map((option: string, index: number) => {
-                return (
-                  <li className={styles.option} key={index}
-                      onClick={() => {
-                        onClickOption(option)
-                      }}
-                  >
-                    {option}
-                  </li>
-                )
-              })}
-            </ul>
-          </Scroll>
-        </div>
       </div>
     </InputWrapper>
   )
 }
+
 
 

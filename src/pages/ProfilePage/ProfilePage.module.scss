@@ -1,8 +1,20 @@
+@use '../../index.scss' as *;
+
 .profilePage{
   width: 100%;
   max-width: 440px;
+  padding: 8px 24px 96px 24px;
+}
+.formProfile{
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 24px;
+}
+.description{
+  @include text(16px, 24px, 400);
+}
+.input{
+  background-color: red;
 }

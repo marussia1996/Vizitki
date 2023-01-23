@@ -83,6 +83,7 @@ export const useFiles = (onChange: ()=> void) => {
     inputFileRef,
     openDialog,
     selectedFile,
+    setSelectedFile,
     stopDragEvent
   };
 };
