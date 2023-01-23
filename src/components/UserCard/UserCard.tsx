@@ -34,21 +34,19 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
   }
 
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
-    const element = e.target as HTMLElement;
-    if(!element.classList.value.startsWith('CommentIcon')) {
-      history.push({ pathname: `/students/${id}` });
-    }
+    e.stopPropagation()
+    history.push({ pathname: `/students/${id}` });
   }
 
   return (
-    <div className={styles.wrap} onClick={openProfile}>
-      <div className={styles.photoWrap}>
+    <div className={styles.wrap}>
+      <div className={styles.photoWrap} onClick={openProfile}>
         <img className={styles.photo} src={photo} alt='Фотография пользователя'></img>
       </div>
       <div className={styles.commentIcon}>
         <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length} />
       </div>
-      <div className={styles.infoWrap}>
+      <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
         {/* отображается только для админа */}
