@@ -26,8 +26,6 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
     });
   }, []);
 
-  console.log(state);
-
   //FIXME когда будет нормальный бэкенд надо будет заменить 'job' на 'profile', или что там будет
   const profileComments = state?.items.filter(item => item.target === 'job');
 
