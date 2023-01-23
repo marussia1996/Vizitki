@@ -1,6 +1,6 @@
 import './DetailCard.scss';
 import { useEffect, useState } from 'react';
-import { TThemeProfile } from '../../services/types/types';
+import { TargetRaw, TThemeProfile } from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
@@ -12,11 +12,16 @@ type TProps = {
   heading: string;
   text: string;
   image?: string;
+  location?: TargetRaw;
 };
 
-export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image }: TProps) {
+export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image, location }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
   const [isOpenFeedback, setFeedbackState] = useState(false);
+  
+  const userRaw = localStorage.getItem('user');
+  const user = userRaw && JSON.parse(userRaw);
+
 
   useEffect(() => {
     if(theme !== TThemeProfile.DEFAULT) {
@@ -35,12 +40,22 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
     setFeedbackState(!isOpenFeedback);
   }
 
+  const changeReactions = () => 
+    location === 'hobby' ?
+    user?.info.hobby.reactions
+    : location === 'status' ? 
+    user?.info.status.reactions
+    : location === 'job' ? 
+    user?.info.job.reactions
+    : user?.info.edu.reactions
+  
+
   return (
     <div className='card'>
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
       <div className='headingCnt'>
         <h3 className='heading'>{heading.toUpperCase()}</h3>
-        <CommentIcon handleFeedback={handleFeedback} color='dark'/>
+        <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={changeReactions()}/>
       </div>
       {image && (
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>

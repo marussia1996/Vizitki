@@ -10,12 +10,12 @@ import {BaseFiedsRaw, TThemeProfile, UserWithProfileRaw} from '../../services/ty
 
 export const DetailPage = () => {
   const { id } = useParams<{id: string}>();
-  const [user, setUser] = useState<BaseFiedsRaw & UserWithProfileRaw & {
-    reactions: number;}>()
+  const [user, setUser] = useState<BaseFiedsRaw & UserWithProfileRaw & {reactions: number}>()
 
   useEffect(()=>{
     getUserProfile(id)
     .then((res) => {
+      localStorage.setItem('user', JSON.stringify(res));
       setUser(res);
       }
     )
@@ -53,24 +53,26 @@ export const DetailPage = () => {
         <div className={styles.wrapPosts}>
           <ul className={styles.posts}>
             <li>
-              <DetailCard heading='Увлечения' text={user.info.hobby.text ?user.info.hobby.text : ''}
+              <DetailCard heading='Увлечения' text={user.info.hobby.text ? user.info.hobby.text : ''}
                 image={user.info.hobby.image}
-                theme={changeTheme()}/>
+                theme={changeTheme()}
+                location='hobby'/>
             </li>
             <li>
-              <DetailCard heading='Семья' text={user.info.status.text ?user.info.status.text : ''}
+              <DetailCard heading='Семья' text={user.info.status.text ? user.info.status.text : ''}
                 image={user.info.status.image}
-                theme={changeTheme()}/>
+                theme={changeTheme()}
+                location='status'/>
             </li>
             <li>
-              <DetailCard heading='Сфера' text={user.info.job.text ?user.info.job.text : ''}
-                image={user.info.job.image}
-                theme={changeTheme()}/>
+              <DetailCard heading='Сфера' text={user.info.job.text ? user.info.job.text : ''}
+                theme={changeTheme()}
+                location='job'/>
             </li>
             <li>
-              <DetailCard heading='Учеба' text={user.info.edu.text ?user.info.edu.text : ''}
-                image={user.info.edu.image}
-                theme={changeTheme()}/>
+              <DetailCard heading='Учеба' text={user.info.edu.text ? user.info.edu.text : ''}
+                theme={changeTheme()}
+                location='edu'/>
             </li>
           </ul>
         </div>
