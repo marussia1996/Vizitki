@@ -25,7 +25,9 @@ export const InputSuggest: FC<TProps> = (props) => {
     const { ymaps } = props;
 
     React.useEffect(() => {
-      const suggestView = new ymaps.SuggestView("suggest");
+      const suggestView = new ymaps.SuggestView("suggest", {
+        results: 10,
+      });
     }, [ymaps.SuggestView]);
 
     return <Input type="text" id="suggest" placeholder={placeholder} className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>;
@@ -50,6 +52,7 @@ export const InputSuggest: FC<TProps> = (props) => {
 //при нажатии на enter в инпуте происходит submit событие, хз как это исправить
 //надо достать как-то выбранное значение
 //надо определить значение координат выбранного города
+//как-то запихнуть скролл
   useEffect(() => {
     const clickHandle = (e: MouseEvent) => {
       if (mainDivRef.current && e.target && !mainDivRef.current.contains(e.target as Node)) {
