@@ -1,7 +1,7 @@
 @use '../../index.scss' as *;
 
 .card {
-  width: 440px;
+  width: 100%;
   position: relative;
 }
 
@@ -55,18 +55,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .card {
-    width: 342px;
-  }
-
   .cnt {
     top: 15px;
     right: 8px;
   }
 }
 
-@media screen and (max-width: 320px) {
-  .card {
-    width: 272px;
-  }
-}

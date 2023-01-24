@@ -33,22 +33,23 @@ export const DetailPage = () => {
   
   return (
     <>
-      {user && (<section className={styles.section}>
-        <div className={styles.wrapUser}>
-          <div className={styles.user}>
-            <UserInfo userName={user.profile.name} 
-              city={user.profile.city.name} 
-              telegram={user.profile.telegram}  
-              github={user.profile.github}
-            />
-      	  </div>
-          <div className={styles.wrapComponents}>
-            <MaskAvatar photo={user.profile.photo} theme={changeTheme()}/> 
-            {user.profile.quote !== '' ? (
-              <Quete text={user.profile.quote}
-                theme={changeTheme()}/>
-            ) : ''}
-          </div>
+      {user && (
+      <section className={styles.section}>
+        <div className={styles.user}>
+          <UserInfo userName={user.profile.name} 
+            city={user.profile.city.name} 
+            telegram={user.profile.telegram}  
+            github={user.profile.github}
+          />
+        </div>
+        <div className={styles.wrapAvatar}>
+          <MaskAvatar photo={user.profile.photo} theme={changeTheme()}/>  
+        </div>
+        <div className={styles.wrapQuete}>
+          {user.profile.quote !== '' ? (
+            <Quete text={user.profile.quote}
+              theme={changeTheme()}/>
+          ) : ''}
         </div>
         <div className={styles.wrapPosts}>
           <ul className={styles.posts}>

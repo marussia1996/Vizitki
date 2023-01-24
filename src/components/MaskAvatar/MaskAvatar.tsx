@@ -12,18 +12,13 @@ let cx = classnames.bind(styles);
 
 export const MaskAvatar = ({ theme = TThemeProfile.DEFAULT, photo }: TProps) => {
 
-  const cxWrap = cx(styles.wrapDefault, {
-    [styles['wrapDefault']]: theme === TThemeProfile.ROMANTIC,
-    [styles['wrapDaring']]: theme === TThemeProfile.DARING
-  });
-
   const cxPhoto = cx(styles.photo, {
     [styles['photoRomantic']]: theme === TThemeProfile.ROMANTIC,
     [styles['photoDaring']]: theme === TThemeProfile.DARING
   });
 
   return (
-    <div className={cxWrap}>
+    <div className={styles.wrap}>
       <img className={cxPhoto} src={photo} alt='Фотография пользователя'/>
       {
         theme === TThemeProfile.DARING &&

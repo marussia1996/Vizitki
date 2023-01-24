@@ -18,10 +18,9 @@ type TProps = {
 export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image, location }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
   const [isOpenFeedback, setFeedbackState] = useState(false);
-  
+
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
-
 
   useEffect(() => {
     if(theme !== TThemeProfile.DEFAULT) {
