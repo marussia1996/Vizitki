@@ -12,7 +12,6 @@
 
 .linkCnt {
   grid-column-start: 4;
-
   display: flex;
   align-items: center;
   justify-content: end;
@@ -79,6 +78,7 @@
   .linkCnt {
     grid-column-start: 1;
     grid-row-start: 1;
+    margin-bottom: 24px;
   }
 
   .cardsCnt {
