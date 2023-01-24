@@ -7,12 +7,10 @@ import Loader from '../../components/Loader/Loader';
 import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
-  getUsers()
-  .then((res)=>{console.log(res)})
   return (
     <div className="page">
       <div className='content'>
-        <InputSearch options={city} />
+        <InputSearch options={city} value=''/>
         <div className='linkCnt'>
           <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
         </div>

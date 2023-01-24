@@ -80,42 +80,42 @@ export type ProfileRaw = {
 }
 export type InfoBlocksRaw = {
   hobby: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   status: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   job: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   edu: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
 }
 export type InfoItemsRaw ={
   hobby: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   status: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   job: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   edu: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
 }
 export type UserWithProfileRaw = {
@@ -136,24 +136,24 @@ export type UserWithProfileRaw = {
   }
   info: {
     hobby: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     status: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     job: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     edu: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
   }
 }
@@ -176,24 +176,24 @@ export type UserRaw = {
   }
   info: {
     hobby: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     status: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     job: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     edu: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
   }
   reactions: Reactions
@@ -234,13 +234,13 @@ export type LikeRaw = {
   emotion: string
 }
 export type InfoItemRaw = {
-  text?: string,
-  image?: string,
+  text: string,
+  image: string,
 }
 export type InfoBlockRaw = {
-  text?: string,
-  image?: string,
-  reactions?: number
+  text: string,
+  image: string,
+  reactions: number
 }
 ///
 export type TGetUsersRaw = {
