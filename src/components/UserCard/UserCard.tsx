@@ -1,5 +1,5 @@
 import styles from './UserCard.module.scss';
-import React, { FC, useState, useEffect, MouseEventHandler } from 'react'
+import React, { FC, useState, useEffect, MouseEventHandler, KeyboardEventHandler } from 'react'
 import { CommentIcon } from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
 import { getUserReactions } from '../../utils/api';
@@ -33,8 +33,11 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
     setFeedbackState(!isOpenFeedback);
   }
 
-  const hideFeedback = () => {
-    setFeedbackState(false);
+  const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    console.log(e);
+    if(e.key === 'Escape') {
+      setFeedbackState(false);
+    }
   }
 
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -43,7 +46,7 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
   }
 
   return (
-    <div className={styles.wrap} onBlur={hideFeedback}>
+    <div className={styles.wrap} onKeyUp={hideFeedback}>
       <div className={styles.photoWrap} onClick={openProfile}>
         <img className={styles.photo} src={photo} alt='Фотография пользователя'></img>
       </div>
