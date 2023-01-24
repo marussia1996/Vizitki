@@ -9,6 +9,8 @@ import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 
 import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
 import {InputSearch} from "../../shared/inputs/InputSearch/InputSearch";
+import {TThemeProfile} from "../../services/types/types";
+import {stringEntries, themeToDescription} from "../../utils/types/enums";
 
 type TInputState = {
   filter: string,
@@ -17,7 +19,7 @@ type TInputState = {
   textarea: string,
   date?: Date,
   photo: undefined;
-  inputSearch: string
+  theme?: TThemeProfile
 }
 
 const Evgenys: FC = () => {
@@ -29,10 +31,13 @@ const Evgenys: FC = () => {
     textarea: '',
     date: undefined,
     photo: undefined,
-    inputSearch: ''
+    theme: undefined
   });
 
+  console.log(Object.values(TThemeProfile));
+
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
+    console.log(e);
     setState({...state, [e.target.name]: e.target.value})
   }
 
@@ -43,7 +48,8 @@ const Evgenys: FC = () => {
 
       <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
 
-      <InputSearch options={['test', '123']} value={state.inputSearch} onChange={onChange} name={'inputSearch'}/>
+      <InputSearch options={stringEntries(TThemeProfile)} value={state.theme}
+                   onChange={onChange} name={'theme'} toDisplay={themeToDescription}/>
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}
@@ -64,8 +70,6 @@ const Evgenys: FC = () => {
                      rows={5}/>
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
-
-      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>
     </div>
   );
 };
