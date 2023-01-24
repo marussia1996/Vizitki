@@ -11,56 +11,77 @@ import {
   ZoomControl
 } from '@pbe/react-yandex-maps';
 import iconPlacemark from '../../images/YaMap/Placemark.svg';
-//FIXME Тестовый аватар, надо будет заменить на данные с сервера
-import avatar from '../../images/YaMap/avatar.png';
-//FIXME Тестовые данные, надо будет заменить на данные с сервера
-import { data } from './data';
+import {getProfiles} from "../../utils/api";
+import {useState} from "react";
+import {BaseFiedsRaw, ShortProfileRaw, UserAccountRaw} from "../../services/types/types";
+
+type TProfile = BaseFiedsRaw & UserAccountRaw & { profile: ShortProfileRaw };
+
+const balloon = (student: TProfile) => {
+  return `
+      <div class= "balloon">
+        <img class="imgBalloon" src = "${student.profile.photo}" alt="${student.profile.photo}">
+        <div>
+          <p class="balloonName">${student.profile.name}</p>
+          <p class='balloonCity'>${student.profile.city.name}</p>
+        <div>       
+      </div>
+    `
+}
 
 export const MapPage = () => {
-  return (
-    <YMaps query={{ lang: 'ru_RU' }}>
-      <main className='map'>
-        <Map defaultState={{ center: [55.751574, 37.573856], zoom: 5 }} style={{ width: '100%', height: '100%' }}>
+  const [profiles, setProfiles] = useState<TProfile[]>([])
 
-          {data.map((student, i) => {
-            return (
-              <Placemark
-                geometry={student.geometry}
-                properties={{
-                  balloonContent: `<div class= "balloon"><img class="imgBalloon" src = "${avatar}"></img><div><p class="balloonName">${student.name}</p><p class='balloonCity'>${student.city}</p><div></div>`,
+  const loadProfiles = async () => {
+    const profiles = await getProfiles();
+    setProfiles(profiles.items)
+  }
 
-                }}
-                options={{
-                  iconLayout: 'default#image',
-                  iconImageHref: iconPlacemark,
-                  iconImageSize: [46, 52],
-                  balloonOffset: [14, 0],
-                  balloonMinHeight: 49,
-                  balloonMinWidth: 163
-                }}
-                key={i}
-              />
-            )
-          })}
+  const onLoad = () => {
+    loadProfiles().then();
+  }
 
-          <SearchControl
+  return <YMaps query={{lang: 'ru_RU'}}>
+    <main className='map'>
+      <Map defaultState={{center: [55.751574, 37.573856], zoom: 5}}
+           style={{width: '100%', height: '100%'}}
+           onLoad={onLoad}>
+
+        {profiles.map((student) =>
+          <Placemark
+            key={student._id}
+            geometry={student.profile.city.geocode}
+            properties={{
+              balloonContent: balloon(student),
+            }}
             options={{
-              position: { top: 8, left: 15 },
-              placeholderContent: 'Поиск мест и адресов',
+              iconLayout: 'default#image',
+              iconImageHref: iconPlacemark,
+              iconImageSize: [46, 52],
+              balloonOffset: [14, 0],
+              balloonMinHeight: 49,
+              balloonMinWidth: 163
             }}
           />
+        )}
 
-          <GeolocationControl options={{ float: "right" }} />
+        <SearchControl
+          options={{
+            position: {top: 8, left: 15},
+            placeholderContent: 'Поиск мест и адресов',
+          }}
+        />
 
-          <RouteEditor options={{ float: "right" }} />
+        <GeolocationControl options={{float: "right"}}/>
 
-          <RulerControl />
+        <RouteEditor options={{float: "right"}}/>
 
-          <TrafficControl />
+        <RulerControl/>
 
-          <ZoomControl />
-        </Map>
-      </main>
-    </YMaps>
-  )
+        <TrafficControl/>
+
+        <ZoomControl/>
+      </Map>
+    </main>
+  </YMaps>
 }

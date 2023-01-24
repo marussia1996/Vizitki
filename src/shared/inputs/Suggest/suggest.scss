@@ -8,17 +8,23 @@
   height: 192px;
   left: 0;
   right: 0;
+  position: relative;
+  overflow-y: auto;
 }
+
 .ymaps-2-1-79-search__suggest {
   font: 14px/24px 'IBMPlexSans',sans-serif !important;
 }
+
 .ymaps-2-1-79-search__suggest-item {
   padding: 0 0 0 16px !important;
   margin: 0 0 6px 0 !important;
 }
+
 .ymaps-2-1-79-search__suggest-item:focus {
   background-color: $neon-pink !important;
 }
-.ymaps-2-1-79-search__suggest-item:hover{
+
+.ymaps-2-1-79-search__suggest-item:hover {
   background-color: $neon-pink !important;
 }
