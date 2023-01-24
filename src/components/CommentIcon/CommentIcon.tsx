@@ -14,7 +14,7 @@ export const CommentIcon: FC<TColor> = ({ color, handleFeedback, mix, commentsQu
   return (
     <button className={mixButton} onClick={handleFeedback}>
       <img className={styles.icon} src={message} alt='Иконка сообщения' />
-      {commentsQuantity && (
+      {commentsQuantity !== 0 && (
         <div className={color === 'dark' ? styles.countDark : styles.countPink}>
           <span className={styles.number}>{commentsQuantity}</span>
         </div>
