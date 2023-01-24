@@ -8,6 +8,8 @@
   height: 192px;
   left: 0;
   right: 0;
+  position: relative;
+  overflow-y: auto;
 }
 .ymaps-2-1-79-search__suggest {
   font: 14px/24px 'IBMPlexSans',sans-serif !important;

@@ -35,7 +35,6 @@ export type TInputState = {
   familyText: string,
   jobText: string,
   eduText: string,
-  cityFilter: string,
 }
 
 export const ProfilePage = () => {
@@ -58,7 +57,6 @@ export const ProfilePage = () => {
     familyText: '',
     jobText: '',
     eduText: '',
-    cityFilter: '',
   });
 
   useEffect(()=>{
@@ -70,16 +68,16 @@ export const ProfilePage = () => {
       }
     )
   },[])
+
   const loaderData = (data:UserWithProfileRaw )=>{
     const obj: TInputState = {
       photo: data.profile.photo,
-      //data.profile.birthday ? new Date(data.profile.birthday) :
-      birthday:  undefined,
+      birthday:  data.profile.birthday ? new Date(data.profile.birthday) : undefined,
       errBirthday: false,
       errCity: false,
       telegram: data.profile.telegram,
       github: data.profile.github,
-      city: '',
+      city: data.profile.city.name,
       geocode: data.profile.city.geocode,
       template: themeParse(data.profile.template),
       quote: data.profile.quote,
@@ -89,7 +87,6 @@ export const ProfilePage = () => {
       familyText: data.info.status.text,
       jobText: data.info.job.text,
       eduText: data.info.job.text,
-      cityFilter: ''
     }
     setState(obj)
   }

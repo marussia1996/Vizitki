@@ -1,7 +1,6 @@
 import styles from './InputSuggest.module.scss';
 import Icon from '../../Icon/Icon';
 import {iconArrowUp} from '../../Icon/lib';
-import Scroll from '../../../components/Scroll/Scroll';
 import React, {FC, useEffect, useRef, useState} from "react";
 import Input from "../Input/Input";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
@@ -20,13 +19,21 @@ type TProps = TInputWrapperProps & {
 
 
 export const InputSuggest: FC<TProps> = (props) => {
+  const {labelText, mix, error, description, value, placeholder, getCityName, getGeocode} = props;
+  const [isActive, setActive] = useState(false);
+  const mainDivRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
+    setActive(true)
+  }
   //@ts-ignore
   function MapSuggestComponent(props) {
     const {ymaps} = props;
     React.useEffect(() => {
       setActive(false);
       const suggestView = new ymaps.SuggestView("suggest", {
-        results: 6
+        results: 20
       });
       suggestView.events.add('select', (e: any) => {
         const {value} = e.get('item');
@@ -44,8 +51,24 @@ export const InputSuggest: FC<TProps> = (props) => {
       };
     }, [ymaps.SuggestView]);
 
-    return <Input type="text" id="suggest" placeholder={placeholder}
-                  className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>;
+    return (
+    <div>
+      <Input type="text" id="suggest" onChange={onChange}
+        // placeholder={placeholder} - не подменяется 
+        // value={value === '' ? undefined : value}
+                  className={classNames({[styles.inputActive]: isActive})} ref={inputRef}/>
+      <div ref={ref} style={{
+        position: 'relative',
+        maxHeight: '192px',
+        overflowY: 'auto',
+        height: '192px',
+        overflowX: 'hidden',
+        display: 'none'
+      }}>
+         
+      </div>
+    </div>
+    )
   }
 
   const SuggestComponent = React.useMemo(() => {
@@ -55,15 +78,6 @@ export const InputSuggest: FC<TProps> = (props) => {
       "coordSystem.geo"
     ]);
   }, []);
-
-  const {labelText, mix, error, description, value, placeholder, getCityName, getGeocode} = props;
-
-  const [isActive, setActive] = useState(false);
-
-  const [text, setText] = useState<string>(value);
-
-  const mainDivRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const clickHandle = (e: MouseEvent) => {
@@ -75,7 +89,6 @@ export const InputSuggest: FC<TProps> = (props) => {
       document.addEventListener('click', clickHandle);
       inputRef.current?.focus();
     }
-    setText(isActive ? '' : value || '')
     return () => {
       document.removeEventListener('click', clickHandle);
     }
