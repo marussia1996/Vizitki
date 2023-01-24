@@ -21,24 +21,21 @@ export const AppRouter = () => {
         <Route exact path="/login">
           <LoginPage/>
         </Route>
-        <ProtectedRoute exact path="/profile">
-          <ProfilePage />
-        </ProtectedRoute>
         <ProtectedRoute exact path="/students/:id">
           <DetailPage/>
         </ProtectedRoute>
         <ProtectedRoute exact path="/map">
           <MapPage />
         </ProtectedRoute>
-        <ProtectedRoute path="/admin">
+        <ProtectedRoute exact path="/admin">
           <AdminPage />
         </ProtectedRoute>
         <ProtectedRoute exact path="/cohort/:name">
           <MainPage />
         </ProtectedRoute>
-        <ProtectedRoute exact path="/">
-          <MainPage />
-        </ProtectedRoute>
+        <Route>
+          <div>Not Found</div>
+        </Route>
       </Switch>
       </>
     )
