@@ -42,7 +42,8 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
                 <QueteIcon className={cxQueteIcon} />
                 <QueteIcon className={cxQueteIcon} />
                 <span className={cxText}>{text}</span>
-                {isOpenFeedback && <Feedback />}
+                {/* FIXME нужно пробросить корректный id профиля в Feedback */}
+                {isOpenFeedback && <Feedback id={'замени меня!!!'} />}
             </div>
         </>
     );

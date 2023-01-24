@@ -6,7 +6,7 @@ import DetailCard from '../../components/DetailCard/DetailCard';
 import {UserInfo} from '../../components/UserInfo/UserInfo';
 import { useParams } from "react-router-dom";
 import {getUserProfile} from '../../utils/api';
-import {BaseFiedsRaw, TThemeProfile, UserWithProfileRaw} from '../../services/types/types';
+import {BaseFiedsRaw, InfoBlocksRaw, TThemeProfile, UserWithProfileRaw} from '../../services/types/types';
 
 export const DetailPage = () => {
   const { id } = useParams<{id: string}>();
@@ -15,7 +15,6 @@ export const DetailPage = () => {
   useEffect(()=>{
     getUserProfile(id)
     .then((res) => {
-      localStorage.setItem('user', JSON.stringify(res));
       setUser(res);
       }
     )
@@ -57,23 +56,23 @@ export const DetailPage = () => {
               <DetailCard heading='Увлечения' text={user.info.hobby.text ? user.info.hobby.text : ''}
                 image={user.info.hobby.image}
                 theme={changeTheme()}
-                location='hobby'/>
+                location='hobby' user={user} />
             </li>
             <li>
               <DetailCard heading='Семья' text={user.info.status.text ? user.info.status.text : ''}
                 image={user.info.status.image}
                 theme={changeTheme()}
-                location='status'/>
+                location='status' user={user} />
             </li>
             <li>
               <DetailCard heading='Сфера' text={user.info.job.text ? user.info.job.text : ''}
                 theme={changeTheme()}
-                location='job'/>
+                location='job' user={user} />
             </li>
             <li>
               <DetailCard heading='Учеба' text={user.info.edu.text ? user.info.edu.text : ''}
                 theme={changeTheme()}
-                location='edu'/>
+                location='edu' user={user} />
             </li>
           </ul>
         </div>
