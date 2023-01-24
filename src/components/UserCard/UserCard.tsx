@@ -33,19 +33,25 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
     setFeedbackState(!isOpenFeedback);
   }
 
+  const hideFeedback = () => {
+    setFeedbackState(false);
+  }
+
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
     history.push({ pathname: `/students/${id}` });
   }
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} onBlur={hideFeedback}>
       <div className={styles.photoWrap} onClick={openProfile}>
         <img className={styles.photo} src={photo} alt='Фотография пользователя'></img>
       </div>
-      <div className={styles.commentIcon}>
-        <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length} />
-      </div>
+      {!isOpenFeedback && (
+        <div className={styles.commentIcon}>
+          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length} />
+        </div>
+      )}
       <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
