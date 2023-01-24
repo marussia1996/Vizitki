@@ -12,11 +12,10 @@ import './suggest.scss'
 
 type TProps = TInputWrapperProps & {
   name?: string,
-  options: string[];
   value: string;
-  onChange?: (e: TInputChange<string>) => void;
   placeholder?: string,
-  getCityName: (value:string)=> void
+  getCityName: (value:string)=> void,
+  getGeocode: (value: Array<number>) => void
 }
 
 
@@ -27,18 +26,15 @@ export const InputSuggest: FC<TProps> = (props) => {
     React.useEffect(() => {
       setActive(false);
       const suggestView = new ymaps.SuggestView("suggest", {
-        results: 10
+        results: 6
       });
       suggestView.events.add('select', (e: any) => {
         const {value} = e.get('item');
+        if(!value) return;
         getCityName(value);
-        console.log(value);
         ymaps.geocode(value, {results: 1}).then((res: any) => {
           const geoObject = res.geoObjects.get(0);
-          console.log(geoObject);
-          console.log(geoObject.geometry.getCoordinates());
-          console.log(geoObject.properties.get('metaDataProperty'));
-          console.log(geoObject.getAdministrativeAreas());
+          getGeocode(geoObject.geometry.getCoordinates());
         }).catch((e: any) => console.log(e))
         ;
       });
@@ -60,7 +56,7 @@ export const InputSuggest: FC<TProps> = (props) => {
     ]);
   }, []);
 
-  const {labelText, mix, error, description, options, value, name, placeholder, onChange, getCityName} = props;
+  const {labelText, mix, error, description, value, placeholder, getCityName, getGeocode} = props;
 
   const [isActive, setActive] = useState(false);
 
@@ -68,11 +64,7 @@ export const InputSuggest: FC<TProps> = (props) => {
 
   const mainDivRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-//TODO: при вводе хоть одной буквы, надо изменить иконку стрелки
-//при нажатии на enter в инпуте происходит submit событие, хз как это исправить
-//надо достать как-то выбранное значение
-//надо определить значение координат выбранного города
-//как-то запихнуть скролл
+
   useEffect(() => {
     const clickHandle = (e: MouseEvent) => {
       if (mainDivRef.current && e.target && !mainDivRef.current.contains(e.target as Node)) {
