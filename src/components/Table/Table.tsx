@@ -6,17 +6,17 @@ type PropsTable = HTMLProps<HTMLTableElement> & {
     refTable?: LegacyRef<HTMLTableElement>;
 }
 
-export const Table: FC<PropsTable> = ({ children,refTable, ...rest }) => {
+export const Table: FC<PropsTable & { mix?: string }>  = ({ children, refTable, mix = '', ...rest }) => {
     return (
-        <table className={styles.Table} ref={refTable} {...rest}>
+        <table className={[styles.Table, mix].join(' ')} ref={refTable} {...rest}>
             {children}
         </table>
     )
 };
 
-export const Thead: FC<HTMLProps<HTMLTableSectionElement>> = ({ children, ...rest }) => {
+export const Thead: FC<HTMLProps<HTMLTableSectionElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <thead className={styles.Thead} {...rest}>
+        <thead className={[styles.Thead, mix].join(' ') } {...rest}>
             <tr>
                 {children}
             </tr>
@@ -24,33 +24,33 @@ export const Thead: FC<HTMLProps<HTMLTableSectionElement>> = ({ children, ...res
     )
 };
 
-export const Tbody: FC<HTMLProps<HTMLTableSectionElement>> = ({ children, ...rest }) => {
+export const Tbody: FC<HTMLProps<HTMLTableSectionElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <tbody {...rest}>
+        <tbody className={mix} {...rest}>
             {children}
         </tbody>
     )
 };
 
-export const Th: FC<HTMLProps<HTMLTableCellElement>> = ({ children, ...rest }) => {
+export const Th: FC<HTMLProps<HTMLTableCellElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <th className={styles.Th} {...rest}>
+        <th className={[styles.Th, mix].join(' ')} {...rest}>
             {children}
         </th>
     )
 };
 
-export const Td: FC<HTMLProps<HTMLTableCellElement>> = ({ children, ...rest }) => {
+export const Td: FC<HTMLProps<HTMLTableCellElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <td className={styles.Td} {...rest}>
+        <td className={[styles.Td, mix].join(' ') } {...rest}>
             {children}
         </td>
     )
 };
 
-export const Tr: FC<HTMLProps<HTMLTableRowElement>> = ({ children, ...rest }) => {
+export const Tr: FC<HTMLProps<HTMLTableRowElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <tr className={styles.Tr} {...rest}>
+        <tr className={[styles.Tr, mix].join(' ')} {...rest}>
             {children}
         </tr>
     )

@@ -36,7 +36,7 @@ const Evgenys: FC = () => {
     textarea: '',
     date: undefined,
     photo: undefined,
-    theme: undefined
+    theme: undefined,
     inputSearch: '',
     geo: {name: 'Moscow', geo: []}
   });

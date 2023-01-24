@@ -1,33 +1,65 @@
 import React, { SyntheticEvent } from "react";
 import InputText from "../../shared/inputs/InputText/InputText";
 import { Td, Tr } from "../Table/Table";
+import classnames from "classnames";
 
 import styles from './StudentRowRead.module.scss';
+import DeleteButton from "../../shared/DeleteButton/DeleteButton";
+import { Link } from "react-router-dom";
+
+let cx = classnames.bind(styles);
 
 type Props = {
-    number: number,
+    id: string,
+    cohort: string,
     email: string,
     name: string,
+    status?: 'default' | 'modify',
     onClick?: (id: string) => void,
+    onDelete?: (id: string) => void,
+    editable: boolean,
 };
 
-const StudentRowRead = ({ number, email, name, onClick = (id) => { } }: Props) => {
+const StudentRowRead = ({ id,
+    cohort,
+    email,
+    name,
+    status = 'default',
+    onClick = (id) => { },
+    onDelete = (id) => { },
+    editable,
+}: Props) => {
+
+    const cxRowStatus = cx({
+        [styles['RowModify']]: status === 'default'
+    });
+
     const handleClick = (event: SyntheticEvent) => {
+        onClick(id);
+    }
+
+    const handleDelete = (event: SyntheticEvent) => {
         event.stopPropagation();
-        //FIXME: При подключении API нужно заменить на ID пользователя т.е. уникальный ключ
-        onClick(number.toString())
+        onDelete(id);
     }
 
     return (
-        <Tr onClick={handleClick} >
+        <Tr onClick={handleClick} mix={cxRowStatus}>
             <Td>
-                <InputText mix={styles.CellValue} value={number} disabled />
+                <InputText mix={styles.CellValue} value={cohort} disabled />
             </Td>
             <Td>
                 <InputText mix={styles.CellValue} value={email} disabled />
             </Td>
             <Td>
-                <InputText mix={styles.CellValue} value={name} disabled />
+                {editable ? (
+                    <InputText mix={styles.CellValue} value={name} disabled />
+                ) : (
+                    <Link to={`/students/${id}`}>{name}</Link>
+                )}
+            </Td>
+            <Td className={styles.DeleteCell}>
+                <DeleteButton onClick={handleDelete} />
             </Td>
         </Tr>
     )
