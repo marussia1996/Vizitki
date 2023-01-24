@@ -10,6 +10,7 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import {DetailPage} from '../../pages/DetailPage/DetailPage';
 import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App = () => {
@@ -66,6 +67,9 @@ export const App = () => {
             <Route exact path="/profile">
               <ProfilePage />
             </Route>
+            <Route exact path="/students/:id">
+              <DetailPage/>
+            </Route>
             <Route exact path="/maria">
               <h1>Привет, Мария</h1>
             </Route>
@@ -76,7 +80,8 @@ export const App = () => {
               <h1>Привет, Евгений</h1>
             </Route>
             <Route exact path="/evgeniya">
-              <h1>Привет, Евгения</h1>
+              <DetailPage/>
+
             </Route>
             <Route exact path="/alexey">
               <AlexeyM />

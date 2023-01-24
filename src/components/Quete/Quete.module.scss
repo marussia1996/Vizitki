@@ -4,6 +4,7 @@
     display: block;
     max-width: 255px;
     position:relative;
+    margin-top: 180px;
 }
 
 .CommentButton {
@@ -17,6 +18,7 @@
     height: 45px;
     padding: 0 8px 8px 0;
     margin: 0;
+    stroke: $text-dark;
 }
 
 .Icon:last-child{
@@ -46,4 +48,10 @@
 
 .TextDaring {
     color: $neon-green;
+}
+
+@media screen and (max-width: 1250px) {
+  .Quete {
+    margin-top: 32px;
+  }
 }
