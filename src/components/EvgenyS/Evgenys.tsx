@@ -9,6 +9,7 @@ import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 
 import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
 import {InputSearch} from "../../shared/inputs/InputSearch/InputSearch";
+import Suggest from "../../shared/inputs/Suggest/Suggest";
 
 type TInputState = {
   filter: string,
@@ -17,7 +18,9 @@ type TInputState = {
   textarea: string,
   date?: Date,
   photo: undefined;
-  inputSearch: string
+  inputSearch: string,
+
+  geo?: { name: string, geo: number[] }
 }
 
 const Evgenys: FC = () => {
@@ -29,7 +32,8 @@ const Evgenys: FC = () => {
     textarea: '',
     date: undefined,
     photo: undefined,
-    inputSearch: ''
+    inputSearch: '',
+    geo: {name: 'Moscow', geo: []}
   });
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
@@ -41,7 +45,10 @@ const Evgenys: FC = () => {
   return (
     <div className={css.container}>
 
-      <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+      <Suggest labelText={'Город'} error={'error'} value={state.geo?.name} onChange={onChange} placeHolder={'123'}
+               name={'geo'}/>
+
+      {/*<PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
 
       <InputSearch options={['test', '123']} value={state.inputSearch} onChange={onChange} name={'inputSearch'}/>
 
@@ -65,7 +72,7 @@ const Evgenys: FC = () => {
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
 
-      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>
+      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>*/}
     </div>
   );
 };

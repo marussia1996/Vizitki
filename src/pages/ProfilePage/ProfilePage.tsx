@@ -1,39 +1,29 @@
-import React, { FormEvent, useEffect, useState } from 'react'
-import { PhotoUpload } from '../../components/PhotoUpload/PhotoUpload'
+import React, {FormEvent, useEffect, useState} from 'react'
+import {PhotoUpload} from '../../components/PhotoUpload/PhotoUpload'
 import {InputFile} from "../../shared/inputs/InputFile/InputFile";
 import {TInputChange} from "../../shared/inputs";
 import {InputTextArea} from "../../shared/inputs/InputTextArea/InputTextArea";
 import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 import stylesProfile from '../ProfilePage/ProfilePage.module.scss'
 import InputText from '../../shared/inputs/InputText/InputText';
-import { Button } from '../../shared/Button/Button';
-import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
-import { getUserProfile, patchUserProfile } from '../../utils/api';
-import { UserWithProfileRaw } from '../../services/types/types';
-import { InputSuggest } from '../../shared/inputs/InputSuggest/InputSuggest';
+import {Button} from '../../shared/Button/Button';
+import {InputSearch} from '../../shared/inputs/InputSearch/InputSearch';
+import {getUserProfile, patchUserProfile} from '../../utils/api';
+import {UserWithProfileRaw} from '../../services/types/types';
+import Suggest, {TSelected} from "../../shared/inputs/Suggest/Suggest";
 
-export const city = [
-  'Абаза', 
-  'Абакан', 
-  'Абдулино', 
-  'Абинск', 
-  'Агидель', 
-  'Агрыз', 
-  'Адыгейск', 
-  'Азнакаево'
-]
-  
 export const theme = [
-  'серьезный', 
-  'романтический', 
+  'серьезный',
+  'романтический',
   'дерзкий'
 ]
-//TODO: лучше использовать стринг для ошибок
+
 export type TInputState = {
   photo: string,
   birthday?: Date,
   errBirthday: boolean,
   city: string,
+  geocode: Array<number>,
   errCity: boolean,
   telegram: string,
   github: string,
@@ -45,7 +35,6 @@ export type TInputState = {
   familyText: string,
   jobText: string,
   eduText: string,
-  cityFilter: string,
 }
 
 export const ProfilePage = () => {
@@ -59,6 +48,7 @@ export const ProfilePage = () => {
     telegram: '',
     github: '',
     city: '',
+    geocode: [0, 0],
     template: '',
     quote: '',
     hobbiesFile: '',
@@ -67,28 +57,18 @@ export const ProfilePage = () => {
     familyText: '',
     jobText: '',
     eduText: '',
-    cityFilter: '',
   });
-  const validity = () =>{
-    if(state.birthday === undefined){
-      state.errBirthday = true;
-      setState({...state})
-    }
-    if(state.city === ''){
-      state.errCity = true;
-      setState({...state})
-    }
-    return (!state.errBirthday && !state.errCity);
-  }
-  useEffect(()=>{
+
+  useEffect(() => {
     getUserProfile(user._id)
-    .then((res)=>
-      {
-        loaderData(res);
-      }
-    )
-  },[])
-  const loaderData = (data:UserWithProfileRaw )=>{
+      .then((res) => {
+          loaderData(res);
+
+        }
+      )
+  }, [])
+
+  const loaderData = (data: UserWithProfileRaw) => {
     const obj: TInputState = {
       photo: data.profile.photo,
       birthday: data.profile.birthday ? new Date(data.profile.birthday) : undefined,
@@ -97,6 +77,7 @@ export const ProfilePage = () => {
       telegram: data.profile.telegram,
       github: data.profile.github,
       city: data.profile.city.name,
+      geocode: data.profile.city.geocode,
       template: themeParse(data.profile.template),
       quote: data.profile.quote,
       hobbiesFile: data.info.hobby.image,
@@ -105,63 +86,68 @@ export const ProfilePage = () => {
       familyText: data.info.status.text,
       jobText: data.info.job.text,
       eduText: data.info.job.text,
-      cityFilter: ''
     }
     setState(obj)
   }
   const themeParse = (themeRaw: string) => {
-    if(themeRaw !== null){
-      if(themeRaw === 'romantic'){
+    if (themeRaw !== null) {
+      if (themeRaw === 'romantic') {
         return theme[1]
       }
-      if(themeRaw === 'derzkiy'){
+      if (themeRaw === 'derzkiy') {
         return theme[2]
       }
     }
     return theme[0];
   }
-  const themeEncode = (userTheme: string) =>{
-    if(userTheme !== theme[0]){
-      if(userTheme === theme[1]){
+  const themeEncode = (userTheme: string) => {
+    if (userTheme !== theme[0]) {
+      if (userTheme === theme[1]) {
         return 'romantic'
       }
-      if(userTheme === theme[2]){
+      if (userTheme === theme[2]) {
         return 'derzkiy'
       }
     }
     return ''
   }
-  useEffect(()=>{
-    state.errBirthday = false;
-    setState({...state})
-  },[state.birthday])
-  useEffect(()=>{
-    state.errCity = false;
-    setState({...state})
-  },[state.city])
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
-    e.preventDefault();
-    if(!validity()){
-      alert('Заполните все необходимые поля')
+  const validity = () => {
+    if (state.birthday === undefined) {
+      setState(prevState => ({...prevState, errBirthday: true}));
     }
-    else{
+    if (state.city === '') {
+      setState(prevState => ({...prevState, errCity: true}));
+    }
+  }
+  useEffect(() => {
+    setState(prevState => ({...prevState, errBirthday: false}))
+  }, [state.birthday])
+  useEffect(() => {
+    setState(prevState => ({...prevState, errCity: false}))
+  }, [state.city])
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    validity();
+    if (state.birthday === undefined || state.city === '') {
+      alert('Заполните все необходимые поля')
+    } else {
       alert('форма изменена')
       const uploadData = {
         profile: {
-        name: user.name,
-        photo: state.photo,
-        city: {
-          name: state.city,
-          geocode: [1,1],
+          name: user.name,
+          photo: state.photo,
+          city: {
+            name: state.city,
+            geocode: state.geocode,
+          },
+          birthday: String(state.birthday),
+          quote: state.quote,
+          telegram: state.telegram,
+          github: state.github,
+          template: themeEncode(state.template),
         },
-        birthday: String(state.birthday),
-        quote: state.quote,
-        telegram: state.telegram,
-        github: state.github,
-        template: themeEncode(state.template),
-        },
-        info:{
+        info: {
           hobby: {
             text: state.hobbiesText,
             image: 'https://placehold.co/600x400?font=roboto',
@@ -182,35 +168,47 @@ export const ProfilePage = () => {
       }
       console.log(uploadData)
       patchUserProfile(user._id, uploadData)
-    }    
+    }
   }
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
-    setState({...state, [e.target.name]:e.target.value})
+    setState({...state, [e.target.name]: e.target.value})
   }
-  
+  const onCityChange = (e: TInputChange<TSelected>) => {
+    if (e.target && e.target.value) {
+      setState({...state, city: e.target.value.name, geocode: e.target.value.geo})
+    }
+  }
+
   return (
     <section className={`${stylesProfile.profilePage}`}>
       <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
         <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <InputSuggest placeholder='Все города' options={city} value={state.city} onChange={onChange} name={'city'}/>
-        <InputSuggest labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeholder='' options={city} value={state.cityFilter} onChange={onChange} name={'cityFilter'}/>
-        <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'} date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
-        onDateChange={onChange}/>
-        <InputSearch labelText={'Выберите город *'} error={state.errCity ? 'Поле обязательно для заполнения' : ''} options={city} value={state.city} onChange={onChange} name={'city'}/>
-        <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange} />
-        <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange} />
-        <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange} name={'template'}/>
-        <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange} maxLength={100} rows={4}/>
+        <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'}
+                  date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
+                  onDateChange={onChange}/>
+        <Suggest labelText={'Выберите город *'} onChange={onCityChange}
+                 error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeHolder={state.city}
+                 value={state.city} name={'city'}/>
+        <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange}/>
+        <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange}/>
+        <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange}
+                     name={'template'}/>
+        <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange}
+                       maxLength={100} rows={4}/>
         <div>
-          <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'} description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} />
+          <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'}
+                     description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
           <InputTextArea name={'hobbiesText'} value={state.hobbiesText} onChange={onChange} maxLength={300} rows={4}/>
         </div>
         <div>
-          <InputFile name={'familyFile'} labelText={'Семья, статус, домашние животные'} description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange} />
+          <InputFile name={'familyFile'} labelText={'Семья, статус, домашние животные'}
+                     description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
           <InputTextArea name={'familyText'} value={state.familyText} onChange={onChange} maxLength={300} rows={4}/>
         </div>
-        <InputTextArea name={'jobText'} labelText={'Из какой сферы пришёл? Кем работаешь?'} value={state.jobText} onChange={onChange} maxLength={300} rows={4}/>
-        <InputTextArea name={'eduText'} labelText={'Почему решил учиться на веб-разработчика?'} value={state.eduText} onChange={onChange} maxLength={300} rows={4}/>
+        <InputTextArea name={'jobText'} labelText={'Из какой сферы пришёл? Кем работаешь?'} value={state.jobText}
+                       onChange={onChange} maxLength={300} rows={4}/>
+        <InputTextArea name={'eduText'} labelText={'Почему решил учиться на веб-разработчика?'} value={state.eduText}
+                       onChange={onChange} maxLength={300} rows={4}/>
         <span className={`${stylesProfile.description}`}>Поля, отмеченные звездочкой, обязательны для заполнения</span>
         <Button size='Large' disabled={false} htmlType='submit'>Сохранить</Button>
       </form>
