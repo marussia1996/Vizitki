@@ -1,6 +1,6 @@
 import './DetailCard.scss';
 import { useEffect, useState } from 'react';
-import { TargetRaw, TThemeProfile } from '../../services/types/types';
+import { BaseFiedsRaw, TargetRaw, TThemeProfile, UserWithProfileRaw } from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
@@ -13,14 +13,15 @@ type TProps = {
   text: string;
   image?: string;
   location?: TargetRaw;
+  user: BaseFiedsRaw & UserWithProfileRaw & {reactions: number};
 };
 
-export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image, location }: TProps) {
+export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image, location, user }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
   const [isOpenFeedback, setFeedbackState] = useState(false);
 
-  const userRaw = localStorage.getItem('user');
-  const user = userRaw && JSON.parse(userRaw);
+  //const userRaw = localStorage.getItem('user');
+  //const user = userRaw && JSON.parse(userRaw);
 
   useEffect(() => {
     if(theme !== TThemeProfile.DEFAULT) {
