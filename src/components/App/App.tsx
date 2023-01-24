@@ -1,4 +1,3 @@
-import React, { FC, useEffect } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import AlexeyM from '../../pages/AlexeyM/AlexeyM';
 import { TLocation } from '../../services/types/types';
@@ -11,7 +10,8 @@ import { ProfilePage } from '../../pages/ProfilePage/ProfilePage';
 import AdminPage from '../../pages/AdminPage/AdminPage';
 import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import { getUsers } from '../../utils/api';
+import {DetailPage} from '../../pages/DetailPage/DetailPage';
+import { MapPage } from '../../pages/MapPage/MapPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
@@ -55,38 +55,20 @@ export const App = () => {
     target: 'job', 
     text: 'string' 
   }
-  useEffect(()=>{
-    getUsers()
-    .then((res) => {
-      localStorage.setItem('arrayUser', JSON.stringify(res));
-      }
-    )
-    .catch(()=>{
-      console.log('err')
-    })
-    // console.log(getUsers());
-    // console.log(postUser('maria@gm.com', 'web+11'));
-    // console.log(putUser('maria@gm.com', 'web+11', 'abfccdaa23e0bd1c4448d2f3'));
-    // console.log(getComments());
-    // console.log(deleteComment('c824a2de0b675b0acb5a2923'));
-    // console.log(getProfiles());
-    // console.log(getUserProfile('abfccdaa23e0bd1c4448d2f3'));
-    // console.log(patchUserProfile('abfccdaa23e0bd1c4448d2f3', dataTest));
-    // console.log(getUserReactions('abfccdaa23e0bd1c4448d2f3'));
-    //console.log(postUserReactions('e638ad9bce6d7efd1b5b035b', commentTest))
-  })
-  const array = localStorage.getItem('arrayUser');
-  console.log(array ? JSON.parse(array) : '')
+
   return (
       <div className='app'>
         <Header />
         <main className='main'>
           <Switch location={location}>
             <Route exact path="/login">
-              <LoginPage />
+              <LoginPage/>
             </Route>
             <Route exact path="/profile">
               <ProfilePage />
+            </Route>
+            <Route exact path="/students/:id">
+              <DetailPage/>
             </Route>
             <Route exact path="/maria">
               <h1>Привет, Мария</h1>
@@ -98,7 +80,8 @@ export const App = () => {
               <h1>Привет, Евгений</h1>
             </Route>
             <Route exact path="/evgeniya">
-              <h1>Привет, Евгения</h1>
+              <DetailPage/>
+
             </Route>
             <Route exact path="/alexey">
               <AlexeyM />
@@ -106,9 +89,12 @@ export const App = () => {
             <Route exact path="/evgenys">
               <Evgenys />
             </Route>
-            <Route path="/admin">
+            <ProtectedRoute exact path="/map">
+              <MapPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/admin">
               <AdminPage />
-            </Route>
+            </ProtectedRoute>
             <ProtectedRoute exact path="/">
               <MainPage />
             </ProtectedRoute>

@@ -13,15 +13,21 @@ type TProps = TInputWrapperProps & {
   options: string[];
   value?: string;
   onChange?: (e: TInputChange<string>) => void;
+  toDisplay?: (option: string) => string;
 }
 
 export const InputSearch: FC<TProps> = (props) => {
 
-  const {labelText, mix, error, description, options, value, name, onChange} = props;
+  const {labelText, mix, error, description, options, value, name, onChange, toDisplay} = props;
+
+  const toLabel = (value: string | undefined) => {
+    if (!value) return '';
+    return toDisplay ? toDisplay(value) : value;
+  }
 
   const [isActive, setActive] = useState(false);
 
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<string>(toLabel(value));
 
   const mainDivRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +42,7 @@ export const InputSearch: FC<TProps> = (props) => {
       document.addEventListener('click', clickHandle);
       inputRef.current?.focus();
     }
-    setText(isActive ? '' : value || '')
+    setText(isActive ? '' : toLabel(value) || '')
     return () => {
       document.removeEventListener('click', clickHandle);
     }
@@ -44,7 +50,8 @@ export const InputSearch: FC<TProps> = (props) => {
 
   const filterFunction =
     options.filter((option) => {
-      return option.toLowerCase().includes(text.toLowerCase())
+      console.log(`${toLabel(option)} ${text}`)
+      return toLabel(option).toLowerCase().includes(text.toLowerCase())
     })
 
   const onClickOption = (option: string) => {
@@ -57,10 +64,10 @@ export const InputSearch: FC<TProps> = (props) => {
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={styles.wrap} ref={mainDivRef}>
-        <Input type={'text'} value={text} onChange={e => setText(e.target.value)}
+        <Input type={'text'} value={text} onChange={(e) => setText(e.target.value)}
                className={classNames({[styles.inputActive]: isActive})} onFocus={() => setActive(true)} ref={inputRef}/>
         <div className={styles.wrapRight}>
-          <button className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
+          <button type='button' className={!isActive ? styles.button : styles.button + ' ' + styles.buttonActive}
                   onClick={() => setActive(!isActive)}>
             <Icon path={iconArrowUp} fill={'none'} width={'18px'} height={'10px'}/>
           </button>
@@ -75,7 +82,7 @@ export const InputSearch: FC<TProps> = (props) => {
                         onClickOption(option)
                       }}
                   >
-                    {option}
+                    {toLabel(option)}
                   </li>
                 )
               })}

@@ -1,0 +1,30 @@
+@use '../../../index' as *;
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-search__suggest {
+  border: 1px solid #666;
+  border-radius: 0 0 4px 4px;
+  box-sizing: border-box;
+  transition: all 2s ease-out;
+  background: white;
+  height: 192px;
+  left: 0;
+  right: 0;
+  position: relative;
+  overflow-y: auto;
+}
+
+.ymaps-2-1-79-search__suggest {
+  font: 14px/24px 'IBMPlexSans',sans-serif !important;
+}
+
+.ymaps-2-1-79-search__suggest-item {
+  padding: 0 0 0 16px !important;
+  margin: 0 0 6px 0 !important;
+}
+
+.ymaps-2-1-79-search__suggest-item:focus {
+  background-color: $neon-pink !important;
+}
+
+.ymaps-2-1-79-search__suggest-item:hover {
+  background-color: $neon-pink !important;
+}

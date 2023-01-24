@@ -4,12 +4,13 @@ import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
+import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
   return (
     <div className="page">
       <div className='content'>
-        <InputSearch options={city} />
+        <InputSearch options={city} value=''/>
         <div className='linkCnt'>
           <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
         </div>

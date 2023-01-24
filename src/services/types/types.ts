@@ -1,6 +1,6 @@
 //
 
-    //TUserRaw - пишем постфикс Raw у данных пришедших от сервера
+//TUserRaw - пишем постфикс Raw у данных пришедших от сервера
 
 //
 
@@ -23,7 +23,8 @@ export enum TThemeProfile {
   DEFAULT = 'default',
   ROMANTIC = 'romantic',
   DARING = 'daring'
-} 
+}
+
 export type TPageType = 'default' | 'romantic' | 'daring';
 
 export type TStudent = {
@@ -80,48 +81,48 @@ export type ProfileRaw = {
 }
 export type InfoBlocksRaw = {
   hobby: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   status: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   job: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
   edu: {
-    text?: string,
-    image?: string,
-    reactions?: number
+    text: string,
+    image: string,
+    reactions: number
   }
 }
-export type InfoItemsRaw ={
+export type InfoItemsRaw = {
   hobby: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   status: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   job: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
   edu: {
-    text?: string,
-    image?: string | null,
+    text: string,
+    image: string,
   }
 }
 export type UserWithProfileRaw = {
   email: string,
   cohort: string,
-  profile:{
+  profile: {
     name: string,
     photo: string,
     city: {
@@ -136,24 +137,24 @@ export type UserWithProfileRaw = {
   }
   info: {
     hobby: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     status: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     job: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     edu: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
   }
 }
@@ -161,7 +162,7 @@ export type Reactions = Array<CommentRaw | LikeRaw>
 export type UserRaw = {
   email: string,
   cohort: string,
-  profile:{
+  profile: {
     name: string,
     photo: string,
     city: {
@@ -176,24 +177,24 @@ export type UserRaw = {
   }
   info: {
     hobby: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     status: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     job: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
     edu: {
-      text?: string,
-      image?: string,
-      reactions?: number
+      text: string,
+      image: string,
+      reactions: number
     }
   }
   reactions: Reactions
@@ -203,10 +204,10 @@ export type UserRefRaw = {
   name: string,
   email: string
 }
-export type TargetRaw = 'hobby'|'status'|'job'|'edu';
+export type TargetRaw = 'hobby' | 'status' | 'job' | 'edu';
 export type ReactionRaw = {
   _id: string,
-  from:{
+  from: {
     _id: string,
     name: string,
     email: string
@@ -215,7 +216,7 @@ export type ReactionRaw = {
 }
 export type CommentRaw = {
   _id: string,
-  from:{
+  from: {
     _id: string,
     name: string,
     email: string
@@ -225,7 +226,7 @@ export type CommentRaw = {
 }
 export type LikeRaw = {
   _id: string,
-  from:{
+  from: {
     _id: string,
     name: string,
     email: string
@@ -234,23 +235,23 @@ export type LikeRaw = {
   emotion: string
 }
 export type InfoItemRaw = {
-  text?: string,
-  image?: string,
+  text: string,
+  image: string,
 }
 export type InfoBlockRaw = {
-  text?: string,
-  image?: string,
-  reactions?: number
+  text: string,
+  image: string,
+  reactions: number
 }
 ///
 
 export type TGetUsersRaw = {
   total: number,
-  items: Array<BaseFiedsRaw & UserAccountRaw & {name: string}>
+  items: Array<BaseFiedsRaw & UserAccountRaw & { name: string }>
 }
 export type TGetCommentsRaw = {
   total: number,
-  items: Array<CommentRaw & {to: UserRefRaw}>,
+  items: Array<CommentRaw & { to: UserRefRaw }>,
 }
 
 export type TUserReactionsRaw = {
@@ -259,6 +260,6 @@ export type TUserReactionsRaw = {
 }
 export type TGetProfilesRaw = {
   total: number,
-  items: Array<BaseFiedsRaw & UserAccountRaw & {profile: ShortProfileRaw}>
+  items: Array<BaseFiedsRaw & UserAccountRaw & { profile: ShortProfileRaw }>
 }
 

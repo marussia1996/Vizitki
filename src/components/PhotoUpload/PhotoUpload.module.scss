@@ -7,7 +7,7 @@
 }
 
 .title {
-  @include text(16px, 24px, 400);
+  @include text(16px, 20.8px, 400);
   color: $text-dark;
   margin: 0;
 }
@@ -36,7 +36,7 @@
 }
 
 .photo {
-  width: 100%;
+  // width: 100%;
   object-fit: cover;
 }
 
@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: rgba(16, 12, 52, 0.15);
+  background:  rgba(16, 12, 52, 0.05);
   transition: all 0.5s ease-out;
   height: 25%;
   opacity: 1;

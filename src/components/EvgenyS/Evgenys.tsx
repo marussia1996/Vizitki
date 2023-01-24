@@ -9,6 +9,10 @@ import {InputDay} from "../../shared/inputs/InputDay/InputDay";
 
 import {PhotoUpload} from "../PhotoUpload/PhotoUpload";
 import {InputSearch} from "../../shared/inputs/InputSearch/InputSearch";
+import {TThemeProfile} from "../../services/types/types";
+import {stringEntries, themeToDescription} from "../../utils/types/enums";
+import Suggest from "../../shared/inputs/Suggest/Suggest";
+
 
 type TInputState = {
   filter: string,
@@ -17,7 +21,10 @@ type TInputState = {
   textarea: string,
   date?: Date,
   photo: undefined;
-  inputSearch?: string
+  theme?: TThemeProfile
+  inputSearch: string,
+  geo?: { name: string, geo: number[] }
+
 }
 
 const Evgenys: FC = () => {
@@ -29,10 +36,15 @@ const Evgenys: FC = () => {
     textarea: '',
     date: undefined,
     photo: undefined,
-    inputSearch: undefined
+    theme: undefined,
+    inputSearch: '',
+    geo: {name: 'Moscow', geo: []}
   });
 
+  console.log(Object.values(TThemeProfile));
+
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
+    console.log(e);
     setState({...state, [e.target.name]: e.target.value})
   }
 
@@ -41,9 +53,13 @@ const Evgenys: FC = () => {
   return (
     <div className={css.container}>
 
-      <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+      <Suggest labelText={'Город'} error={'error'} value={state.geo?.name} onChange={onChange} placeHolder={'123'}
+               name={'geo'}/>
 
-      <InputSearch options={['test', '123']} value={state.inputSearch} onChange={onChange} name={'inputSearch'}/>
+      {/*<PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+
+      <InputSearch options={stringEntries(TThemeProfile)} value={state.theme}
+                   onChange={onChange} name={'theme'} toDisplay={themeToDescription}/>
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}
@@ -65,7 +81,8 @@ const Evgenys: FC = () => {
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
 
-      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']}/>
+      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>*/}
+
     </div>
   );
 };
