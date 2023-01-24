@@ -2,7 +2,7 @@ import './Feedback.scss';
 import { messages } from './data';
 import { CommentRaw, LikeRaw } from '../../services/types/types';
 import { v4 as createUUID } from 'uuid';
-import { KeyboardEventHandler, useRef } from 'react';
+import { KeyboardEventHandler, useRef, useEffect } from 'react';
 import { postUserReactions } from '../../utils/api';
 
 type TProps = {
@@ -13,6 +13,10 @@ type TProps = {
 //TODO: Добавить закрытие по кнопке Escape
 export default function Feedback({ comments, id }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const sendReaction: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if(e.key === 'Enter') {
