@@ -27,8 +27,8 @@ export enum TThemeProfile {
 export type TPageType = 'default' | 'romantic' | 'daring';
 
 export type TStudent = {
-  id:string;
-  number: number;
+  _id:string;
+  cohort: string;
   email: string;
   name: string;
 }
@@ -243,6 +243,7 @@ export type InfoBlockRaw = {
   reactions?: number
 }
 ///
+
 export type TGetUsersRaw = {
   total: number,
   items: Array<BaseFiedsRaw & UserAccountRaw & {name: string}>

@@ -6,7 +6,7 @@ import styles from './CommentRowRead.module.scss';
 
 type Props = {
     id: string;
-    number?: number;
+    cohort?: string;
     date?: Date;
     from: string;
     to: string;
@@ -15,7 +15,7 @@ type Props = {
     onClickDelete?: (id: string) => void,
 };
 
-const CommentRowRead = ({ id, number, date, from, to, target, text, onClickDelete = (id) => { } }: Props) => {
+const CommentRowRead = ({ id, cohort, date, from, to, target, text, onClickDelete = (id) => { } }: Props) => {
     const handleClickDelete = (event: SyntheticEvent) => {
         event.stopPropagation();
         onClickDelete(id)
@@ -24,7 +24,7 @@ const CommentRowRead = ({ id, number, date, from, to, target, text, onClickDelet
     return (
         <Tr>
             <Td>
-                <div className={styles.CellValue}>{number ? number : '-'}</div>
+                <div className={styles.CellValue}>{cohort ? cohort : '-'}</div>
             </Td>
             <Td>
                 <div className={styles.CellValue}>{date ? date.toLocaleDateString() : '-'}</div>
@@ -39,9 +39,9 @@ const CommentRowRead = ({ id, number, date, from, to, target, text, onClickDelet
                 <div className={styles.CellValue}>{target ? target : '-'}</div>
             </Td>
             <Td>
-                <div className={styles.CellTextValue}>{text}</div>
+                <span className={styles.CellTextValue}>{text}</span>
             </Td>
-            <Td>
+            <Td className={styles.DeleteCell}>
                 <button className={styles.DeleteButton} onClick={handleClickDelete}>
                     <img src={deleteIcon} alt='Кнопка удаления' />
                 </button>

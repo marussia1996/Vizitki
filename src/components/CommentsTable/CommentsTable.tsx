@@ -1,126 +1,120 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { TCommentRaw } from "../../services/types/types";
+import React, { useCallback, useEffect, useState } from "react";
+import { BaseFiedsRaw, CommentRaw, ShortProfileRaw, UserAccountRaw, UserRefRaw } from "../../services/types/types";
+import { deleteComment, getComments, getProfiles } from "../../utils/api";
+import { compare } from "../../utils/utils";
 import CommentRowRead from "../CommentRowRead/CommentRowRead";
+import Loader from "../Loader/Loader";
 import Scroll from "../Scroll/Scroll";
 import { Table, Thead, Th, Tbody } from "../Table/Table";
 
-const commentDataMock: TCommentRaw[] = [
-    {
-        "_id": "c824a2de0b675b0acb5a2923",
-        "from": {
-            "_id": "e638ad9bce6d7efd1b5b035b",
-            "name": "Elvira Grady",
-            "email": "Anita93@hotmail.com"
-        },
-        "target": "hobby",
-        "text": "Laborum omnis harum modi omnis architecto ipsam adipisci dolore.",
-        "to": {
-            "_id": "abfccdaa23e0bd1c4448d2f3",
-            "name": "Ricky Fadel",
-            "email": "Chaim.Armstrong@gmail.com"
-        }
-    },
-    {
-        "_id": "bad224dbc4a601caff7e0b2c",
-        "from": {
-            "_id": "e638ad9bce6d7efd1b5b035b",
-            "name": "Elvira Grady",
-            "email": "Anita93@hotmail.com"
-        },
-        "target": "edu",
-        "text": "Soluta consectetur tempore eaque modi sequi autem ducimus.",
-        "to": {
-            "_id": "abfccdaa23e0bd1c4448d2f3",
-            "name": "Ricky Fadel",
-            "email": "Chaim.Armstrong@gmail.com"
-        }
-    },
-    {
-        "_id": "c2f15f9b4315bb20aebf9a1d",
-        "from": {
-            "_id": "e638ad9bce6d7efd1b5b035b",
-            "name": "Elvira Grady",
-            "email": "Anita93@hotmail.com"
-        },
-        "target": "status",
-        "text": "Eveniet excepturi commodi eaque dignissimos quae nesciunt nam dolorum.",
-        "to": {
-            "_id": "abfccdaa23e0bd1c4448d2f3",
-            "name": "Ricky Fadel",
-            "email": "Chaim.Armstrong@gmail.com"
-        }
-    },
-    {
-        "_id": "38eb4bbe3da2fcf2d4cfcd59",
-        "from": {
-            "_id": "e638ad9bce6d7efd1b5b035b",
-            "name": "Elvira Grady",
-            "email": "Anita93@hotmail.com"
-        },
-        "target": "job",
-        "text": "Accusantium neque minus tempora.",
-        "to": {
-            "_id": "abfccdaa23e0bd1c4448d2f3",
-            "name": "Ricky Fadel",
-            "email": "Chaim.Armstrong@gmail.com"
-        }
-    },
-    {
-        "_id": "0ebcdb97d72b2b17345c30c8",
-        "from": {
-            "_id": "e638ad9bce6d7efd1b5b035b",
-            "name": "Elvira Grady",
-            "email": "Anita93@hotmail.com"
-        },
-        "target": null,
-        "text": "Libero ad tempora exercitationem numquam adipisci quibusdam doloremque incidunt.",
-        "to": {
-            "_id": "abfccdaa23e0bd1c4448d2f3",
-            "name": "Ricky Fadel",
-            "email": "Chaim.Armstrong@gmail.com"
-        }
-    }
-]
+import styles from './CommentsTable.module.scss';
 
-const CommentsTable = () => {
-    const [comments, setComments] = useState<TCommentRaw[]>([]);
+type TComment = CommentRaw & { to: UserRefRaw } & { cohort?: string, createdAt: Date };
 
-    const refTable = useRef(null);
+type Props = {
+    filter: string;
+}
+
+const filterTable = (comment: TComment, filter: string) => {
+    return compare(comment.from.name, filter) || compare(comment.to.name, filter) || compare(comment.cohort ? comment.cohort : '', filter)
+}
+
+const prepareComments = (
+    commentsRaw: (CommentRaw & { to: UserRefRaw; })[],
+    profilesRaw: (BaseFiedsRaw & UserAccountRaw & { profile: ShortProfileRaw; })[]) => {
+    return commentsRaw.reduce((acc: TComment[], item) => {
+        const cohort = profilesRaw.find(profile => profile._id === item.from._id)?.cohort;
+        //FIXME: В API нет даты создания комментария 
+        const comment = { ...item, cohort, createdAt: new Date() }
+        return [...acc, comment];
+    }, [])
+};
+
+const CommentsTable = ({ filter = '' }: Props) => {
+    const [comments, setComments] = useState<TComment[]>([]);
+    const [isFetching, setFetching] = useState<boolean>(true);
 
     const handleDelete = useCallback((id: string) => {
-        console.log('DELETE REQUEST MOCK: ', id);
+        setFetching(true);
+        deleteComment(id).then(res => {
+            getComments().then(commentsRaw => {
+                if (commentsRaw) {
+                    getProfiles().then(profilesRaw => {
+                        if (profilesRaw) {
+                            const comments = prepareComments(commentsRaw.items, profilesRaw.items);
+                            setComments(comments);
+                        }
+                        setFetching(false);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            })
+        }).catch(err => {
+            console.log(err);
+        })
     }, [])
 
     useEffect(() => {
-        setComments(commentDataMock);
+        setFetching(true);
+        getComments().then(commentsRaw => {
+            if (commentsRaw) {
+                getProfiles().then(profilesRaw => {
+                    if (profilesRaw) {
+                        const comments = prepareComments(commentsRaw.items, profilesRaw.items);
+                        setComments(comments);
+                    }
+                    setFetching(false);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        })
     }, [])
 
+    const filteredComments = comments.filter(comment => filterTable(comment, filter))
+
+    if(isFetching){
+        return(<Loader/>)
+    }
+
     return (
-        <Scroll>
-            <Table refTable={refTable}>
-                <Thead>
-                    <Th>{'Когорта'}</Th>
-                    <Th>{'Дата'}</Th>
-                    <Th>{'Отправитель'}</Th>
-                    <Th>{'Получатель'}</Th>
-                    <Th>{'Откуда комментарий'}</Th>
-                    <Th>{'Текст комментария'}</Th>
-                </Thead>
-                <Tbody>
-                    {comments.map(({ _id: id, from, target, text, to }) =>
-                        <CommentRowRead
-                            key={id}
-                            id={id}
-                            from={from.name}
-                            target={target}
-                            text={text}
-                            to={to.name}
-                            onClickDelete={handleDelete}
-                        />
-                    )}
-                </Tbody>
-            </Table>
-        </Scroll>
+            <div className={styles.TableContent}>
+                {filteredComments.length === 0 ? (
+                    <p className={styles.EmptySearch}>Не удалось никого найти. Исправьте запрос или сбросьте фильтр</p>
+                ) : (
+                    <>
+                        <Scroll mix={styles.CommentScrollTable}>
+                            <Table>
+                                <Thead>
+                                    <Th>{'Когорта'}</Th>
+                                    <Th>{'Дата'}</Th>
+                                    <Th>{'Отправитель'}</Th>
+                                    <Th>{'Получатель'}</Th>
+                                    <Th>{'Откуда комментарий'}</Th>
+                                    <Th>{'Текст комментария'}</Th>
+                                    <Th> </Th>
+                                </Thead>
+                                <Tbody>
+                                    {filteredComments.map(({ _id: id, cohort, from, target, text, to, createdAt }) =>
+                                        <CommentRowRead
+                                            key={id}
+                                            id={id}
+                                            date={createdAt}
+                                            cohort={cohort}
+                                            from={from.name}
+                                            target={target}
+                                            text={text}
+                                            to={to.name}
+                                            onClickDelete={handleDelete}
+                                        />
+                                    )}
+                                </Tbody>
+                            </Table>
+                        </Scroll>
+                    </>
+                )}
+            </div>
     )
 }
 

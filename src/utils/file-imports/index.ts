@@ -4,7 +4,7 @@ type TImportFileOptions = {
   header: "A" | number | string[]
 }
 
-const defaultHeader = ['email', 'number', 'name'];
+const defaultHeader = ['email', 'cohort', 'name'];
 
 const supportedTypes = ['csv', 'xlsx'];
 

@@ -4,12 +4,13 @@ import styles from './Scroll.module.scss';
 
 type Props = {
     children: ReactNode;
+    mix?:string;
 }
 
-const Scroll: FC<Props> = ({ children }) => {
+const Scroll: FC<Props> = ({ children, mix }) => {
 
     return (
-        <div className={styles.Scroll}>
+        <div className={[styles.Scroll, mix].join(' ')}>
             {children}
         </div>
         )

@@ -18,3 +18,12 @@
 .CellValue:focus {
   border: 1px solid #100C34;
 }
+
+// FIXME: поправить после изменений на макете
+.RowModify {
+  background-color: lightgray;
+}
+
+.DeleteCell {
+  text-align: end;
+}

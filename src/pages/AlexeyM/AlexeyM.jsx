@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import CommentsTable from "../../components/CommentsTable/CommentsTable";
 import InputText from "../../shared/inputs/InputText/InputText";
 import Scroll from "../../components/Scroll/Scroll";
-import StudentTable from "../../components/StudensTable/StudensTable";
 import { TThemeProfile } from "../../services/types/types";
 import Quete from "../../components/Quete/Quete";
 
@@ -29,9 +28,6 @@ const AlexeyM = () => {
                 <Scroll>
                     <TextMock />
                 </Scroll>
-            </div>
-            <div>
-                <StudentTable />
             </div>
             <div style={{ paddingTop: '100px' }}>
                 <CommentsTable />
