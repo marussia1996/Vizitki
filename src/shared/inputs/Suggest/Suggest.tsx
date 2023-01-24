@@ -4,6 +4,7 @@ import {withYMaps} from "react-yandex-maps";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
 import css from './Suggest.module.scss';
 import styles from "../InputSearch/InputSearch.module.scss";
+import './suggest.scss'
 import Icon from "../../Icon/Icon";
 import {iconArrowUp} from "../../Icon/lib";
 import {createInputChange, TInputChange} from "../index";
@@ -28,6 +29,7 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
   const {placeHolder, value, onChange, name} = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -70,6 +72,14 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
           placeholder={placeHolder} value={text} ref={inputRef} onChange={(e) => {
           setText(e.target.value)
         }} onFocus={() => setIsOpen(true)} onBlur={() => setIsOpen(false)}/>
+          <div ref={ref} style={{
+          position: 'relative',
+          maxHeight: '192px',
+          overflowY: 'auto',
+          height: '192px',
+          overflowX: 'hidden',
+          display: 'none'
+        }}></div>
         <div className={styles.wrapRight}>
           <button type='button' className={!isOpen ? styles.button : styles.button + ' ' + styles.buttonActive}
                   onClick={() => inputRef.current?.focus()}>
