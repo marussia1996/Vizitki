@@ -1,5 +1,5 @@
 import './MainPage.scss';
-import { NavLink } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
 import { city } from '../../shared/inputs/InputSearch/test'; //TODO ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
@@ -7,6 +7,8 @@ import Loader from '../../components/Loader/Loader';
 import { getUsers } from '../../utils/api';
 
 export const MainPage = () => {
+  const params = useParams();
+  console.log(params)
   return (
     <div className="page">
       <div className='content'>

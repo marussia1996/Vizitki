@@ -26,23 +26,26 @@ export const LoginPage = () => {
       _id: 'fghju5678ijhgbhj',
       email: 'hjkll',
       name: 'blblblb',
-      curator: 'web-12', 
-      image: '' 
+      cohort: 'web-12', 
+      image: '',
+      tags: 'curator'
     }
     const student = {
       _id: 'abfccdaa23e0bd1c4448d2f3',
       email: 'Chaim.Armstrong@gmail.com',
       name: 'Ricky Fadel',
       cohort: 'web+16',
+      tags: 'student',
       image: 'https://loremflickr.com/640/480/cats' 
     }
     localStorage.setItem('user', JSON.stringify(student))
   }
   const userRaw = localStorage.getItem('user');
-  if(userRaw && userRaw.includes('curator')){
+  const user = userRaw && JSON.parse(userRaw);
+  if(userRaw && user.tags === 'curator'){
     return <Redirect to='/admin'/>
   }
-  else if(localStorage.getItem('user')){
+  else if(userRaw && user.tags === 'student'){
     return <Redirect to='/'/>
   }
 

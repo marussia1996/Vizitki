@@ -25,8 +25,6 @@ export enum TThemeProfile {
   DARING = 'daring'
 }
 
-export type TPageType = 'default' | 'romantic' | 'daring';
-
 export type TStudent = {
   id: string;
   number: number;
