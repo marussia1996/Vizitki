@@ -23,7 +23,6 @@
 
 .wrapQuete{
   display: flex;
-  margin-top: 180px;
   margin-left: 15px;
   grid-area: quote;
 }
@@ -39,22 +38,23 @@
   margin-bottom: 96px;
   list-style-type: none;
   padding: 0;
+  margin-top: 72px;
 }
 @media screen and (max-width: 1250px) {
   .section {
     grid-template-columns: minmax(342px, 443px) minmax(342px, 440px);
     column-gap: 20px;
-    row-gap: 32px;
     grid-template-areas:
         "user avatar"
         ". quote"
         "posts posts";
   }
   .wrapQuete{
-    margin: 0
+    margin-left: 0;
   }
   .posts {
     grid-gap: 40px 20px;
+    margin-top: 32px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -67,14 +67,10 @@
         ". quote"
         "posts posts";
   }
-
   .wrapQuete{
     display: flex;
-    margin-top: 0;
     grid-area: quote;
-  }
-  .wrapPosts {
-    margin-top: 32px;
+    
   }
   .posts {
     grid-gap: 40px 20px;
@@ -86,7 +82,6 @@
     margin: 8px 24px 0 24px;
     justify-content: center;
     grid-template-columns: 272px;
-    row-gap: 32px;
     grid-template-areas:
         "user"
         'avatar'
@@ -100,13 +95,15 @@
     grid-template-rows: repeat(4, auto);
     gap: 32px;
   }
+  .wrapAvatar {
+    margin-top: 32px;
+  }
 }
 
 @media screen and (max-width: 320px) {
   .section {
     margin: 8px 24px 0 24px;
     grid-template-columns: 272px;
-    row-gap: 32px;
     grid-template-areas:
         "user"
         'avatar'

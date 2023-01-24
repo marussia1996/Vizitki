@@ -4,6 +4,7 @@
     display: block;
     max-width: 255px;
     position:relative;
+    margin-top: 180px;
 }
 
 .CommentButton {
@@ -47,4 +48,10 @@
 
 .TextDaring {
     color: $neon-green;
+}
+
+@media screen and (max-width: 1250px) {
+  .Quete {
+    margin-top: 32px;
+  }
 }

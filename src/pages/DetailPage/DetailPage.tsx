@@ -47,7 +47,7 @@ export const DetailPage = () => {
         </div>
         <div className={styles.wrapQuete}>
           {user.profile.quote !== '' ? (
-            <Quete text={user.profile.quote}
+            <Quete text="Делай, что должно и будь, что будет."
               theme={changeTheme()}/>
           ) : ''}
         </div>
