@@ -10,9 +10,7 @@ import {Button} from '../../shared/Button/Button';
 import {InputSearch} from '../../shared/inputs/InputSearch/InputSearch';
 import {getUserProfile, patchUserProfile} from '../../utils/api';
 import {UserWithProfileRaw} from '../../services/types/types';
-import {InputSuggest} from '../../shared/inputs/InputSuggest/InputSuggest';
 import Suggest, {TSelected} from "../../shared/inputs/Suggest/Suggest";
-import {city} from "../../shared/inputs/InputSearch/test";
 
 export const theme = [
   'серьезный',
@@ -175,20 +173,11 @@ export const ProfilePage = () => {
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
     setState({...state, [e.target.name]: e.target.value})
   }
-  const getCityName = (value: string) => {
-    setState(prevState => ({...prevState, city: value}))
-  }
-  const getGeocode = (value: Array<number>) => {
-    setState(prevState => ({...prevState, geocode: value}))
-  }
-
   const onCityChange = (e: TInputChange<TSelected>) => {
     if (e.target && e.target.value) {
       setState({...state, city: e.target.value.name, geocode: e.target.value.geo})
     }
   }
-
-  console.log(state);
 
   return (
     <section className={`${stylesProfile.profilePage}`}>
