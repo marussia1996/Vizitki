@@ -12,6 +12,7 @@ import { MainPage } from '../../pages/MainPage/MainPage';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import {DetailPage} from '../../pages/DetailPage/DetailPage';
 import { MapPage } from '../../pages/MapPage/MapPage';
+import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage';
 
 export const App = () => {
   const location = useLocation<TLocation>();
@@ -80,7 +81,7 @@ export const App = () => {
               <h1>Привет, Евгений</h1>
             </Route>
             <Route exact path="/evgeniya">
-              <DetailPage/>
+              <NotFoundPage/>
 
             </Route>
             <Route exact path="/alexey">
