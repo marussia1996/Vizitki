@@ -62,7 +62,7 @@ export const ProfilePage = () => {
 
         }
       )
-  }, [])
+  }, [user])
 
   const loaderData = (data: UserWithProfileRaw) => {
     const obj: TInputState = {

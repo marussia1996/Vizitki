@@ -1,8 +1,6 @@
 import './MainPage.scss';
 import { useEffect, useState } from 'react';
 import { NavLink, useParams } from "react-router-dom"
-import { InputSearch } from '../../shared/inputs/InputSearch/InputSearch';
-import { city } from '../../shared/inputs/InputSearch/test'; //FIXME ТЕСТОВЫЕ ДАННЫЕ. Убрать
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
 import { getProfiles } from '../../utils/api';

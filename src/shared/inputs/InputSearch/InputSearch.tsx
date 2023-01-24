@@ -46,7 +46,7 @@ export const InputSearch: FC<TProps> = (props) => {
     return () => {
       document.removeEventListener('click', clickHandle);
     }
-  }, [isActive])
+  }, [isActive, toLabel, value])
 
   const filterFunction =
     options.filter((option) => {

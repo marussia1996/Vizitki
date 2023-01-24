@@ -5,9 +5,9 @@ import { DetailPage } from '../../pages/DetailPage/DetailPage'
 import { LoginPage } from '../../pages/LoginPage/LoginPage'
 import { MainPage } from '../../pages/MainPage/MainPage'
 import { MapPage } from '../../pages/MapPage/MapPage'
+import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
 import { TLocation } from '../../services/types/types'
-import Evgenys from '../EvgenyS/Evgenys'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 
 export const AppRouter = () => {
@@ -27,14 +27,14 @@ export const AppRouter = () => {
         <ProtectedRoute exact path="/map">
           <MapPage />
         </ProtectedRoute>
-        <ProtectedRoute exact path="/admin">
+        <ProtectedRoute path="/admin">
           <AdminPage />
         </ProtectedRoute>
         <ProtectedRoute exact path="/cohort/:name">
           <MainPage />
         </ProtectedRoute>
         <Route>
-          <div>Not Found</div>
+          <NotFoundPage/>
         </Route>
       </Switch>
       </>
@@ -59,7 +59,7 @@ export const AppRouter = () => {
           <MainPage />
         </ProtectedRoute>
         <Route>
-          <div>Not Found</div>
+          <NotFoundPage/>
         </Route>
       </Switch>
       </>

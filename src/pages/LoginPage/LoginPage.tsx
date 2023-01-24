@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Redirect, useLocation} from 'react-router'
 import { TLocation } from '../../services/types/types'
 import { Button } from '../../shared/Button/Button'
@@ -38,7 +37,7 @@ export const LoginPage = () => {
       tags: 'student',
       image: 'https://loremflickr.com/640/480/cats' 
     }
-    localStorage.setItem('user', JSON.stringify(student))
+    localStorage.setItem('user', JSON.stringify(admin))
   }
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);

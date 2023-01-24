@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { TThemeProfile } from "../../services/types/types";
+import { BaseFiedsRaw, TThemeProfile, UserWithProfileRaw } from "../../services/types/types";
 import { ReactComponent as QueteIcon } from "../../images/quete_icon.svg";
 import classnames from "classnames";
 
 import styles from './Quete.module.scss';
 import Feedback from "../Feedback/Feedback";
 import { CommentIcon } from "../CommentIcon/CommentIcon";
+import { userInfo } from "os";
 
 let cx = classnames.bind(styles);
 
 type Props = {
     text: string;
     theme?: TThemeProfile;
+    user: BaseFiedsRaw & UserWithProfileRaw & {reactions: number};
 }
 
-const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
+const Quete = ({ text, theme = TThemeProfile.DEFAULT, user }: Props) => {
     const [isOpenFeedback, setFeedbackState] = useState(false);
 
     const handleFeedback = () => {
@@ -38,6 +40,7 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT }: Props) => {
                     handleFeedback={handleFeedback}
                     color='dark'
                     mix={styles.CommentButton}
+                    commentsQuantity={0}
                 />
                 <QueteIcon className={cxQueteIcon} />
                 <QueteIcon className={cxQueteIcon} />
