@@ -17,6 +17,8 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
   const [state, setState] = useState<TUserReactionsRaw>();
   const history = useHistory();
+  const userRaw = localStorage.getItem('user');
+  const user = userRaw && JSON.parse(userRaw);
 
   useEffect(() => {
     getUserReactions(id).then(res => {
@@ -59,7 +61,10 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
         {/* TODO отображается только для админа, переделать когда будут данные о пользователе */}
-        <p className={styles.messages}>{state?.total + ' сообщений'}</p>
+       { userRaw && user.tags === 'curator' ? 
+          (<p className={styles.messages}>{state?.total + ' сообщений'}</p>)
+        : null
+        }
       </div>
       {isOpenFeedback && <Feedback comments={profileComments} id={id} />}
     </div>

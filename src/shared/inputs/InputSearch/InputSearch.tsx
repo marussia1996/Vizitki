@@ -46,11 +46,10 @@ export const InputSearch: FC<TProps> = (props) => {
     return () => {
       document.removeEventListener('click', clickHandle);
     }
-  }, [isActive])
+  }, [isActive, toLabel, value])
 
   const filterFunction =
     options.filter((option) => {
-      console.log(`${toLabel(option)} ${text}`)
       return toLabel(option).toLowerCase().includes(text.toLowerCase())
     })
 

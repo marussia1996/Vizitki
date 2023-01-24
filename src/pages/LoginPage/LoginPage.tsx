@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Redirect, useLocation} from 'react-router'
 import { TLocation } from '../../services/types/types'
 import { Button } from '../../shared/Button/Button'
@@ -23,26 +22,29 @@ export const LoginPage = () => {
     accessToken && localStorage.setItem('accessToken', accessToken[1])
     //фейк на получение данных о пользователе
     const admin = {
-      _id: 'fghju5678ijhgbhj',
+      _id: 'a18ca3c1e13dd93ddded5bbc',
       email: 'hjkll',
       name: 'blblblb',
-      curator: 'web-12', 
-      image: '' 
+      cohort: 'web-12', 
+      image: '',
+      tags: 'curator'
     }
     const student = {
-      _id: 'abfccdaa23e0bd1c4448d2f3',
+      _id: '2cb3baaa7528a9bb5e2c20d9',
       email: 'Chaim.Armstrong@gmail.com',
       name: 'Ricky Fadel',
       cohort: 'web+16',
+      tags: 'student',
       image: 'https://loremflickr.com/640/480/cats' 
     }
-    localStorage.setItem('user', JSON.stringify(student))
+    localStorage.setItem('user', JSON.stringify(admin))
   }
   const userRaw = localStorage.getItem('user');
-  if(userRaw && userRaw.includes('curator')){
+  const user = userRaw && JSON.parse(userRaw);
+  if(userRaw && user.tags === 'curator'){
     return <Redirect to='/admin'/>
   }
-  else if(localStorage.getItem('user')){
+  else if(userRaw && user.tags === 'student'){
     return <Redirect to='/'/>
   }
 
