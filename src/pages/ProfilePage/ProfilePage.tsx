@@ -11,12 +11,8 @@ import {InputSearch} from '../../shared/inputs/InputSearch/InputSearch';
 import {getUserProfile, patchUserProfile} from '../../utils/api';
 import {UserWithProfileRaw} from '../../services/types/types';
 import Suggest, {TSelected} from "../../shared/inputs/Suggest/Suggest";
-
-export const theme = [
-  'серьезный',
-  'романтический',
-  'дерзкий'
-]
+import {TThemeProfile} from "../../services/types/types";
+import {stringEntries, themeToDescription} from "../../utils/types/enums";
 
 export type TInputState = {
   photo: string,
@@ -78,7 +74,7 @@ export const ProfilePage = () => {
       github: data.profile.github,
       city: data.profile.city.name,
       geocode: data.profile.city.geocode,
-      template: themeParse(data.profile.template),
+      template: data.profile.template,
       quote: data.profile.quote,
       hobbiesFile: data.info.hobby.image,
       hobbiesText: data.info.hobby.text,
@@ -88,28 +84,6 @@ export const ProfilePage = () => {
       eduText: data.info.job.text,
     }
     setState(obj)
-  }
-  const themeParse = (themeRaw: string) => {
-    if (themeRaw !== null) {
-      if (themeRaw === 'romantic') {
-        return theme[1]
-      }
-      if (themeRaw === 'derzkiy') {
-        return theme[2]
-      }
-    }
-    return theme[0];
-  }
-  const themeEncode = (userTheme: string) => {
-    if (userTheme !== theme[0]) {
-      if (userTheme === theme[1]) {
-        return 'romantic'
-      }
-      if (userTheme === theme[2]) {
-        return 'derzkiy'
-      }
-    }
-    return ''
   }
   const validity = () => {
     if (state.birthday === undefined) {
@@ -145,7 +119,7 @@ export const ProfilePage = () => {
           quote: state.quote,
           telegram: state.telegram,
           github: state.github,
-          template: themeEncode(state.template),
+          template: state.template,
         },
         info: {
           hobby: {
@@ -191,8 +165,8 @@ export const ProfilePage = () => {
                  value={state.city} name={'city'}/>
         <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange}/>
         <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange}/>
-        <InputSearch labelText='Выберите шаблон' options={theme} value={state.template} onChange={onChange}
-                     name={'template'}/>
+        <InputSearch options={stringEntries(TThemeProfile)} labelText='Выберите шаблон' value={state.template} onChange={onChange}
+                     name={'template'} toDisplay={themeToDescription}/>
         <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange}
                        maxLength={100} rows={4}/>
         <div>

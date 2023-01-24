@@ -49,19 +49,27 @@ const Evgenys: FC = () => {
   }
 
   console.log(state);
-
+  const array = ['1','2','3'];
+  const todisplay = (s: string) =>{
+    return s + 'point'
+  }
+  const onChanged = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
+    console.log(e);
+  }
   return (
     <div className={css.container}>
 
-      <Suggest labelText={'Город'} error={'error'} value={state.geo?.name} onChange={onChange} placeHolder={'123'}
-               name={'geo'}/>
+      {/* <Suggest labelText={'Город'} error={'error'} value={state.geo?.name} onChange={onChange} placeHolder={'123'} */}
+               {/* name={'geo'}/> */}
 
-      {/*<PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+      {/* <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/> */}
 
       <InputSearch options={stringEntries(TThemeProfile)} value={state.theme}
-                   onChange={onChange} name={'theme'} toDisplay={themeToDescription}/>
+                   onChange={onChanged} name={'theme'} toDisplay={themeToDescription}/>
+      <InputSearch options={array} value={state.theme}
+                   onChange={onChanged} name={'theme'} toDisplay={todisplay}/>
 
-      <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
+      {/* <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
                 onDateChange={onChange}
       />
 
@@ -81,7 +89,7 @@ const Evgenys: FC = () => {
 
       <InputDay name={'date'} date={state.date} labelText={'Дата рождения *'} onDateChange={onChange}/>
 
-      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/>*/}
+      <InputSearch options={['test', '123', 'test', '123', 'test', '123', 'test', '123']} value={state.inputSearch}/> */}
 
     </div>
   );
