@@ -1,6 +1,7 @@
 import styles from './InputSuggest.module.scss';
 import Icon from '../../Icon/Icon';
 import {iconArrowUp} from '../../Icon/lib';
+import Scroll from '../../../components/Scroll/Scroll';
 import React, {FC, useEffect, useRef, useState} from "react";
 import Input from "../Input/Input";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
