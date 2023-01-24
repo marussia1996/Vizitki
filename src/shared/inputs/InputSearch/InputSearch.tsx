@@ -50,7 +50,6 @@ export const InputSearch: FC<TProps> = (props) => {
 
   const filterFunction =
     options.filter((option) => {
-      console.log(`${toLabel(option)} ${text}`)
       return toLabel(option).toLowerCase().includes(text.toLowerCase())
     })
 
