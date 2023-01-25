@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Router>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <YMaps enterprise query={{apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2"}}>
         <App/>
       </YMaps>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Router>
 );
 

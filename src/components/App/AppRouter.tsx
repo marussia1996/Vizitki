@@ -14,6 +14,8 @@ export const AppRouter = () => {
   const location = useLocation<TLocation>();
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
+  console.log(userRaw);
+  console.log(user);
   if(user && user.tags === 'curator'){
     return (
       <>
