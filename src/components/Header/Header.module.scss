@@ -15,6 +15,11 @@
   width: 130px;
   height: 25px;
 }
+.switch{
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
 .userWrap {
   display: flex;
   align-items: center;
