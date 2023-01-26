@@ -25,6 +25,7 @@ export const MainPage = () => {
   const params = useParams();
   console.log(params)
   const onCityChange = (e: TInputChange<TSelected>) => {
+    console.log(e.target.value?.name);
     if (e.target && e.target.value) {
       setCity(e.target.value.name)
     }
