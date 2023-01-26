@@ -26,7 +26,9 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
       if (res) {
         setState(res);
       }
-    });
+    }).catch(err => {
+      console.log(err);
+  });
   }, []);
 
   //FIXME когда будет нормальный бэкенд надо будет заменить 'job' на 'profile', или что там будет

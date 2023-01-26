@@ -4,8 +4,7 @@ import { NavLink, useParams } from "react-router-dom"
 import { UserCard } from '../../components/UserCard/UserCard';
 import Loader from '../../components/Loader/Loader';
 import { getProfiles } from '../../utils/api';
-import { BaseFiedsRaw, ShortProfileRaw, TGetProfilesRaw, UserAccountRaw } from '../../services/types/types';
-import { v4 as createUUID } from 'uuid';
+import { BaseFiedsRaw, ShortProfileRaw, UserAccountRaw } from '../../services/types/types';
 import Suggest, { TSelected } from '../../shared/inputs/Suggest/Suggest';
 import { TInputChange } from '../../shared/inputs';
 import Scroll from '../../components/Scroll/Scroll';
@@ -19,7 +18,9 @@ export const MainPage = () => {
       if(res) {
         setProfiles(res.items);
       }
-    });
+    }).catch(err => {
+      console.log(err);
+  });
   }, []);
   
   const params = useParams();
@@ -30,20 +31,14 @@ export const MainPage = () => {
       setCity(e.target.value.name)
     }
   }
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
-    e.preventDefault();
-    console.log(city)
-  }
-  console.log(city);
+
   return (
     <div className="page">
       <div className='header'>
-        <form onSubmit={handleSubmit}>
         <Suggest onChange={onCityChange}
                  placeHolder={'Все города'}
                  value={city} name={'city'}
                  mix={'maxWidth'}/>
-        </form>
         <div className='linkCnt'>
           <NavLink to="/map" className='link'>Посмотреть на карте</NavLink>
         </div>
@@ -55,25 +50,25 @@ export const MainPage = () => {
         {profiles.filter((item)=>city !== '' ? item.profile.city.name === city : true).map(student => {
           const { name, photo, city } = student.profile;
           return (
-            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={createUUID()} />
+            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={student._id} />
           )
         })}
         {profiles.filter((item)=>city !== '' ? item.profile.city.name === city : true).map(student => {
           const { name, photo, city } = student.profile;
           return (
-            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={createUUID()} />
+            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={student._id} />
           )
         })}
         {profiles.filter((item)=>city !== '' ? item.profile.city.name === city : true).map(student => {
           const { name, photo, city } = student.profile;
           return (
-            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={createUUID()} />
+            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={student._id} />
           )
         })}
         {profiles.filter((item)=>city !== '' ? item.profile.city.name === city : true).map(student => {
           const { name, photo, city } = student.profile;
           return (
-            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={createUUID()} />
+            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={student._id} />
           )
         })}
         

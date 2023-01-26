@@ -1,5 +1,5 @@
 import styles from './PhotoUpload.module.scss';
-import React, {FC, useRef} from 'react';
+import React, {ChangeEvent, FC, useRef} from 'react';
 import camera from '../../images/camera.svg';
 import {TInputChange} from "../../shared/inputs";
 
@@ -12,8 +12,8 @@ export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange, ...rest
   const inputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const handleImageChange = (e: any) => {
-    const [image] = e.target.files;
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const [image] = Object(e.target.files);
     const url = image ? URL.createObjectURL(image) : undefined;
     if (image) {
       image.src = url;

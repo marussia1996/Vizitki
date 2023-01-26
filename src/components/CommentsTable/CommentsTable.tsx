@@ -69,7 +69,9 @@ const CommentsTable = ({ filter = '' }: Props) => {
                     console.log(err);
                 })
             }
-        })
+        }).catch(err => {
+          console.log(err);
+      })
     }, [])
 
     const filteredComments = comments.filter(comment => filterTable(comment, filter))

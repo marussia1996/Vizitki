@@ -25,7 +25,7 @@ export default function Feedback({ comments, id }: TProps) {
       inputRef.current!.value = '';
     }
   }
-
+  console.log(comments)
   return (
     <div className='modal'>
       <div className='smilesCnt'>

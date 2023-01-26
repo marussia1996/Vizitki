@@ -38,7 +38,9 @@ export const MapPage = () => {
   }
 
   const onLoad = () => {
-    loadProfiles().then();
+    loadProfiles().then().catch(err => {
+      console.log(err);
+  });
   }
 
   return <YMaps query={{lang: 'ru_RU'}}>
