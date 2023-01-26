@@ -26,7 +26,7 @@ export enum TThemeProfile {
 }
 
 export type TStudent = {
-  _id:string;
+  _id: string;
   cohort: string;
   email: string;
   name: string;
@@ -261,3 +261,13 @@ export type TGetProfilesRaw = {
   items: Array<BaseFiedsRaw & UserAccountRaw & { profile: ShortProfileRaw }>
 }
 
+export enum RoleType {
+  Student = 'student',
+  Curator = 'curator'
+}
+
+export const enum LocalStorageKeys {
+  User = 'user',
+  Token = 'token',
+  Role = 'role'
+}

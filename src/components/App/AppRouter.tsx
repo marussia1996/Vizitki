@@ -1,14 +1,14 @@
 import React from 'react'
-import { Switch , Route, useLocation} from 'react-router'
+/*import {Switch, Route, useLocation} from 'react-router'
 import AdminPage from '../../pages/AdminPage/AdminPage'
-import { DetailPage } from '../../pages/DetailPage/DetailPage'
-import { LoginPage } from '../../pages/LoginPage/LoginPage'
-import { MainPage } from '../../pages/MainPage/MainPage'
-import { MapPage } from '../../pages/MapPage/MapPage'
-import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
-import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
-import { TLocation } from '../../services/types/types'
-import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
+import {DetailPage} from '../../pages/DetailPage/DetailPage'
+import {LoginPage} from '../../pages/LoginPage/LoginPage'
+import {MainPage} from '../../pages/MainPage/MainPage'
+import {MapPage} from '../../pages/MapPage/MapPage'
+import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage'
+import {ProfilePage} from '../../pages/ProfilePage/ProfilePage'
+import {TLocation} from '../../services/types/types'
+import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute'
 
 export const AppRouter = () => {
   const location = useLocation<TLocation>();
@@ -64,4 +64,4 @@ export const AppRouter = () => {
       </Switch>
       </>
     )
-}
+}*/

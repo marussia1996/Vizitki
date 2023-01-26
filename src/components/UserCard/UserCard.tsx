@@ -1,10 +1,11 @@
 import styles from './UserCard.module.scss';
-import React, { FC, useState, useEffect, MouseEventHandler, KeyboardEventHandler } from 'react'
-import { CommentIcon } from '../CommentIcon/CommentIcon';
+import React, {FC, useState, useEffect, MouseEventHandler, KeyboardEventHandler} from 'react'
+import {CommentIcon} from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
-import { getUserReactions } from '../../utils/api';
-import { TUserReactionsRaw } from '../../services/types/types';
-import { useHistory } from 'react-router-dom';
+import {getUserReactions} from '../../utils/api';
+import {TUserReactionsRaw} from '../../services/types/types';
+import {useNavigate} from 'react-router-dom';
+import {Routes} from "../../shared/routes";
 
 type TProps = {
   name: string;
@@ -13,10 +14,10 @@ type TProps = {
   id: string;
 };
 
-export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
+export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
   const [state, setState] = useState<TUserReactionsRaw>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
 
@@ -37,14 +38,15 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
 
   const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
     console.log(e);
-    if(e.key === 'Escape') {
+    if (e.key === 'Escape') {
       setFeedbackState(false);
     }
   }
 
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
-    history.push({ pathname: `/students/${id}` });
+    navigate(Routes.DetailPage.replace(':id', id));
+    //history.push({pathname: `/students/${id}`});
   }
 
   return (
@@ -54,19 +56,19 @@ export const UserCard: FC<TProps> = ({ name, photo, city, id }) => {
       </div>
       {!isOpenFeedback && (
         <div className={styles.commentIcon}>
-          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length} />
+          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length}/>
         </div>
       )}
       <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
         {/* TODO отображается только для админа, переделать когда будут данные о пользователе */}
-       { userRaw && user.tags === 'curator' ? 
+        {userRaw && user.tags === 'curator' ?
           (<p className={styles.messages}>{state?.total + ' сообщений'}</p>)
-        : null
+          : null
         }
       </div>
-      {isOpenFeedback && <Feedback comments={profileComments} id={id} />}
+      {isOpenFeedback && <Feedback comments={profileComments} id={id}/>}
     </div>
   )
 }
