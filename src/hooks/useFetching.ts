@@ -6,7 +6,7 @@ export type TUseFetching = {
   fetching: (...args: any[]) => void;
 }
 
-export const useFetching = (callback: (...args: any[]) => void): TUseFetching => {
+export const useFetching = (callback: (...args: any[]) => void): [boolean, string, (...args: any[]) => void] => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
@@ -22,5 +22,5 @@ export const useFetching = (callback: (...args: any[]) => void): TUseFetching =>
     }
   };
 
-  return { isLoading, error, fetching };
+  return [isLoading, error, fetching];
 };
