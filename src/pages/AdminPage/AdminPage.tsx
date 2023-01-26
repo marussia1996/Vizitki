@@ -1,13 +1,17 @@
-import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
-import StudentsPage from "../StudentsPage/StudentsPage";
-import CommentsPage from "../CommentsPage/CommentsPage";
+import React, {FC} from "react";
+import {useOutlet} from "react-router-dom";
 
-const AdminPage = () => {
-    let { path } = useRouteMatch();
+const AdminPage: FC = () => {
+  const outlet = useOutlet();
+  return (
+    <>
+      {outlet}
+    </>
+  )
+}
 
-    return (
-            <Switch>
+/*
+<Switch>
                 <Route path={path} exact>
                         <CommentsPage />
                 </Route>
@@ -15,7 +19,6 @@ const AdminPage = () => {
                         <StudentsPage/>
                 </Route>
             </Switch>
-    )
-}
+*/
 
 export default AdminPage;

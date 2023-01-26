@@ -9,10 +9,14 @@ import InputText from '../../shared/inputs/InputText/InputText';
 import {Button} from '../../shared/Button/Button';
 import {InputSearch} from '../../shared/inputs/InputSearch/InputSearch';
 import {getUserProfile, patchUserProfile} from '../../utils/api';
-import {UserWithProfileRaw} from '../../services/types/types';
+import {InfoItemsRaw, ProfileRaw, UserWithProfileRaw} from '../../services/types/types';
 import Suggest, {TSelected} from "../../shared/inputs/Suggest/Suggest";
 import {TThemeProfile} from "../../services/types/types";
 import {stringEntries, themeToDescription} from "../../utils/types/enums";
+import {useAuth} from "../../hooks/useAuth";
+import {useFetching} from "../../hooks/useFetching";
+import Loader from "../../components/Loader/Loader";
+import {delay} from "../../utils/utils";
 
 export type TInputState = {
   photo: string,
@@ -34,8 +38,8 @@ export type TInputState = {
 }
 
 export const ProfilePage = () => {
-  const userRaw = localStorage.getItem('user');
-  const user = userRaw && JSON.parse(userRaw);
+  const {user} = useAuth();
+
   const [state, setState] = useState<TInputState>({
     photo: '',
     birthday: undefined,
@@ -55,14 +59,27 @@ export const ProfilePage = () => {
     eduText: '',
   });
 
-  useEffect(() => {
-    getUserProfile(user._id)
-      .then((res) => {
-          loaderData(res);
+  const [isLoading, error, fetching] = useFetching(async ([userId]) => {
+    if (!user) return;
+    await delay(3000);
+    //throw new Error('ошибка');
+    const res = await getUserProfile(userId);
+    loaderData(res);
+  })
 
-        }
-      )
-  }, [user])
+  useEffect(() => {
+    if (!user) return;
+    fetching(user._id);
+  }, [])
+
+  useEffect(() => {
+    console.log('errBirthday');
+    setState(prevState => ({...prevState, errBirthday: false}))
+  }, [state.birthday])
+  useEffect(() => {
+    console.log('errCity');
+    setState(prevState => ({...prevState, errCity: false}))
+  }, [state.city])
 
   const loaderData = (data: UserWithProfileRaw) => {
     const obj: TInputState = {
@@ -86,6 +103,7 @@ export const ProfilePage = () => {
     setState(obj)
   }
   const validity = () => {
+    console.log('validate');
     if (state.birthday === undefined) {
       setState(prevState => ({...prevState, errBirthday: true}));
     }
@@ -93,23 +111,23 @@ export const ProfilePage = () => {
       setState(prevState => ({...prevState, errCity: true}));
     }
   }
-  useEffect(() => {
-    setState(prevState => ({...prevState, errBirthday: false}))
-  }, [state.birthday])
-  useEffect(() => {
-    setState(prevState => ({...prevState, errCity: false}))
-  }, [state.city])
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [isPatching, errorPatch, fetchPatch] = useFetching(async ([id, data]) => {
+    const res = await patchUserProfile(id, data);
+    await delay(3000);
+    loaderData(res);
+  })
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log('submit')
     e.preventDefault();
     validity();
     if (state.birthday === undefined || state.city === '') {
-      alert('Заполните все необходимые поля')
+      return;
     } else {
-      alert('форма изменена')
-      const uploadData = {
+      const uploadData: { profile: ProfileRaw, info: InfoItemsRaw } = {
         profile: {
-          name: user.name,
+          name: user && user.name || '',
           photo: state.photo,
           city: {
             name: state.city,
@@ -141,7 +159,9 @@ export const ProfilePage = () => {
         }
       }
       console.log(uploadData)
-      patchUserProfile(user._id, uploadData)
+      if (user) {
+        fetchPatch(user._id, uploadData);
+      }
     }
   }
   const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
@@ -155,37 +175,42 @@ export const ProfilePage = () => {
 
   return (
     <section className={`${stylesProfile.profilePage}`}>
-      <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
-        <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
-        <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'}
-                  date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
-                  onDateChange={onChange}/>
-        <Suggest labelText={'Выберите город *'} onChange={onCityChange}
-                 error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeHolder={state.city}
-                 value={state.city} name={'city'}/>
-        <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange}/>
-        <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange}/>
-        <InputSearch options={stringEntries(TThemeProfile)} labelText='Выберите шаблон' value={state.template} onChange={onChange}
-                     name={'template'} toDisplay={themeToDescription}/>
-        <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange}
-                       maxLength={100} rows={4}/>
-        <div>
-          <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'}
-                     description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
-          <InputTextArea name={'hobbiesText'} value={state.hobbiesText} onChange={onChange} maxLength={300} rows={4}/>
-        </div>
-        <div>
-          <InputFile name={'familyFile'} labelText={'Семья, статус, домашние животные'}
-                     description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
-          <InputTextArea name={'familyText'} value={state.familyText} onChange={onChange} maxLength={300} rows={4}/>
-        </div>
-        <InputTextArea name={'jobText'} labelText={'Из какой сферы пришёл? Кем работаешь?'} value={state.jobText}
-                       onChange={onChange} maxLength={300} rows={4}/>
-        <InputTextArea name={'eduText'} labelText={'Почему решил учиться на веб-разработчика?'} value={state.eduText}
-                       onChange={onChange} maxLength={300} rows={4}/>
-        <span className={`${stylesProfile.description}`}>Поля, отмеченные звездочкой, обязательны для заполнения</span>
-        <Button size='Large' disabled={false} htmlType='submit'>Сохранить</Button>
-      </form>
+      {isLoading && <Loader/>}
+      {user && !error && !isLoading &&
+        <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
+          <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
+          <InputDay error={state.errBirthday ? 'Поле обязательно для заполнения' : ''} name={'birthday'}
+                    date={state.birthday} labelText={'Дата рождения *'} maxDate={new Date(Date.UTC(2022, 1, 5))}
+                    onDateChange={onChange}/>
+          <Suggest labelText={'Выберите город *'} onChange={onCityChange}
+                   error={state.errCity ? 'Поле обязательно для заполнения' : ''} placeHolder={state.city}
+                   value={state.city} name={'city'}/>
+          <InputText name={'telegram'} labelText={'Ник в телеграмм'} value={state.telegram} onChange={onChange}/>
+          <InputText name={'github'} labelText={'Ник в гитхабе'} value={state.github} onChange={onChange}/>
+          <InputSearch options={stringEntries(TThemeProfile)} labelText='Выберите шаблон' value={state.template}
+                       onChange={onChange}
+                       name={'template'} toDisplay={themeToDescription}/>
+          <InputTextArea name={'quote'} labelText={'Девиз, цитата'} value={state.quote} onChange={onChange}
+                         maxLength={100} rows={4}/>
+          <div>
+            <InputFile name={'hobbiesFile'} labelText={'Увлечения, досуг, интересы'}
+                       description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
+            <InputTextArea name={'hobbiesText'} value={state.hobbiesText} onChange={onChange} maxLength={300} rows={4}/>
+          </div>
+          <div>
+            <InputFile name={'familyFile'} labelText={'Семья, статус, домашние животные'}
+                       description={'Рекомендуемый размер фото 230х129'} onFileChange={onChange}/>
+            <InputTextArea name={'familyText'} value={state.familyText} onChange={onChange} maxLength={300} rows={4}/>
+          </div>
+          <InputTextArea name={'jobText'} labelText={'Из какой сферы пришёл? Кем работаешь?'} value={state.jobText}
+                         onChange={onChange} maxLength={300} rows={4}/>
+          <InputTextArea name={'eduText'} labelText={'Почему решил учиться на веб-разработчика?'} value={state.eduText}
+                         onChange={onChange} maxLength={300} rows={4}/>
+          <span
+            className={`${stylesProfile.description}`}>Поля, отмеченные звездочкой, обязательны для заполнения</span>
+          <Button size='Large' disabled={isPatching} htmlType='submit'>Сохранить</Button>
+        </form>}
+      {error && <p className={stylesProfile.error}>{error}</p>}
     </section>
   )
 }
