@@ -19,10 +19,11 @@ export const Header: FC = () => {
     console.log(newRole);
     updateRole(newRole);
   }
-
+  const link = role === 'curator' ? '/admin': '/';
+  console.log(user);
   return (
     <header className={headerStyle.header}>
-      <NavLink to={Routes.Home}>
+      <NavLink to={link}>
         <img className={headerStyle.logo} src={logo} alt='Логотип'></img>
       </NavLink>
       {user &&

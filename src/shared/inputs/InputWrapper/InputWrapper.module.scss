@@ -5,7 +5,9 @@
   display: flex;
   flex-direction: column;
 }
-
+.maxWidth{
+  max-width: 325px;
+}
 .label {
   @include text(16px, 24px, 400);
   padding-bottom: 4px;
