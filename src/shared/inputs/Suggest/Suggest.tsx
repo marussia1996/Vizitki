@@ -8,6 +8,7 @@ import './suggest.scss'
 import Icon from "../../Icon/Icon";
 import {iconArrowUp} from "../../Icon/lib";
 import {createInputChange, TInputChange} from "../index";
+import { geocode } from 'yandex-maps';
 
 type TSuggestProps = TInputWrapperProps & {
   placeHolder?: string
@@ -38,9 +39,10 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
   useEffect(() => {
 
     const suggestView = new ymaps.SuggestView(suggestId, {
-      results: 10
+      results: 10,
     });
-
+    const block = document.querySelector('#id_167473998902993787733')
+    console.log(block)
     suggestView.events.add('select', (e: any) => {
       const {value} = e.get('item');
       if (!value) return;

@@ -16,8 +16,8 @@
 }
 
 .photoWrap {
-  width: 325px;
-  height: 325px;
+  max-width: 325px;
+  aspect-ratio: 1/1;
 }
 
 .infoWrap {
@@ -36,9 +36,12 @@
   height: 32px;
   width: 32px;
   position: absolute;
-  top: 18.67px;
-  left: 281px;
+  top: 16px;
+  right: 16px;
   visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .city, .messages {
@@ -62,32 +65,27 @@
   visibility: visible;
 }
 
-@media screen and (max-width: 1439px) {
+@media screen and (max-width: 768px) {
   .wrap {
     max-width: 342px;
   }
   .photoWrap, .photo{
-    width: 342px;
-    height: 342px;
+    max-width: 342px;
+    aspect-ratio: 1/1;
   }
   .commentIcon {
-    top: 16px;
-    left: 294px;
     visibility: visible;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 320px) {
   .wrap {
     max-width: 272px;
   }
   .photoWrap, .photo {
     width: 272px;
-    height: 272px;
-  }
-  .commentIcon {
-    top: 18.67px;
-    left: 228px;
+    aspect-ratio: 1/1;
+
   }
 }
 

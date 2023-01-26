@@ -14,9 +14,11 @@ export const Header: FC = () => {
     setUser(null);
     history.push('/login');
   }
+  const link = user?.tags === 'curator' ? '/admin': '/';
+  console.log(user);
   return (
     <header className={headerStyle.header}>
-      <NavLink to='/'>
+      <NavLink to={link}>
         <img className={headerStyle.logo} src={logo} alt='Логотип'></img>
       </NavLink>
       {user &&

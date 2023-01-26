@@ -78,11 +78,11 @@ export const deleteComment = async(_id: string) => {
 };
 
 //запрос профилей - по умолчанию возвращают профили из той же когорты, что и запрошенный пользователь, или ничего
-export const getProfiles = async() => {
+export const getProfiles = () => {
   return requestJson<TGetProfilesRaw>('/profiles', {
     headers: {'Content-Type': 'application/json'},
     method: "GET",
-  });
+  }) as Promise<TGetProfilesRaw>;
 };
 
 //запрос профиля пользователя _id: the user id
