@@ -1,4 +1,4 @@
-import React, {FC, MouseEventHandler, useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import Input from "../Input/Input";
 import {withYMaps} from "react-yandex-maps";
 import InputWrapper, {TInputWrapperProps} from "../InputWrapper/InputWrapper";
@@ -29,7 +29,6 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
   const {placeHolder, value, onChange, name} = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -63,6 +62,12 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
     };
   }, [ymaps])
 
+  useEffect(() => {
+    if (!isOpen && !text && onChange) {
+      onChange(createInputChange(name, {name: '', geo: []}))
+    }
+  }, [isOpen])
+
   return (
     <InputWrapper labelText={labelText} mix={mix} error={error} description={description}>
       <div className={css.wrap}>
@@ -72,14 +77,6 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
           placeholder={placeHolder} value={text} ref={inputRef} onChange={(e) => {
           setText(e.target.value)
         }} onFocus={() => setIsOpen(true)} onBlur={() => setIsOpen(false)}/>
-          <div ref={ref} style={{
-          position: 'relative',
-          maxHeight: '192px',
-          overflowY: 'auto',
-          height: '192px',
-          overflowX: 'hidden',
-          display: 'none'
-        }}></div>
         <div className={styles.wrapRight}>
           <button type='button' className={!isOpen ? styles.button : styles.button + ' ' + styles.buttonActive}
                   onClick={() => inputRef.current?.focus()}>
