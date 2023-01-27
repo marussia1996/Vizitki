@@ -20,7 +20,7 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const navigate = useNavigate();
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
-
+  console.log(state)
   useEffect(() => {
     getUserReactions(id).then(res => {
       if (res) {
@@ -31,8 +31,8 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   });
   }, []);
 
-  //FIXME когда будет нормальный бэкенд надо будет заменить 'job' на 'profile', или что там будет
-  const profileComments = state?.items.filter(item => item.target === 'job');
+  // если есть комментарий (text) при target = null -> комент к фотке
+  const profileComments = state?.items.filter(item => (item.target === null ) && item.text);
 
   const handleFeedback = () => {
     setFeedbackState(!isOpenFeedback);

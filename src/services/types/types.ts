@@ -33,18 +33,10 @@ export type TStudent = {
 }
 
 export type TUserInfoRaw = {
-  _id: string;
-  name: string;
+  cohort: string;
   email: string;
 }
 
-export type TCommentRaw = {
-  _id: string;
-  from: TUserInfoRaw;
-  target?: string | null;
-  text: string;
-  to: TUserInfoRaw;
-}
 // типы данных пришедших с сервера
 export type BaseFiedsRaw = {
   _id: string,
@@ -200,9 +192,10 @@ export type UserRaw = {
 export type UserRefRaw = {
   _id: string,
   name: string,
-  email: string
+  email: string,
+  cohort: string
 }
-export type TargetRaw = 'hobby' | 'status' | 'job' | 'edu';
+export type TargetRaw = 'hobby' | 'status' | 'job' | 'edu' | 'quote' | null;
 export type ReactionRaw = {
   _id: string,
   from: {
