@@ -1,8 +1,8 @@
 @use '../../index.scss' as *;
 
 .Quete {
+    width: 100%;
     display: block;
-    max-width: 255px;
     position:relative;
     margin-top: 180px;
 }
@@ -11,6 +11,11 @@
     display: block;
     margin-left: auto;
     padding-bottom: 4px;
+    visibility: hidden;
+}
+
+.Quete:hover .CommentButton {
+  visibility: visible;
 }
 
 .Icon {
@@ -42,6 +47,10 @@
     margin: 0;
 }
 
+.TextCnt {
+  max-width: 255px;
+}
+
 .TextRomantic {
     color: $neon-pink;
 }
@@ -53,5 +62,11 @@
 @media screen and (max-width: 1250px) {
   .Quete {
     margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .CommentButton {
+    visibility: visible;
   }
 }
