@@ -42,7 +42,11 @@
     margin: 95px 0 31px;
   }
 }
-
+@media screen and (max-width: 600px) {
+  .city{
+    margin: 24px 0;
+  }
+}
 @media screen and (max-width: 320px) {
   .userInfo{
     max-width: 236px;
