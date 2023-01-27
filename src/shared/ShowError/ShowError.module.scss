@@ -1,0 +1,12 @@
+@use '../../index' as *;
+
+.error {
+  width: 100%;
+}
+
+.error__text {
+  color: $error;
+  @include text(16px, 1.5, 400);
+  margin: 0;
+  padding: 0;
+}

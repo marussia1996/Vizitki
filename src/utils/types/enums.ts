@@ -10,5 +10,5 @@ export const themeToDescription = <T extends TThemeProfile | string>(theme: T): 
   return themeProfileDescription[theme as TThemeProfile];
 }
 
-export const numberEntries = (value: any) => Object.values(value).filter((x) => !Number.isNaN(Number(x))).map((x) => Number(x));
-export const stringEntries = (value: any) => Object.values(value).map((x) => String(x));
+export const numberEntries = <T extends {}>(value: T) => Object.values(value).filter((x) => !Number.isNaN(Number(x))).map((x) => Number(x));
+export const stringEntries = <T extends {}>(value: T) => Object.values(value).map((x) => String(x));

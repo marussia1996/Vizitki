@@ -1,5 +1,5 @@
 import styles from './PhotoUpload.module.scss';
-import React, {ChangeEvent, FC, useRef} from 'react';
+import React, {ChangeEventHandler, FC, useRef} from 'react';
 import camera from '../../images/camera.svg';
 import {TInputChange} from "../../shared/inputs";
 
@@ -12,12 +12,12 @@ export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange, ...rest
   const inputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const [image] = Object(e.target.files);
+  const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const image = e.target.files ? e.target.files[0] : null;
     const url = image ? URL.createObjectURL(image) : undefined;
-    if (image) {
-      image.src = url;
-      image.className = styles.photo;
+    if (image && imageRef.current && url) {
+      imageRef.current.src = url;
+      imageRef.current.className = styles.photo;
     }
     if (onFileChange) {
       onFileChange({
@@ -40,7 +40,7 @@ export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange, ...rest
       <div className={styles.wrapPhoto} onClick={onClick}>
         <img alt='Фото' className={value ? styles.photo : styles.hidden} src={value as string} ref={imageRef}/>
         <div className={value ? styles.button + ' ' + styles.notVisible : styles.button}>
-          <img src={camera} className={styles.camera}/>
+          <img src={camera} className={styles.camera} alt={'Фото иконка'}/>
         </div>
       </div>
       <input

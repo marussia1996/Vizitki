@@ -11,13 +11,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <>
-    {/* <React.StrictMode> */}
-    <YMaps enterprise query={{apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2"}}>
-      <RouterProvider router={appRouter}/>
-    </YMaps>
-    {/* </React.StrictMode> */}
-  </>
+  <YMaps enterprise query={{apikey: "9d121fd4-ce9f-40f4-b85b-b5aa165d5bf2"}}>
+    <RouterProvider router={appRouter}/>
+  </YMaps>
 );
 
 reportWebVitals();

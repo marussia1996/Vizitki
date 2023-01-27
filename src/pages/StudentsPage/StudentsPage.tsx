@@ -60,7 +60,7 @@ const StudentsPage = () => {
     setFilter('');
   }
 
-  const [isLoading, error, fetching] = useFetching(async ([file]) => {
+  const [isLoading, , fetching] = useFetching(async ([file]) => {
     const data = await importFromFile<TStudent>(file);
     const preparedStudents: TStudentTable[] = [...data];
     preparedStudents.forEach(s => {
@@ -177,47 +177,45 @@ const StudentsPage = () => {
           {isEmptyTable ? (
             <p className={styles.EmptySearch}>Не удалось никого найти. Исправьте запрос или сбросьте фильтр</p>
           ) : (
-            <>
-              <Scroll mix={styles.ScrollCommentTable}>
-                <Table>
-                  <Thead>
-                    <Th onClick={(event) => {
-                      handleClickSort('cohort')
-                    }}>{'Номер кагорты'}</Th>
-                    <Th onClick={(event) => {
-                      handleClickSort('email')
-                    }}>{'E-mail'}</Th>
-                    <Th onClick={(event) => {
-                      handleClickSort('name')
-                    }}>{'Имя и фамилия студента'}</Th>
-                    <Th> </Th>
-                  </Thead>
-                  <Tbody>
-                    {studentsFiltered.map(student =>
-                      <Fragment key={student._id}>
-                        {student._id && student._id === form._id ? (
-                            <StudentRowEdit
-                              form={form}
-                              onChange={handleChange}
-                              onLostFocus={handleLostFocus}
-                            />)
-                          : (
-                            <StudentRowRead
-                              id={student._id}
-                              cohort={student.cohort}
-                              email={student.email}
-                              name={student.name}
-                              status={!student.isNew ? 'modify' : 'default'}
-                              onClick={handleClickRow}
-                              onDelete={handleClickDelete}
-                              editable={!student.isNew ? false : true}
-                            />)}
-                      </Fragment>
-                    )}
-                  </Tbody>
-                </Table>
-              </Scroll>
-            </>
+            <Scroll mix={styles.ScrollCommentTable}>
+              <Table>
+                <Thead>
+                  <Th onClick={() => {
+                    handleClickSort('cohort')
+                  }}>{'Номер кагорты'}</Th>
+                  <Th onClick={() => {
+                    handleClickSort('email')
+                  }}>{'E-mail'}</Th>
+                  <Th onClick={() => {
+                    handleClickSort('name')
+                  }}>{'Имя и фамилия студента'}</Th>
+                  <Th> </Th>
+                </Thead>
+                <Tbody>
+                  {studentsFiltered.map(student =>
+                    <Fragment key={student._id}>
+                      {student._id && student._id === form._id ? (
+                          <StudentRowEdit
+                            form={form}
+                            onChange={handleChange}
+                            onLostFocus={handleLostFocus}
+                          />)
+                        : (
+                          <StudentRowRead
+                            id={student._id}
+                            cohort={student.cohort}
+                            email={student.email}
+                            name={student.name}
+                            status={!student.isNew ? 'modify' : 'default'}
+                            onClick={handleClickRow}
+                            onDelete={handleClickDelete}
+                            editable={!student.isNew ? false : true}
+                          />)}
+                    </Fragment>
+                  )}
+                </Tbody>
+              </Table>
+            </Scroll>
           )}
         </div>
       )}

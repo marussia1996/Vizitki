@@ -1,11 +1,5 @@
 import {useState} from "react";
 
-export type TUseFetching = {
-  isLoading: boolean,
-  error?: string,
-  fetching: (...args: any[]) => void;
-}
-
 export const useFetching = (callback: (...args: any[]) => void): [boolean, string, (...args: any[]) => void] => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
