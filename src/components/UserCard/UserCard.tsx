@@ -1,11 +1,13 @@
 import styles from './UserCard.module.scss';
-import React, {FC, useState, useEffect, MouseEventHandler, KeyboardEventHandler} from 'react'
+import React, {FC, KeyboardEventHandler, MouseEventHandler, useEffect, useState} from 'react'
 import {CommentIcon} from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
 import {getUserReactions} from '../../utils/api';
-import {TUserReactionsRaw} from '../../services/types/types';
+import {RoleType, TUserReactionsRaw} from '../../services/types/types';
 import {useNavigate} from 'react-router-dom';
 import {Routes} from "../../shared/routes";
+import {useAuth} from "../../hooks/useAuth";
+import {useFetching} from "../../hooks/useFetching";
 
 type TProps = {
   name: string;
@@ -18,9 +20,8 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
   const [state, setState] = useState<TUserReactionsRaw>();
   const navigate = useNavigate();
-  const userRaw = localStorage.getItem('user');
-  const user = userRaw && JSON.parse(userRaw);
-  console.log(state)
+  const {user, role} = useAuth();
+
   useEffect(() => {
     getUserReactions(id).then(res => {
       if (res) {
@@ -28,15 +29,12 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
       }
     }).catch(err => {
       console.log(err);
-  });
+    });
   }, []);
 
-  // если есть комментарий (text) при target = null -> комент к фотке
-  const profileComments = state?.items.filter(item => (item.target === null ) && item.text);
 
-  const handleFeedback = () => {
-    setFeedbackState(!isOpenFeedback);
-  }
+  // если есть комментарий (text) при target = null -> комент к фотке
+  const profileComments = state?.items.filter(item => (item.target === null) && item.text);
 
   const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
     console.log(e);
@@ -48,7 +46,6 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
     navigate(Routes.DetailPage.replace(':id', id));
-    //history.push({pathname: `/students/${id}`});
   }
 
   return (
@@ -58,18 +55,18 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
       </div>
       {!isOpenFeedback && (
         <div className={styles.commentIcon}>
-          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length}/>
+          <CommentIcon handleFeedback={() => setFeedbackState(!isOpenFeedback)} color='dark'
+                       commentsQuantity={profileComments?.length}/>
         </div>
       )}
       <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
-       { userRaw && user.tags === 'curator' ? 
-          (<p className={styles.messages}>{state?.total + ' сообщений'}</p>)
-          : null
+        {role === RoleType.Curator &&
+          <p className={styles.messages}>{state?.total + ' сообщений'}</p>
         }
       </div>
-      {isOpenFeedback && <Feedback comments={profileComments} id={id}/>}
+      {isOpenFeedback && <Feedback comments={profileComments} id={id} onCLose={() => setFeedbackState(false)}/>}
     </div>
   )
 }

@@ -1,25 +1,30 @@
 import './Feedback.scss';
-import { messages } from './data';
-import { CommentRaw, LikeRaw } from '../../services/types/types';
-import { v4 as createUUID } from 'uuid';
-import { KeyboardEventHandler, useRef, useEffect } from 'react';
-import { postUserReactions } from '../../utils/api';
+import {messages} from './data';
+import {CommentRaw, LikeRaw} from '../../services/types/types';
+import {v4 as createUUID} from 'uuid';
+import {KeyboardEventHandler, useRef, useEffect} from 'react';
+import {postUserReactions} from '../../utils/api';
+import {useOutsideClick} from "../../hooks/useOutsiteClick";
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
+  onCLose: () => void;
 };
 
 //TODO: Добавить закрытие по кнопке Escape
-export default function Feedback({ comments, id }: TProps) {
+export default function Feedback({comments, id, onCLose}: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(divRef, onCLose);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   const sendReaction: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
       // FIXME выдаёт ошибку 403
       postUserReactions(id, {target: 'profile', text: inputRef.current!.value});
       inputRef.current!.value = '';
@@ -27,7 +32,7 @@ export default function Feedback({ comments, id }: TProps) {
   }
   console.log(comments)
   return (
-    <div className='modal'>
+    <div className='modal' ref={divRef}>
       <div className='smilesCnt'>
         <span className='smile smileActive'>&#128077;<span className='reactionsNumb'>1</span></span>
         <span className='smile'>&#128078;</span>
@@ -44,14 +49,14 @@ export default function Feedback({ comments, id }: TProps) {
       <input type='text' placeholder='Обратная связь' className='input' onKeyUp={sendReaction} ref={inputRef}></input>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
-        {comments?.map(item => {
-          return (
-            <div className='message' key={createUUID()}>
-              <p className='messageText'>{item.text}</p>
-            </div>
-          )
-        })}
-      </div>
+          {comments?.map(item => {
+            return (
+              <div className='message' key={createUUID()}>
+                <p className='messageText'>{item.text}</p>
+              </div>
+            )
+          })}
+        </div>
       )}
     </div>
   )
