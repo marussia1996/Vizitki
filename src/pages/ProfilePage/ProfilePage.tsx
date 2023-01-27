@@ -39,7 +39,6 @@ export type TInputState = {
 
 export const ProfilePage = () => {
   const {user} = useAuth();
-
   const [state, setState] = useState<TInputState>({
     photo: '',
     birthday: undefined,
@@ -61,8 +60,8 @@ export const ProfilePage = () => {
 
   const [isLoading, error, fetching] = useFetching(async ([userId]) => {
     if (!user) return;
-    await delay(3000);
-    //throw new ShowError('ошибка');
+    // await delay(3000);
+    // throw new Error('Не получить данные с сервера');
     const res = await getUserProfile(userId);
     loaderData(res);
   })
@@ -112,9 +111,10 @@ export const ProfilePage = () => {
     }
   }
 
-  const [isPatching, , fetchPatch] = useFetching(async ([id, data]) => {
+  const [isPatching, errorPatch, fetchPatch] = useFetching(async ([id, data]) => {
     const res = await patchUserProfile(id, data);
-    await delay(3000);
+    // await delay(3000);
+    // throw new Error('Не удалось отправить данные на сервер');
     loaderData(res);
   })
 
@@ -176,7 +176,7 @@ export const ProfilePage = () => {
 
   return (
     <section className={`${stylesProfile.profilePage}`}>
-      {isLoading && <Loader/>}
+      {isLoading && <div className={`${stylesProfile.loaderCnt}`}><Loader/></div>}
       {user && !error && !isLoading &&
         <form className={`${stylesProfile.formProfile}`} onSubmit={handleSubmit} noValidate>
           <PhotoUpload name={'photo'} value={state.photo} onFileChange={onChange}/>
@@ -212,6 +212,7 @@ export const ProfilePage = () => {
           <Button size='Large' disabled={isPatching} htmlType='submit'>Сохранить</Button>
         </form>}
       {error && <p className={stylesProfile.error}>{error}</p>}
+      {errorPatch && <p className={stylesProfile.error}>{errorPatch}</p>}
     </section>
   )
 }
