@@ -1,16 +1,18 @@
 import './Feedback.scss';
 import { messages } from './data';
-import { CommentRaw, LikeRaw } from '../../services/types/types';
-import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState } from 'react';
+import { CommentRaw, LikeRaw, TUserReactionsRaw } from '../../services/types/types';
+import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { postUserReactions } from '../../utils/api';
+import { getUserReactions } from '../../utils/api';
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
+  updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
 };
 
 //TODO: Добавить закрытие по кнопке Escape
-export default function Feedback({ comments, id }: TProps) {
+export default function Feedback({ comments, id, updateData }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -25,11 +27,22 @@ export default function Feedback({ comments, id }: TProps) {
   const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     // FIXME выдаёт ошибку 403
-    postUserReactions(id, { target: 'profile', text: inputRef.current!.value });
-    setInputValue('');
-
+    postUserReactions(id, { target: 'profile', text: inputRef.current!.value })
+      .then(() => {
+        setInputValue('');
+        getUserReactions(id)
+          .then(res => {
+            updateData(res);
+          })
+          .catch(error => {
+            console.log('Ошибка обновления комментариев. ' + error);
+          })
+      })
+      .catch(error => {
+        console.log('Ошибка отправки комментария. ' + error);
+      })
   }
-  console.log(comments)
+
   return (
     <div className='modal'>
       <div className='smilesCnt'>

@@ -22,11 +22,13 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const user = userRaw && JSON.parse(userRaw);
 
   useEffect(() => {
-    getUserReactions(id).then(res => {
+    getUserReactions(id)
+    .then(res => {
       if (res) {
         setState(res);
       }
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err);
   });
   }, []);
@@ -69,7 +71,7 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
           : null
         }
       </div>
-      {isOpenFeedback && <Feedback comments={profileComments} id={id}/>}
+      {isOpenFeedback && <Feedback comments={profileComments} updateData={setState} id={id}/>}
     </div>
   )
 }

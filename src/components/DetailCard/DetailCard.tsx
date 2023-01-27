@@ -61,8 +61,8 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
       )}
       <p className='text'>{text}</p>
-      {/* FIXME нужно пробросить корректный id профиля в Feedback */}
-      {isOpenFeedback && <Feedback id={'замени меня!!!'} />}
+      {/* FIXME нужно пробросить корректный id профиля в Feedback и функцию обновления комментариев */}
+      {isOpenFeedback && <Feedback id={'замени меня!!!'} updateData={() => {}} />}
     </div>
   )
 }
