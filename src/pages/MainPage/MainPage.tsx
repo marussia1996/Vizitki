@@ -67,7 +67,9 @@ export const MainPage = () => {
         profiles.filter((item)=>city !== '' ? item.profile.city.name === city : true).map((student, index) => {
           const { name, photo, city } = student.profile;
           return (
-            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={index} />
+            // key={student._id} --- должен находится вместо key={index}, это сделано для того,
+            // чтобы было возможно без ошибок в консоли проверить подгрузку данных с сервера (а они имеют одинаковое id )
+            <UserCard name={name} photo={photo} city={city.name} id={student._id} key={index} /> 
           )
         })}
         
