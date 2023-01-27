@@ -1,8 +1,7 @@
 import './Feedback.scss';
 import { messages } from './data';
 import { CommentRaw, LikeRaw } from '../../services/types/types';
-import { v4 as createUUID } from 'uuid';
-import { KeyboardEventHandler, ChangeEventHandler, FormEventHandler, useRef, useEffect, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState } from 'react';
 import { postUserReactions } from '../../utils/api';
 
 type TProps = {
@@ -51,9 +50,9 @@ export default function Feedback({ comments, id }: TProps) {
       </form>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
-        {comments?.map(item => {
+        {comments?.map((item, i) => {
           return (
-            <div className='message' key={createUUID()}>
+            <div className='message' key={i}>
               <p className='messageText'>{item.text}</p>
             </div>
           )
