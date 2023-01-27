@@ -34,18 +34,17 @@ const token = getUserToken();
 
 //not универсальная функция запроса с проверкой
 const requestJson = <T>(url: string, options: RequestInit): Promise<T> => {
-  options.headers = {...options.headers, 'Authorization': 'Bearer ' + token}
+  options.headers = {...options.headers,'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   return fetch(url, options).then(res => checkResponseJson<T>(res))
 }
 const requestText = (url: string, options: RequestInit): Promise<string> => {
-  options.headers = {...options.headers, 'Authorization': 'Bearer ' + token}
+  options.headers = {...options.headers, 'Content-Type': 'text/plain', 'Authorization': 'Bearer ' + token}
   return fetch(url, options).then(res => checkResponseText(res))
 }
 
 //запрос всех пользователей
 export const getUsers = async () => {
   return requestJson<TGetUsersRaw>('/users', {
-    headers: {'Content-Type': 'application/json'},
     method: "GET",
   });
 };
@@ -53,7 +52,6 @@ export const getUsers = async () => {
 export const postUser = async (email: string, cohort: string) => {
   return requestJson<BaseFiedsRaw & UserAccountRaw & { name: string }>('/users', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       'email': email,
       'cohort': cohort
@@ -64,7 +62,6 @@ export const postUser = async (email: string, cohort: string) => {
 export const putUser = async (email: string, cohort: string, _id: string) => {
   return requestJson<BaseFiedsRaw & UserAccountRaw & { name: string }>(`/users/${_id}`, {
     method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       'email': email,
       'cohort': cohort
@@ -74,7 +71,6 @@ export const putUser = async (email: string, cohort: string, _id: string) => {
 //получение комментариев
 export const getComments = async () => {
   return requestJson<TGetCommentsRaw>('/comments', {
-    headers: {'Content-Type': 'application/json'},
     method: "GET",
   });
 };
@@ -82,23 +78,20 @@ export const getComments = async () => {
 //удаление комментария //id: user.reactions[]._id
 export const deleteComment = async (_id: string) => {
   return requestText(`/comments/${_id}`, {
-    headers: {'Content-Type': 'text/plain'},
     method: "DELETE",
   });
 };
 
 //запрос профилей - по умолчанию возвращают профили из той же когорты, что и запрошенный пользователь, или ничего
-export const getProfiles = async () => {
+export const getProfiles = () => {
   return requestJson<TGetProfilesRaw>('/profiles', {
-    headers: {'Content-Type': 'application/json'},
     method: "GET",
-  });
+  }) as Promise<TGetProfilesRaw>;
 };
 
 //запрос профиля пользователя _id: the user id
 export const getUserProfile = (_id: string) => {
   return requestJson<BaseFiedsRaw & UserWithProfileRaw & { reactions: number }>(`/profiles/${_id}`, {
-    headers: {'Content-Type': 'application/json'},
     method: "GET",
   }) as Promise<BaseFiedsRaw & UserWithProfileRaw & { reactions: number }>;
 };
@@ -106,7 +99,6 @@ export const getUserProfile = (_id: string) => {
 export const patchUserProfile = async (_id: string, data: { profile: ProfileRaw, info: InfoItemsRaw }): Promise<BaseFiedsRaw & UserWithProfileRaw & { reactions: number }> => {
   return requestJson<BaseFiedsRaw & UserWithProfileRaw & { reactions: number }>(`/profiles/${_id}`, {
     method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       data
     }),
@@ -115,14 +107,12 @@ export const patchUserProfile = async (_id: string, data: { profile: ProfileRaw,
 //получение реакций профиля пользователя //id: the user id
 export const getUserReactions = async (_id: string) => {
   return requestJson<TUserReactionsRaw>(`/profiles/${_id}/reactions`, {
-    headers: {'Content-Type': 'application/json'},
     method: "GET",
   });
 };
 //отправка реакций профиля пользователя //id: the user id
 export const postUserReactions = async (_id: string, comment: { target: string, text: string } | { target: string, emotion: string }) => {
   return requestText(`/profiles/${_id}/reactions`, {
-    headers: {'Content-Type': 'text/plain'},
     method: "POST",
     body: JSON.stringify({
       comment
