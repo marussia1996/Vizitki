@@ -12,5 +12,5 @@ export enum Routes {
 
   Profile = '/profile',
 
-  AdminHome = '/cohort/name'
+  AdminHome = '/cohort/:name'
 }

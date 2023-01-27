@@ -13,7 +13,11 @@
   flex-direction: column;
   gap: 16px;
 }
-
+.loaderCnt{
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
 .description {
   @include text(16px, 24px, 400);
 }
@@ -23,5 +27,6 @@
 }
 
 .error {
+  text-align: center;
   color: $error;
 }
