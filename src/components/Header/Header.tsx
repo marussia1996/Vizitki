@@ -8,7 +8,7 @@ import {RoleType} from "../../services/types/types";
 
 export const Header: FC = () => {
   const {user, role, logout, updateRole} = useAuth();
-
+ 
   const clickDel = () => {
     logout();
   }
