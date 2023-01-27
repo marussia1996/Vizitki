@@ -28,6 +28,14 @@
   margin: 0;
 }
 
+.commentIcon {
+  visibility: hidden;
+}
+
+.card:hover .commentIcon {
+  visibility: visible;
+}
+
 .image {
   width: 210px;
   height: 130px;
@@ -58,6 +66,10 @@
   .cnt {
     top: 15px;
     right: 8px;
+  }
+
+  .commentIcon {
+    visibility: visible;
   }
 }
 

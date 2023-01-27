@@ -13,7 +13,7 @@ type TProps = {
   text: string;
   image?: string;
   location?: TargetRaw;
-  user: BaseFiedsRaw & UserWithProfileRaw & {reactions: number};
+  user: BaseFiedsRaw & UserWithProfileRaw & { reactions: number };
 };
 
 export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, text, image, location, user }: TProps) {
@@ -24,8 +24,8 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
   //const user = userRaw && JSON.parse(userRaw);
 
   useEffect(() => {
-    if(theme !== TThemeProfile.DEFAULT) {
-      switch(theme) {
+    if (theme !== TThemeProfile.DEFAULT) {
+      switch (theme) {
         case TThemeProfile.ROMANTIC:
           setTheme(romanticLine);
           break;
@@ -40,22 +40,24 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
     setFeedbackState(!isOpenFeedback);
   }
 
-  const changeReactions = () => 
+  const changeReactions = () =>
     location === 'hobby' ?
-    user?.info.hobby.reactions
-    : location === 'status' ? 
-    user?.info.status.reactions
-    : location === 'job' ? 
-    user?.info.job.reactions
-    : user?.info.edu.reactions
-  
+      user?.info.hobby.reactions
+      : location === 'status' ?
+        user?.info.status.reactions
+        : location === 'job' ?
+          user?.info.job.reactions
+          : user?.info.edu.reactions
+
 
   return (
     <div className='card'>
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
       <div className='headingCnt'>
         <h3 className='heading'>{heading.toUpperCase()}</h3>
-        <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={changeReactions()}/>
+        <div className='commentIcon'>
+          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={changeReactions()} />
+        </div>
       </div>
       {image && (
         <div className='image' style={{ backgroundImage: `url(${image})` }}></div>
