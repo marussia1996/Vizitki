@@ -26,7 +26,9 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
       if (res) {
         setState(res);
       }
-    });
+    }).catch(err => {
+      console.log(err);
+  });
   }, []);
 
   //FIXME когда будет нормальный бэкенд надо будет заменить 'job' на 'profile', или что там будет
@@ -62,8 +64,7 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
       <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
-        {/* TODO отображается только для админа, переделать когда будут данные о пользователе */}
-        {userRaw && user.tags === 'curator' ?
+       { userRaw && user.tags === 'curator' ? 
           (<p className={styles.messages}>{state?.total + ' сообщений'}</p>)
           : null
         }

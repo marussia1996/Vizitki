@@ -1,15 +1,27 @@
 @use '../../index.scss' as *;
 
 .page {
+  width: calc(100% - 80px);
   align-self: flex-start;
 }
-
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap-reverse;
+  row-gap: 24px;
+}
 .content {
   display: grid;
-  grid-template-columns: repeat(4, 325px);
+  justify-content: center;
+  grid-template-columns:repeat(auto-fill, 325px);
   column-gap: 20px;
+  row-gap: 40px;
 }
-
+.scrollContainer{
+  height: calc(100vh - 322px);
+}
 .linkCnt {
   grid-column-start: 4;
   display: flex;
@@ -22,20 +34,6 @@
   text-decoration: none;
   color: $text-dark;
 }
-
-.cardsCnt {
-  margin-top: 40px;
-
-  grid-column-start: 1;
-  grid-row-start: 2;
-
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-
-  column-gap: 20px;
-  row-gap: 39px;
-}
-
 .loaderCnt {
   width: 100%;
   height: 207px;
@@ -49,47 +47,26 @@
   grid-column-end: 5;
 }
 
-@media screen and (max-width: 1439px) {
+@media screen and (max-width: 768px) {
+  .page{
+    width: calc(100% - 64px);
+  }
   .content {
-    grid-template-columns: repeat(2, 342px);
+    grid-template-columns:repeat(auto-fill, minmax(272px, 342px));
+    row-gap: 30px;
   }
-
-  .linkCnt {
-    grid-column-start: 2;
-  }
-
-  .cardsCnt {
-    margin-top: 32px;
-
-    grid-template-columns: repeat(2, 342px);
-    row-gap: 31px;
-  }
-
   .loaderCnt {
-    height: 163px;
+        height: 163px;
+      }
+}
+@media screen and (max-width: 547px) {
+  .header{
+    justify-content: flex-end;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 320px) {
   .content {
-    grid-template-columns: 272px;
-  }
-
-  .linkCnt {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    margin-bottom: 24px;
-  }
-
-  .cardsCnt {
-    margin-top: 24px;
-
-    grid-template-columns: 272px;
-    grid-row-start: 3;
-    row-gap: 24px;
-  }
-
-  .loaderCnt {
-    height: 196px;
+        grid-template-columns: 272px;
   }
 }
