@@ -7,7 +7,7 @@ type TInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputEl
   onFileChange?: (e: TInputChange<string>) => void;
 };
 
-export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange}) => {
+export const PhotoUpload: FC<TInputProps> = ({name, value, onFileChange, ...rest}) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
