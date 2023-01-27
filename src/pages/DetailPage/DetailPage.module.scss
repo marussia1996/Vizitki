@@ -9,7 +9,7 @@
   width: calc(100% - 80px);
   margin: 8px auto 0;
   display: grid;
-  grid-template-columns: minmax(342px, 443px) minmax(342px, 440px) minmax(0px, 150px);
+  grid-template-columns: minmax(342px, 443px) minmax(342px, 440px) minmax(0px, 325px);
   column-gap: 70px;
   grid-template-areas: 
     'user avatar quote'
