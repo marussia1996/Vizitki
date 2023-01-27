@@ -13,9 +13,10 @@
   border: none;
   padding: 0;
 }
-
-.countDark {
-  background-color: $text-dark;
+.count{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-width: 20px;
   height: 19px;
   border-radius: 50%;
@@ -23,15 +24,17 @@
   bottom: 20px;
   right: -4px;
 }
+.countBig{
+  min-width: 28px;
+  border-radius: 40px;
+  right: -10px;;
+}
+.countDark {
+  background-color: $text-dark;
+}
 
 .countPink {
   background-color: $neon-pink;
-  min-width: 20px;
-  height: 19px;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 20px;
-  right: -4px;
 }
 
 .number {
