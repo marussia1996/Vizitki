@@ -20,7 +20,6 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const navigate = useNavigate();
   const userRaw = localStorage.getItem('user');
   const user = userRaw && JSON.parse(userRaw);
-  console.log(state)
   useEffect(() => {
     getUserReactions(id)
     .then(res => {
@@ -41,7 +40,6 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   }
 
   const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    console.log(e);
     if (e.key === 'Escape') {
       setFeedbackState(false);
     }

@@ -7,9 +7,7 @@ export type TGetUserData = {
 }
 
 export const getUserData = async (): Promise<TGetUserData> =>
-  //для 
   new Promise((resolve) => {
-    console.log('getUserData');
     setTimeout(async () => {
       const user = getFromLocalStorage<TUser>(LocalStorageKeys.User);
       const token = getFromLocalStorage<TToken>(LocalStorageKeys.Token);

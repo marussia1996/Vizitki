@@ -20,9 +20,6 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
   const [themeType, setTheme] = useState(defaultLine);
   const [isOpenFeedback, setFeedbackState] = useState(false);
 
-  //const userRaw = localStorage.getItem('user');
-  //const user = userRaw && JSON.parse(userRaw);
-
   useEffect(() => {
     if (theme !== TThemeProfile.DEFAULT) {
       switch (theme) {
@@ -40,7 +37,6 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
     setFeedbackState(!isOpenFeedback);
   }
   const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    console.log(e);
     if (e.key === 'Escape') {
       setFeedbackState(false);
     }

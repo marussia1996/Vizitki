@@ -14,11 +14,9 @@ export const Header: FC = () => {
   }
 
   const changeRole = (newRole: RoleType) => {
-    console.log(newRole);
     updateRole(newRole);
   }
   const link = role === 'curator' ? '/admin': '/';
-  console.log(user);
   return (
     <header className={headerStyle.header}>
       <div className={headerStyle.wrap}>

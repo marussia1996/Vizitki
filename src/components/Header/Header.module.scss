@@ -67,6 +67,7 @@
   width: 32px;
   border-radius: 50%;
   object-fit: cover;
+  filter: grayscale(100%);
 }
 
 .adminPhoto {

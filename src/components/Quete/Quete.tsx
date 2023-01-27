@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { KeyboardEventHandler, useState } from "react";
 import { BaseFiedsRaw, TThemeProfile, UserWithProfileRaw } from "../../services/types/types";
 import { ReactComponent as QueteIcon } from "../../images/quete_icon.svg";
 import classnames from "classnames";
@@ -22,7 +22,11 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT, user }: Props) => {
     const handleFeedback = () => {
         setFeedbackState(!isOpenFeedback);
     }
-
+    const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
+      if (e.key === 'Escape') {
+        setFeedbackState(false);
+      }
+    }
     const cxQueteIcon = cx(styles.Icon, {
         [styles['IconRomantic']]: theme === TThemeProfile.ROMANTIC,
         [styles['IconDaring']]: theme === TThemeProfile.DARING
@@ -34,8 +38,7 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT, user }: Props) => {
     })
 
     return (
-        <>
-            <div className={styles.Quete}>
+            <div className={styles.Quete} onKeyUp={hideFeedback}>
                 <CommentIcon
                     handleFeedback={handleFeedback}
                     color='dark'
@@ -50,7 +53,6 @@ const Quete = ({ text, theme = TThemeProfile.DEFAULT, user }: Props) => {
                 {/* FIXME нужно пробросить корректный id профиля в Feedback и функцию обновления комментариев */}
                 {isOpenFeedback && <Feedback id={'замени меня!!!'} updateData={() => {}} />}
             </div>
-        </>
     );
 }
 

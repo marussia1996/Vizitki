@@ -11,7 +11,6 @@ type TProps = {
   updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
 };
 
-//TODO: Добавить закрытие по кнопке Escape
 export default function Feedback({ comments, id, updateData }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
