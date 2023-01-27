@@ -1,31 +1,48 @@
 import './Feedback.scss';
 import { messages } from './data';
-import { CommentRaw, LikeRaw } from '../../services/types/types';
-import { v4 as createUUID } from 'uuid';
-import { KeyboardEventHandler, useRef, useEffect } from 'react';
+import { CommentRaw, LikeRaw, TUserReactionsRaw } from '../../services/types/types';
+import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { postUserReactions } from '../../utils/api';
+import { getUserReactions } from '../../utils/api';
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
+  updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
 };
 
 //TODO: Добавить закрытие по кнопке Escape
-export default function Feedback({ comments, id }: TProps) {
+export default function Feedback({ comments, id, updateData }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const sendReaction: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if(e.key === 'Enter') {
-      // FIXME выдаёт ошибку 403
-      postUserReactions(id, {target: 'profile', text: inputRef.current!.value});
-      inputRef.current!.value = '';
-    }
+  const enterText: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue(e.target.value);
   }
-  console.log(comments)
+
+  const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    // FIXME выдаёт ошибку 403
+    postUserReactions(id, { target: 'profile', text: inputRef.current!.value })
+      .then(() => {
+        setInputValue('');
+        getUserReactions(id)
+          .then(res => {
+            updateData(res);
+          })
+          .catch(error => {
+            console.log('Ошибка обновления комментариев. ' + error);
+          })
+      })
+      .catch(error => {
+        console.log('Ошибка отправки комментария. ' + error);
+      })
+  }
+
   return (
     <div className='modal'>
       <div className='smilesCnt'>
@@ -41,12 +58,14 @@ export default function Feedback({ comments, id }: TProps) {
         <span className='smile'>&#128420;</span>
       </div>
 
-      <input type='text' placeholder='Обратная связь' className='input' onKeyUp={sendReaction} ref={inputRef}></input>
+      <form className='form' onSubmit={sendReaction}>
+        <input type='text' placeholder='Обратная связь' className='input' ref={inputRef} value={inputValue} onChange={enterText}></input>
+      </form>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
-        {comments?.map(item => {
+        {comments?.map((item, i) => {
           return (
-            <div className='message' key={createUUID()}>
+            <div className='message' key={i}>
               <p className='messageText'>{item.text}</p>
             </div>
           )
