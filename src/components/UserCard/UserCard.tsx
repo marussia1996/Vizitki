@@ -1,11 +1,13 @@
 import styles from './UserCard.module.scss';
-import React, {FC, useState, useEffect, MouseEventHandler, KeyboardEventHandler} from 'react'
+import React, {FC, MouseEventHandler, useEffect, useState} from 'react'
 import {CommentIcon} from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
 import {getUserReactions} from '../../utils/api';
-import {TUserReactionsRaw} from '../../services/types/types';
+import {RoleType, TUserReactionsRaw} from '../../services/types/types';
 import {useNavigate} from 'react-router-dom';
 import {Routes} from "../../shared/routes";
+import {useFetching} from "../../hooks/useFetching";
+import {useAuth} from "../../hooks/useAuth";
 
 type TProps = {
   name: string;
@@ -16,62 +18,53 @@ type TProps = {
 
 export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
-  const [state, setState] = useState<TUserReactionsRaw>();
+  const [reactions, setReactions] = useState<TUserReactionsRaw>();
   const navigate = useNavigate();
-  const userRaw = localStorage.getItem('user');
-  const user = userRaw && JSON.parse(userRaw);
-  console.log(state)
+  const {role} = useAuth();
+
+  const [, , fetching] = useFetching(async () => {
+    console.log('fetching');
+    const reactions = await getUserReactions(id);
+    setReactions(reactions);
+  })
+
   useEffect(() => {
-    getUserReactions(id)
-    .then(res => {
-      if (res) {
-        setState(res);
-      }
-    })
-    .catch(err => {
-      console.log(err);
-  });
+    fetching();
   }, []);
 
   // если есть комментарий (text) при target = null -> комент к фотке
-  const profileComments = state?.items.filter(item => (item.target === null ) && item.text);
+  const profileReactions = reactions?.items.filter(item => !item.target);
+  const comments = reactions?.items.filter(item => !item.target && item.text);
 
   const handleFeedback = () => {
     setFeedbackState(!isOpenFeedback);
   }
 
-  const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    console.log(e);
-    if (e.key === 'Escape') {
-      setFeedbackState(false);
-    }
-  }
-
   const openProfile: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
     navigate(Routes.DetailPage.replace(':id', id));
-    //history.push({pathname: `/students/${id}`});
   }
 
   return (
-    <div className={styles.wrap} onKeyUp={hideFeedback}>
+    <div className={styles.wrap}>
       <div className={styles.photoWrap} onClick={openProfile}>
         <img className={styles.photo} src={photo} alt='Фотография пользователя'></img>
       </div>
       {!isOpenFeedback && (
         <div className={styles.commentIcon}>
-          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={profileComments?.length}/>
+          <CommentIcon handleFeedback={handleFeedback} color='dark' commentsQuantity={comments?.length}/>
         </div>
       )}
       <div className={styles.infoWrap} onClick={openProfile}>
         <p className={styles.name}>{name}</p>
         <p className={styles.city}>{city}</p>
-       { userRaw && user.tags === 'curator' ? 
-          (<p className={styles.messages}>{state?.total + ' сообщений'}</p>)
-          : null
+        {role === RoleType.Curator &&
+          <p className={styles.messages}>{`${reactions?.total} сообщений`}</p>
         }
       </div>
-      {isOpenFeedback && <Feedback comments={profileComments} updateData={setState} id={id}/>}
+      {isOpenFeedback &&
+        <Feedback comments={profileReactions} updateData={setReactions} id={id}
+                  onClose={() => setFeedbackState(false)} onChangeReactions={fetching}/>}
     </div>
   )
 }

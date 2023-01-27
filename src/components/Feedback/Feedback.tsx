@@ -1,76 +1,96 @@
 import './Feedback.scss';
-import { messages } from './data';
-import { CommentRaw, LikeRaw, TUserReactionsRaw } from '../../services/types/types';
-import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { postUserReactions } from '../../utils/api';
-import { getUserReactions } from '../../utils/api';
+import {messages} from './data';
+import {CommentRaw, LikeRaw, TUserReactionsRaw} from '../../services/types/types';
+import {ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction} from 'react';
+import {postUserReactions} from '../../utils/api';
+import {getUserReactions} from '../../utils/api';
+import {useOutsideClick} from "../../hooks/useOutsiteClick";
+import {useKeyUp} from "../../hooks/useKeyUp";
+import {useFetching} from "../../hooks/useFetching";
+import classNames from "classnames";
+import Smile from "../../shared/Smile/Smile";
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
   updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
+
+  onClose: () => void;
+
+  onChangeReactions?: () => void;
 };
 
-//TODO: Добавить закрытие по кнопке Escape
-export default function Feedback({ comments, id, updateData }: TProps) {
+const emotions: { value: string, displayValue: string }[] = [
+  {value: 'like', displayValue: '&#128078;'},
+  {value: 'dislike', displayValue: '&#128078;'},
+  {value: 'hello', displayValue: '&#128075;'},
+  {value: 'smile', displayValue: '&#128578;'},
+  {value: '1', displayValue: '&#129315;'},
+  {value: '2', displayValue: '&#128556;'},
+  {value: '3', displayValue: '&#128561;'},
+  {value: 'heart', displayValue: '&#128420;'},
+]
+
+
+export default function Feedback({comments, id, onClose, onChangeReactions}: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<string>('');
+  const divRef = useRef(null);
+
+  useOutsideClick(divRef, onClose);
+  useKeyUp('Escape', onClose)
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const enterText: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputValue(e.target.value);
-  }
+  const [isLoading, error, fetching] = useFetching(async () => {
+    const comment = {target: 'profile', text: inputValue}
+    await postUserReactions(id, comment);
+
+    setInputValue('');
+
+    if (onChangeReactions) {
+      onChangeReactions();
+    }
+  })
+
 
   const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // FIXME выдаёт ошибку 403
-    postUserReactions(id, { target: 'profile', text: inputRef.current!.value })
-      .then(() => {
-        setInputValue('');
-        getUserReactions(id)
-          .then(res => {
-            updateData(res);
-          })
-          .catch(error => {
-            console.log('Ошибка обновления комментариев. ' + error);
-          })
-      })
-      .catch(error => {
-        console.log('Ошибка отправки комментария. ' + error);
-      })
+    if (!inputValue || inputValue.length === 0) return;
+    fetching();
   }
 
+  console.log(comments);
+
   return (
-    <div className='modal'>
+
+    <div className='modal' ref={divRef}>
       <div className='smilesCnt'>
-        <span className='smile smileActive'>&#128077;<span className='reactionsNumb'>1</span></span>
-        <span className='smile'>&#128078;</span>
-        <span className='smile'>&#128075;</span>
-        <span className='smile'>&#128578;</span>
-        <span className='smile'>&#128542;</span>
-        <span className='smile'>&#129315;</span>
-        <span className='smile'>&#128556;</span>
-        <span className='smile'>&#128561;</span>
-        <span className='smile'>&#128525;</span>
-        <span className='smile'>&#128420;</span>
+        {emotions.map((smile) => (
+          <Smile value={smile.displayValue} isActive={false} count={0}/>
+        ))
+        }
       </div>
 
       <form className='form' onSubmit={sendReaction}>
-        <input type='text' placeholder='Обратная связь' className='input' ref={inputRef} value={inputValue} onChange={enterText}></input>
+        <input type='text' placeholder='Обратная связь' className={classNames('input', {'inputError': error})}
+               ref={inputRef} value={inputValue}
+               onChange={(e) => setInputValue(e.target.value)} disabled={isLoading}
+               title={error}
+        />
       </form>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
-        {comments?.map((item, i) => {
-          return (
-            <div className='message' key={i}>
-              <p className='messageText'>{item.text}</p>
-            </div>
-          )
-        })}
-      </div>
+          {comments?.filter(x => x.text).map((item, i) => {
+            return (
+              <div className='message' key={i}>
+                <p className='messageText'>{item.text}</p>
+              </div>
+            )
+          })}
+        </div>
       )}
     </div>
   )

@@ -18,7 +18,8 @@ export const LoginPage = () => {
       const tokenInfo = parseAuthHash(location.hash);
 
       if (tokenInfo) {
-        const user = fakeUser();
+        const user = fakeUser(role || RoleType.Student);
+        console.log(user);
         login({token: tokenInfo.token, expired: tokenInfo.expired}, user, false);
       }
     }

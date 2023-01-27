@@ -1,0 +1,19 @@
+@use '../../index.scss' as *;
+
+.smile {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.smileActive {
+  border: 1px solid $neon-pink;
+  border-radius: 20px;
+}
+
+.reactionsNumb {
+  color: $neon-pink;
+  @include text(12px, 12px, 500);
+}

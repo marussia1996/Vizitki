@@ -65,6 +65,10 @@
   color: $text-light;
 }
 
+.inputError {
+  border: 1px solid $error;
+}
+
 .feedbackTape {
   width: 100%;
   max-height: 133px;
@@ -88,7 +92,7 @@
   border-top: 1px solid $text-dark;
 }
 
-.message:last-of-type  {
+.message:last-of-type {
   padding: 0;
   border: none;
 }
