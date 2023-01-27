@@ -62,7 +62,7 @@ export const ProfilePage = () => {
   const [isLoading, error, fetching] = useFetching(async ([userId]) => {
     if (!user) return;
     await delay(3000);
-    //throw new Error('ошибка');
+    //throw new ShowError('ошибка');
     const res = await getUserProfile(userId);
     loaderData(res);
   })
@@ -112,7 +112,7 @@ export const ProfilePage = () => {
     }
   }
 
-  const [isPatching, errorPatch, fetchPatch] = useFetching(async ([id, data]) => {
+  const [isPatching, , fetchPatch] = useFetching(async ([id, data]) => {
     const res = await patchUserProfile(id, data);
     await delay(3000);
     loaderData(res);
@@ -164,7 +164,8 @@ export const ProfilePage = () => {
       }
     }
   }
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | TInputChange<any>) => {
+
+  const onChange = <T, >(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | TInputChange<T>) => {
     setState({...state, [e.target.name]: e.target.value})
   }
   const onCityChange = (e: TInputChange<TSelected>) => {

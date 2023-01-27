@@ -1,7 +1,7 @@
 import React, {FC, Suspense} from 'react';
 import {Await, useLoaderData, useOutlet} from 'react-router-dom';
 import {AuthProvider} from "../../services/AuthContext";
-import PageLoading from "../PageLoading/PageLoading";
+import Loading from "../../shared/Loading/Loading";
 
 const AuthLayout: FC = () => {
 
@@ -12,7 +12,7 @@ const AuthLayout: FC = () => {
   console.log(getData);
 
   return (
-    <Suspense fallback={<PageLoading/>}>
+    <Suspense fallback={<Loading/>}>
       <Await
         resolve={getData}
         errorElement={<p>Error while loading page</p>}

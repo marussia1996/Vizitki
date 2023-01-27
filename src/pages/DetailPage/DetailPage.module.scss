@@ -1,6 +1,11 @@
 @use '../../index.scss' as *;
 
 .section {
+  align-self: start;
+  justify-self: center;
+}
+
+.grid {
   margin: 8px 40px 0 40px;
   width: 100%;
   display: grid;
@@ -21,7 +26,7 @@
   grid-area: avatar;
 }
 
-.wrapQuete{
+.wrapQuete {
   display: flex;
   margin-left: 15px;
   grid-area: quote;
@@ -40,6 +45,7 @@
   padding: 0;
   margin-top: 72px;
 }
+
 @media screen and (max-width: 1250px) {
   .section {
     grid-template-columns: minmax(342px, 443px) minmax(342px, 440px);
@@ -49,7 +55,7 @@
         ". quote"
         "posts posts";
   }
-  .wrapQuete{
+  .wrapQuete {
     margin-left: 0;
   }
   .posts {
@@ -57,6 +63,7 @@
     margin-top: 32px;
   }
 }
+
 @media screen and (max-width: 768px) {
   .section {
     margin: 8px 32px 0 32px;
@@ -67,16 +74,17 @@
         ". quote"
         "posts posts";
   }
-  .wrapQuete{
+  .wrapQuete {
     display: flex;
     grid-area: quote;
-    
+
   }
   .posts {
     grid-gap: 40px 20px;
     margin-bottom: 76px;
   }
 }
+
 @media screen and (max-width: 600px) {
   .section {
     margin: 8px 24px 0 24px;
