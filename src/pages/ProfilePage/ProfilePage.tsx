@@ -124,7 +124,7 @@ export const ProfilePage = () => {
     } else {
       const uploadData: { profile: ProfileRaw, info: InfoItemsRaw } = {
         profile: {
-          name: user && user.name || '',
+          name: user?.name ? user.name : '',
           photo: state.photo,
           city: {
             name: state.city,

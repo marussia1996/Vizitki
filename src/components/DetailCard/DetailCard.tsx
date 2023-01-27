@@ -31,7 +31,7 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
           break;
       }
     }
-  });
+  },[]);
 
   const handleFeedback = () => {
     setFeedbackState(!isOpenFeedback);

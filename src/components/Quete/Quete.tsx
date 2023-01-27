@@ -2,11 +2,10 @@ import React, { KeyboardEventHandler, useState } from "react";
 import { BaseFiedsRaw, TThemeProfile, UserWithProfileRaw } from "../../services/types/types";
 import { ReactComponent as QueteIcon } from "../../images/quete_icon.svg";
 import classnames from "classnames";
-
 import styles from './Quete.module.scss';
 import Feedback from "../Feedback/Feedback";
 import { CommentIcon } from "../CommentIcon/CommentIcon";
-import { userInfo } from "os";
+
 
 let cx = classnames.bind(styles);
 
