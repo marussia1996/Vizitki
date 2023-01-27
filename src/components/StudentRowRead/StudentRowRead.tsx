@@ -18,6 +18,7 @@ type Props = {
     onClick?: (id: string) => void,
     onDelete?: (id: string) => void,
     editable: boolean,
+    isDeletable?: boolean
 };
 
 const StudentRowRead = ({ id,
@@ -28,10 +29,15 @@ const StudentRowRead = ({ id,
     onClick = (id) => { },
     onDelete = (id) => { },
     editable,
+    isDeletable = true,
 }: Props) => {
 
     const cxRowStatus = cx({
         [styles['RowModify']]: status === 'default'
+    });
+
+    const cxCell = cx(styles.CellValue, {
+        [styles['CellModifyValue']]: status === 'default'
     });
 
     const handleClick = (event: SyntheticEvent) => {
@@ -46,20 +52,20 @@ const StudentRowRead = ({ id,
     return (
         <Tr onClick={handleClick} mix={cxRowStatus}>
             <Td>
-                <InputText mix={styles.CellValue} value={cohort} disabled />
+                <InputText mix={cxCell} value={cohort} disabled />
             </Td>
             <Td>
-                <InputText mix={styles.CellValue} value={email} disabled />
+                <InputText mix={cxCell} value={email} disabled />
             </Td>
             <Td>
                 {editable ? (
-                    <InputText mix={styles.CellValue} value={name} disabled />
+                    <InputText mix={cxCell} value={name} disabled />
                 ) : (
                     <Link to={`/students/${id}`}>{name}</Link>
                 )}
             </Td>
             <Td className={styles.DeleteCell}>
-                <DeleteButton onClick={handleDelete} />
+                {isDeletable && <DeleteButton onClick={handleDelete} /> }
             </Td>
         </Tr>
     )

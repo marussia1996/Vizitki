@@ -22,13 +22,9 @@
 }
 
 .AddFile {
-    display: flex;
     width: 325px;
     grid-column: 2/3;
     grid-row: 1/3;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
 }
 
 .TableContent {
@@ -49,4 +45,21 @@
     font-size: 16px;
     line-height: 24px;
     color: #E90D41;
+}
+
+.TakeChanges {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-top: 20px;
+}
+
+.Text {
+    margin: 0 auto;
+    padding-top: 104px;
+    width: 285px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
 }

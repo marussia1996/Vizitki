@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import deleteIcon from '../../images/delete_icon.svg';
+import deleteIcon from '../../images/delete-icon-trash-can.svg';
 
 import styles from './DeleteButton.module.scss';
 
