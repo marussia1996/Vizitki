@@ -1,5 +1,5 @@
 import './DetailCard.scss';
-import { useEffect, useState } from 'react';
+import { KeyboardEventHandler, useEffect, useState } from 'react';
 import { BaseFiedsRaw, TargetRaw, TThemeProfile, UserWithProfileRaw } from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
@@ -39,7 +39,12 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
   const handleFeedback = () => {
     setFeedbackState(!isOpenFeedback);
   }
-
+  const hideFeedback: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    console.log(e);
+    if (e.key === 'Escape') {
+      setFeedbackState(false);
+    }
+  }
   const changeReactions = () =>
     location === 'hobby' ?
       user?.info.hobby.reactions
@@ -51,7 +56,7 @@ export default function DetailCard({ theme = TThemeProfile.DEFAULT, heading, tex
 
 
   return (
-    <div className='card'>
+    <div className='card' onKeyUp={hideFeedback}>
       <div className='line' style={{ backgroundImage: `url(${themeType})` }}></div>
       <div className='headingCnt'>
         <h3 className='heading'>{heading.toUpperCase()}</h3>
