@@ -19,9 +19,12 @@
   border: 1px solid #100C34;
 }
 
-// FIXME: поправить после изменений на макете
+.CellModifyValue {
+  color: #3B23B7;
+}
+
 .RowModify {
-  background-color: lightgray;
+  border-color: #3B23B7;
 }
 
 .DeleteCell {

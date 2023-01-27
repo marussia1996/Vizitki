@@ -32,6 +32,45 @@
   padding: 12px 0;
   @include text(16px, 20px, 500)
 }
+
+.buttonAccept {
+  background: none;
+  border: 1px solid #3B23B7;
+  color: #3B23B7;
+}
+
+.buttonAccept:hover {
+  background: none;
+  border: 1px solid #3B23B7;
+  color: #3B23B7;
+}
+
+.buttonAccept:disabled {
+  background: none;
+  border: 1px solid #BFBFBF;
+  color: #BFBFBF;
+  cursor: not-allowed;
+}
+
+.buttonCancel {
+  background: none;
+  border: 1px solid #E90D41;
+  color: #E90D41;
+}
+
+.buttonCancel:hover {
+  background: none;
+  border: 1px solid #E90D41;
+  color: #E90D41;
+}
+
+.buttonCancel:disabled {
+  background: none;
+  border: 1px solid #BFBFBF;
+  color: #BFBFBF;
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 320px) {
   .buttonLarge{
     max-width: 272px;
