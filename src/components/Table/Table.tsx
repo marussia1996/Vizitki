@@ -8,50 +8,48 @@ type PropsTable = HTMLProps<HTMLTableElement> & {
 
 export const Table: FC<PropsTable & { mix?: string }>  = ({ children, refTable, mix = '', ...rest }) => {
     return (
-        <table className={[styles.Table, mix].join(' ')} ref={refTable} {...rest}>
+        <div className={[styles.Table, mix].join(' ')} ref={refTable} {...rest}>
             {children}
-        </table>
+        </div>
     )
 };
 
 export const Thead: FC<HTMLProps<HTMLTableSectionElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <thead className={[styles.Thead, mix].join(' ') } {...rest}>
-            <tr>
+        <div className={[styles.Thead, mix].join(' ') } {...rest}>
                 {children}
-            </tr>
-        </thead>
+        </div>
     )
 };
 
 export const Tbody: FC<HTMLProps<HTMLTableSectionElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <tbody className={mix} {...rest}>
+        <div className={[styles.Tbody, mix].join(' ')} {...rest}>
             {children}
-        </tbody>
+        </div>
     )
 };
 
 export const Th: FC<HTMLProps<HTMLTableCellElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <th className={[styles.Th, mix].join(' ')} {...rest}>
+        <div className={[styles.Th, mix].join(' ')} {...rest}>
             {children}
-        </th>
+        </div>
     )
 };
 
 export const Td: FC<HTMLProps<HTMLTableCellElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <td className={[styles.Td, mix].join(' ') } {...rest}>
+        <div className={[styles.Td, mix].join(' ') } {...rest}>
             {children}
-        </td>
+        </div>
     )
 };
 
 export const Tr: FC<HTMLProps<HTMLTableRowElement> & { mix?: string }> = ({ children, mix = '', ...rest }) => {
     return (
-        <tr className={[styles.Tr, mix].join(' ')} {...rest}>
+        <div className={[styles.Tr, mix].join(' ')} {...rest}>
             {children}
-        </tr>
+        </div>
     )
 };
