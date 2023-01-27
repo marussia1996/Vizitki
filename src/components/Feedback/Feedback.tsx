@@ -2,7 +2,7 @@ import './Feedback.scss';
 import { messages } from './data';
 import { CommentRaw, LikeRaw } from '../../services/types/types';
 import { v4 as createUUID } from 'uuid';
-import { KeyboardEventHandler, useRef, useEffect } from 'react';
+import { KeyboardEventHandler, ChangeEventHandler, FormEventHandler, useRef, useEffect, useState } from 'react';
 import { postUserReactions } from '../../utils/api';
 
 type TProps = {
@@ -13,17 +13,22 @@ type TProps = {
 //TODO: Добавить закрытие по кнопке Escape
 export default function Feedback({ comments, id }: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const sendReaction: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if(e.key === 'Enter') {
-      // FIXME выдаёт ошибку 403
-      postUserReactions(id, {target: 'profile', text: inputRef.current!.value});
-      inputRef.current!.value = '';
-    }
+  const enterText: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue(e.target.value);
+  }
+
+  const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    // FIXME выдаёт ошибку 403
+    postUserReactions(id, { target: 'profile', text: inputRef.current!.value });
+    setInputValue('');
+
   }
   console.log(comments)
   return (
@@ -41,7 +46,9 @@ export default function Feedback({ comments, id }: TProps) {
         <span className='smile'>&#128420;</span>
       </div>
 
-      <input type='text' placeholder='Обратная связь' className='input' onKeyUp={sendReaction} ref={inputRef}></input>
+      <form className='form' onSubmit={sendReaction}>
+        <input type='text' placeholder='Обратная связь' className='input' ref={inputRef} value={inputValue} onChange={enterText}></input>
+      </form>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
         {comments?.map(item => {
