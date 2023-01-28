@@ -1,6 +1,12 @@
 import './DetailCard.scss';
 import {useEffect, useState} from 'react';
-import {BaseFiedsRaw, TargetRaw, TThemeProfile, UserWithProfileRaw} from '../../services/types/types';
+import {
+  BaseFiedsRaw,
+  TargetRaw,
+  TThemeProfile,
+  TUserReactionsRaw,
+  UserWithProfileRaw
+} from '../../services/types/types';
 import defaultLine from '../../images/Line/default.svg';
 import romanticLine from '../../images/Line/romantic.svg';
 import daringLine from '../../images/Line/daring.svg';
@@ -14,9 +20,21 @@ type TProps = {
   image?: string;
   location?: TargetRaw;
   user: BaseFiedsRaw & UserWithProfileRaw & { reactions: number };
+
+  reactions?: TUserReactionsRaw
+  onChange?: () => void;
 };
 
-export default function DetailCard({theme = TThemeProfile.DEFAULT, heading, text, image, location, user}: TProps) {
+export default function DetailCard({
+                                     theme = TThemeProfile.DEFAULT,
+                                     heading,
+                                     text,
+                                     image,
+                                     location,
+                                     user,
+                                     reactions,
+                                     onChange
+                                   }: TProps) {
   const [themeType, setTheme] = useState(defaultLine);
   const [isOpenFeedback, setFeedbackState] = useState(false);
 
@@ -49,6 +67,8 @@ export default function DetailCard({theme = TThemeProfile.DEFAULT, heading, text
           user?.info.job.reactions
           : user?.info.edu.reactions
 
+  const filteredReactions = reactions?.items.filter(x => x.target === location);
+
 
   return (
     <div className='card'>
@@ -61,9 +81,9 @@ export default function DetailCard({theme = TThemeProfile.DEFAULT, heading, text
         <div className='image' style={{backgroundImage: `url(${image})`}}></div>
       )}
       <p className='text'>{text}</p>
-      {/* FIXME нужно пробросить корректный id профиля в Feedback и функцию обновления комментариев */}
-      {isOpenFeedback && <Feedback id={'замени меня!!!'} updateData={() => {
-      }} onClose={() => setFeedbackState(false)}/>}
+      {isOpenFeedback && <Feedback id={user?._id} onClose={() => setFeedbackState(false)} target={location || null}
+                                   comments={filteredReactions}
+                                   onChangeReactions={onChange}/>}
     </div>
   )
 }

@@ -1,14 +1,13 @@
 @use '../../index.scss' as *;
 
-.smile {
-  font-size: 16px;
-  line-height: 16px;
+.emoji {
   padding: 4px;
   cursor: pointer;
   box-sizing: border-box;
+  @include text(16px, 1.0, 400);
 }
 
-.smileActive {
+.emojiActive {
   border: 1px solid $neon-pink;
   border-radius: 20px;
 }

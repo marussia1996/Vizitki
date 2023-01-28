@@ -1,19 +1,30 @@
 import './Feedback.scss';
 import {messages} from './data';
-import {CommentRaw, LikeRaw, TUserReactionsRaw} from '../../services/types/types';
-import {ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction} from 'react';
+import {CommentRaw, LikeRaw, TargetRaw, TUserReactionsRaw} from '../../services/types/types';
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useRef,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useMemo, useCallback
+} from 'react';
 import {postUserReactions} from '../../utils/api';
 import {getUserReactions} from '../../utils/api';
 import {useOutsideClick} from "../../hooks/useOutsiteClick";
 import {useKeyUp} from "../../hooks/useKeyUp";
 import {useFetching} from "../../hooks/useFetching";
 import classNames from "classnames";
-import Smile from "../../shared/Smile/Smile";
+import Emoji from "../../shared/Smile/Emoji";
+import {useAuth} from "../../hooks/useAuth";
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
-  updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
+
+  target: TargetRaw;
 
   onClose: () => void;
 
@@ -21,21 +32,20 @@ type TProps = {
 };
 
 const emotions: { value: string, displayValue: string }[] = [
-  {value: 'like', displayValue: '&#128078;'},
-  {value: 'dislike', displayValue: '&#128078;'},
-  {value: 'hello', displayValue: '&#128075;'},
-  {value: 'smile', displayValue: '&#128578;'},
-  {value: '1', displayValue: '&#129315;'},
-  {value: '2', displayValue: '&#128556;'},
-  {value: '3', displayValue: '&#128561;'},
-  {value: 'heart', displayValue: '&#128420;'},
+  {value: 'like', displayValue: '👍'},
+  {value: 'dislike', displayValue: '👎️'},
+  {value: 'hello', displayValue: '👋️'},
+  {value: 'smile', displayValue: '🙂️'},
+  {value: 'sad', displayValue: '😞️'},
+  {value: 'heart', displayValue: '❤️'},
 ]
 
 
-export default function Feedback({comments, id, onClose, onChangeReactions}: TProps) {
+export default function Feedback({comments, id, onClose, onChangeReactions, target}: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<string>('');
   const divRef = useRef(null);
+  const {user} = useAuth();
 
   useOutsideClick(divRef, onClose);
   useKeyUp('Escape', onClose)
@@ -44,11 +54,12 @@ export default function Feedback({comments, id, onClose, onChangeReactions}: TPr
     inputRef.current?.focus();
   }, []);
 
-  const [isLoading, error, fetching] = useFetching(async () => {
-    const comment = {target: 'profile', text: inputValue}
+  const [isLoading, error, fetching] = useFetching(async ([comment]) => {
     await postUserReactions(id, comment);
 
-    setInputValue('');
+    if (comment.text) {
+      setInputValue('');
+    }
 
     if (onChangeReactions) {
       onChangeReactions();
@@ -56,11 +67,28 @@ export default function Feedback({comments, id, onClose, onChangeReactions}: TPr
   })
 
 
-  const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!inputValue || inputValue.length === 0) return;
-    fetching();
+    fetching({target: target, text: inputValue});
   }
+
+  const setEmotion = (emotion: string, isActive: boolean) => {
+    if (!isActive) {
+      fetching({target, emotion})
+    }
+  }
+
+  const isEmotionActive = useCallback((emotion: string, comments?: LikeRaw[]): boolean => {
+    return comments
+      ? comments.find(e => e.emotion === emotion && e.from._id === user?._id) !== undefined
+      : false;
+  }, [comments])
+
+  const emotionCount = useCallback((emotion: string, comments?: LikeRaw[]) => {
+    return comments ? comments.filter(c => c.emotion === emotion).length : 0
+  }, [comments])
+
 
   console.log(comments);
 
@@ -69,12 +97,13 @@ export default function Feedback({comments, id, onClose, onChangeReactions}: TPr
     <div className='modal' ref={divRef}>
       <div className='smilesCnt'>
         {emotions.map((smile) => (
-          <Smile value={smile.displayValue} isActive={false} count={0}/>
+          <Emoji key={smile.value} value={smile.displayValue} isActive={isEmotionActive(smile.value, comments)}
+                 count={emotionCount(smile.value, comments)} onClick={setEmotion}/>
         ))
         }
       </div>
 
-      <form className='form' onSubmit={sendReaction}>
+      <form className='form' onSubmit={onSubmit}>
         <input type='text' placeholder='Обратная связь' className={classNames('input', {'inputError': error})}
                ref={inputRef} value={inputValue}
                onChange={(e) => setInputValue(e.target.value)} disabled={isLoading}

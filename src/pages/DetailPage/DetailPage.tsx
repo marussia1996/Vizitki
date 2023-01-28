@@ -5,8 +5,8 @@ import Quete from '../../components/Quete/Quete';
 import DetailCard from '../../components/DetailCard/DetailCard';
 import {UserInfo} from '../../components/UserInfo/UserInfo';
 import {useParams} from "react-router-dom";
-import {getUserProfile} from '../../utils/api';
-import {BaseFiedsRaw, TThemeProfile, UserWithProfileRaw} from '../../services/types/types';
+import {getUserProfile, getUserReactions} from '../../utils/api';
+import {BaseFiedsRaw, TThemeProfile, TUserReactionsRaw, UserWithProfileRaw} from '../../services/types/types';
 import {useFetching} from "../../hooks/useFetching";
 import Fetching from "../../shared/Fetching/Fetching";
 
@@ -14,6 +14,7 @@ export const DetailPage = () => {
 
   const {id} = useParams<{ id: string }>();
   const [user, setUser] = useState<BaseFiedsRaw & UserWithProfileRaw & { reactions: number }>()
+  const [reactions, setReactions] = useState<TUserReactionsRaw>();
 
   const [isLoading, error, fetching] = useFetching(async () => {
     //искуственная задержка для тестирования loading
@@ -23,9 +24,15 @@ export const DetailPage = () => {
     //throw new Error('Error text');
 
     const userData = await getUserProfile(id as string);
-
     setUser(userData);
+
+    await updateReactions();
   })
+
+  const updateReactions = async () => {
+    const reactions = await getUserReactions(id as string);
+    setReactions(reactions);
+  }
 
   useEffect(() => {
     fetching();
@@ -51,7 +58,7 @@ export const DetailPage = () => {
             <div className={styles.wrapQuete}>
               {user.profile.quote !== '' ? (
                 <Quete text="Делай, что должно и будь, что будет."
-                       theme={theme} user={user}/>
+                       theme={theme} user={user} id={id as string}/>
               ) : ''}
             </div>
             <div className={styles.wrapPosts}>
@@ -60,23 +67,23 @@ export const DetailPage = () => {
                   <DetailCard heading='Увлечения' text={user.info.hobby.text ? user.info.hobby.text : ''}
                               image={user.info.hobby.image}
                               theme={theme}
-                              location='hobby' user={user}/>
+                              location='hobby' user={user} reactions={reactions} onChange={updateReactions}/>
                 </li>
                 <li>
                   <DetailCard heading='Семья' text={user.info.status.text ? user.info.status.text : ''}
                               image={user.info.status.image}
                               theme={theme}
-                              location='status' user={user}/>
+                              location='status' user={user} reactions={reactions} onChange={updateReactions}/>
                 </li>
                 <li>
                   <DetailCard heading='Сфера' text={user.info.job.text ? user.info.job.text : ''}
                               theme={theme}
-                              location='job' user={user}/>
+                              location='job' user={user} reactions={reactions} onChange={updateReactions}/>
                 </li>
                 <li>
                   <DetailCard heading='Учеба' text={user.info.edu.text ? user.info.edu.text : ''}
                               theme={theme}
-                              location='edu' user={user}/>
+                              location='edu' user={user} reactions={reactions} onChange={updateReactions}/>
                 </li>
               </ul>
             </div>

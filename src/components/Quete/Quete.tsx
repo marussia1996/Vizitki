@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {BaseFiedsRaw, TThemeProfile, UserWithProfileRaw} from "../../services/types/types";
+import {BaseFiedsRaw, TargetRaw, TThemeProfile, UserWithProfileRaw} from "../../services/types/types";
 import {ReactComponent as QueteIcon} from "../../images/quete_icon.svg";
 import classnames from "classnames";
 
@@ -14,9 +14,11 @@ type Props = {
   text: string;
   theme?: TThemeProfile;
   user: BaseFiedsRaw & UserWithProfileRaw & { reactions: number };
+
+  id: string;
 }
 
-const Quete = ({text, theme = TThemeProfile.DEFAULT, user}: Props) => {
+const Quete = ({text, theme = TThemeProfile.DEFAULT, user, id}: Props) => {
   const [isOpenFeedback, setFeedbackState] = useState(false);
 
   const handleFeedback = () => {
@@ -46,8 +48,7 @@ const Quete = ({text, theme = TThemeProfile.DEFAULT, user}: Props) => {
         <QueteIcon className={cxQueteIcon}/>
         <span className={cxText}>{text}</span>
         {/* FIXME нужно пробросить корректный id профиля в Feedback и функцию обновления комментариев */}
-        {isOpenFeedback && <Feedback id={'замени меня!!!'} updateData={() => {
-        }} onClose={() => setFeedbackState(false)}/>}
+        {isOpenFeedback && <Feedback id={id} onClose={() => setFeedbackState(false)} target={"quote"}/>}
       </div>
     </>
   );

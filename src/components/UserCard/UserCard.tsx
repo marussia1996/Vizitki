@@ -3,7 +3,7 @@ import React, {FC, MouseEventHandler, useEffect, useState} from 'react'
 import {CommentIcon} from '../CommentIcon/CommentIcon';
 import Feedback from '../Feedback/Feedback';
 import {getUserReactions} from '../../utils/api';
-import {RoleType, TUserReactionsRaw} from '../../services/types/types';
+import {RoleType, TargetRaw, TUserReactionsRaw} from '../../services/types/types';
 import {useNavigate} from 'react-router-dom';
 import {Routes} from "../../shared/routes";
 import {useFetching} from "../../hooks/useFetching";
@@ -63,7 +63,7 @@ export const UserCard: FC<TProps> = ({name, photo, city, id}) => {
         }
       </div>
       {isOpenFeedback &&
-        <Feedback comments={profileReactions} updateData={setReactions} id={id}
+        <Feedback comments={profileReactions} id={id} target={null}
                   onClose={() => setFeedbackState(false)} onChangeReactions={fetching}/>}
     </div>
   )

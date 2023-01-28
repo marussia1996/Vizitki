@@ -196,6 +196,7 @@ export type UserRefRaw = {
   cohort: string
 }
 export type TargetRaw = 'hobby' | 'status' | 'job' | 'edu' | 'quote' | null;
+
 export type ReactionRaw = {
   _id: string,
   from: {
