@@ -1,75 +1,125 @@
 import './Feedback.scss';
-import { messages } from './data';
-import { CommentRaw, LikeRaw, TUserReactionsRaw } from '../../services/types/types';
-import { ChangeEventHandler, FormEventHandler, useRef, useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { postUserReactions } from '../../utils/api';
-import { getUserReactions } from '../../utils/api';
+import {messages} from './data';
+import {CommentRaw, LikeRaw, TargetRaw, TUserReactionsRaw} from '../../services/types/types';
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useRef,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useMemo, useCallback
+} from 'react';
+import {postUserReactions} from '../../utils/api';
+import {getUserReactions} from '../../utils/api';
+import {useOutsideClick} from "../../hooks/useOutsiteClick";
+import {useKeyUp} from "../../hooks/useKeyUp";
+import {useFetching} from "../../hooks/useFetching";
+import classNames from "classnames";
+import Emoji from "../../shared/Smile/Emoji";
+import {useAuth} from "../../hooks/useAuth";
 
 type TProps = {
   id: string;
   comments?: Array<CommentRaw & LikeRaw>;
-  updateData: Dispatch<SetStateAction<TUserReactionsRaw | undefined>>
+
+  target: TargetRaw;
+
+  onClose: () => void;
+
+  onChangeReactions?: () => void;
 };
 
-export default function Feedback({ comments, id, updateData }: TProps) {
+const emotions: { value: string, displayValue: string }[] = [
+  {value: 'like', displayValue: '👍'},
+  {value: 'dislike', displayValue: '👎️'},
+  {value: 'hello', displayValue: '👋️'},
+  {value: 'smile', displayValue: '🙂️'},
+  {value: 'sad', displayValue: '😞️'},
+  {value: 'heart', displayValue: '❤️'},
+]
+
+
+export default function Feedback({comments, id, onClose, onChangeReactions, target}: TProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<string>('');
+  const divRef = useRef(null);
+  const {user} = useAuth();
+
+  useOutsideClick(divRef, onClose);
+  useKeyUp('Escape', onClose)
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const enterText: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputValue(e.target.value);
+  const [isLoading, error, fetching] = useFetching(async ([comment]) => {
+    await postUserReactions(id, comment);
+
+    if (comment.text) {
+      setInputValue('');
+    }
+
+    if (onChangeReactions) {
+      onChangeReactions();
+    }
+  })
+
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (!inputValue || inputValue.length === 0) return;
+    fetching({target: target, text: inputValue});
   }
 
-  const sendReaction: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    // FIXME выдаёт ошибку 403
-    postUserReactions(id, { target: 'profile', text: inputRef.current!.value })
-      .then(() => {
-        setInputValue('');
-        getUserReactions(id)
-          .then(res => {
-            updateData(res);
-          })
-          .catch(error => {
-            console.log('Ошибка обновления комментариев. ' + error);
-          })
-      })
-      .catch(error => {
-        console.log('Ошибка отправки комментария. ' + error);
-      })
+  const setEmotion = (emotion: string, isActive: boolean) => {
+    if (!isActive) {
+      fetching({target, emotion})
+    }
   }
+
+  const isEmotionActive = useCallback((emotion: string, comments?: LikeRaw[]): boolean => {
+    return comments
+      ? comments.find(e => e.emotion === emotion && e.from._id === user?._id) !== undefined
+      : false;
+  }, [comments])
+
+  const emotionCount = useCallback((emotion: string, comments?: LikeRaw[]) => {
+    return comments ? comments.filter(c => c.emotion === emotion).length : 0
+  }, [comments])
+
+
+  console.log(comments);
 
   return (
-    <div className='modal'>
+
+    <div className='modal' ref={divRef}>
       <div className='smilesCnt'>
-        <span className='smile smileActive'>&#128077;<span className='reactionsNumb'>1</span></span>
-        <span className='smile'>&#128078;</span>
-        <span className='smile'>&#128075;</span>
-        <span className='smile'>&#128578;</span>
-        <span className='smile'>&#128542;</span>
-        <span className='smile'>&#129315;</span>
-        <span className='smile'>&#128556;</span>
-        <span className='smile'>&#128561;</span>
-        <span className='smile'>&#128525;</span>
-        <span className='smile'>&#128420;</span>
+        {emotions.map((smile) => (
+          <Emoji key={smile.value} value={smile.displayValue} isActive={isEmotionActive(smile.value, comments)}
+                 count={emotionCount(smile.value, comments)} onClick={setEmotion}/>
+        ))
+        }
       </div>
 
-      <form className='form' onSubmit={sendReaction}>
-        <input type='text' placeholder='Обратная связь' className='input' ref={inputRef} value={inputValue} onChange={enterText}></input>
+      <form className='form' onSubmit={onSubmit}>
+        <input type='text' placeholder='Обратная связь' className={classNames('input', {'inputError': error})}
+               ref={inputRef} value={inputValue}
+               onChange={(e) => setInputValue(e.target.value)} disabled={isLoading}
+               title={error}
+        />
       </form>
 
       {messages.length !== 0 && (<div className='feedbackTape'>
-        {comments?.map((item, i) => {
-          return (
-            <div className='message' key={i}>
-              <p className='messageText'>{item.text}</p>
-            </div>
-          )
-        })}
-      </div>
+          {comments?.filter(x => x.text).map((item, i) => {
+            return (
+              <div className='message' key={i}>
+                <p className='messageText'>{item.text}</p>
+              </div>
+            )
+          })}
+        </div>
       )}
     </div>
   )

@@ -1,0 +1,18 @@
+@use '../../index.scss' as *;
+
+.emoji {
+  padding: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  @include text(16px, 1.0, 400);
+}
+
+.emojiActive {
+  border: 1px solid $neon-pink;
+  border-radius: 20px;
+}
+
+.reactionsNumb {
+  color: $neon-pink;
+  @include text(12px, 12px, 500);
+}

@@ -21,21 +21,8 @@
   width: 100%;
   max-height: 52px;
   display: flex;
-  column-gap: 2px;
+  gap: 12px;
   flex-wrap: wrap;
-}
-
-.smile {
-  font-size: 16px;
-  line-height: 16px;
-  padding: 4px;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.smileActive {
-  border: 1px solid $neon-pink;
-  border-radius: 20px;
 }
 
 .reactionsNumb {
@@ -65,6 +52,10 @@
   color: $text-light;
 }
 
+.inputError {
+  border: 1px solid $error;
+}
+
 .feedbackTape {
   width: 100%;
   max-height: 133px;
@@ -88,7 +79,7 @@
   border-top: 1px solid $text-dark;
 }
 
-.message:last-of-type  {
+.message:last-of-type {
   padding: 0;
   border: none;
 }

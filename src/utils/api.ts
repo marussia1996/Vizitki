@@ -1,7 +1,7 @@
 import {
   BaseFiedsRaw,
   InfoItemsRaw,
-  ProfileRaw,
+  ProfileRaw, TargetRaw,
   TGetCommentsRaw,
   TGetProfilesRaw,
   TGetUsersRaw,
@@ -34,7 +34,7 @@ const token = getUserToken();
 
 //not универсальная функция запроса с проверкой
 const requestJson = <T>(url: string, options: RequestInit): Promise<T> => {
-  options.headers = {...options.headers,'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  options.headers = {...options.headers, 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   return fetch(url, options).then(res => checkResponseJson<T>(res))
 }
 const requestText = (url: string, options: RequestInit): Promise<string> => {
@@ -83,7 +83,7 @@ export const deleteComment = async (_id: string) => {
 };
 
 //запрос профилей - по умолчанию возвращают профили из той же когорты, что и запрошенный пользователь, или ничего
-export const getProfiles = (offset?:number, limit?:number, cohort?:string) => {
+export const getProfiles = (offset?: number, limit?: number, cohort?: string) => {
   return requestJson<TGetProfilesRaw>(`/profiles?offset=${offset}&limit=${limit}&cohort=${cohort}`, {
     method: "GET",
   }) as Promise<TGetProfilesRaw>;
@@ -111,7 +111,7 @@ export const getUserReactions = async (_id: string) => {
   });
 };
 //отправка реакций профиля пользователя //id: the user id
-export const postUserReactions = async (_id: string, comment: { target: string, text: string } | { target: string, emotion: string }) => {
+export const postUserReactions = async (_id: string, comment: { target: TargetRaw, text: string } | { target: TargetRaw, emotion: string }) => {
   return requestText(`/profiles/${_id}/reactions`, {
     method: "POST",
     body: JSON.stringify({
