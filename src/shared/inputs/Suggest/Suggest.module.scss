@@ -1,0 +1,39 @@
+@use '../../../index' as *;
+
+.wrap {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapRight {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin-right: 8px;
+}
+
+.button {
+  transition: all 0.5s ease-out;
+  outline: none;
+  padding: 4px;
+  margin: 0;
+  border: 0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  color: $text-dark;
+  box-sizing: border-box;
+  background: none;
+  transform-origin: center;
+}
+
+.buttonActive {
+  rotate: 180deg;
+}

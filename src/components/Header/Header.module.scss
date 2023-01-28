@@ -1,0 +1,139 @@
+@use '../../index.scss' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 40px;
+  position: relative;
+}
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.link{
+  color: $text-black;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 0 8px 36px;
+  @include text(16px, 24px, 400);
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  z-index: -1;
+}
+
+.link:hover {
+  background-color: $header-link;
+}
+
+.wrapLink {
+  position: relative;
+  z-index: -1;
+}
+
+.wrapLink:hover {
+  z-index: 1;
+}
+
+.logo {
+  width: 130px;
+  height: 25px;
+}
+
+.switch{
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.userWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 248px;
+  margin-bottom: 16px;
+  visibility: visible;
+}
+
+.userPhoto {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+.adminPhoto {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: rgba(16, 12, 52, 0.15);
+}
+
+.userName {
+  margin: 0;
+  @include text(16px, 20px, 400);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.model {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20.5%;
+  padding: 40px 24px 32px 24px;
+  visibility: hidden;
+}
+
+.model:hover {
+  z-index: 10;
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 8%);
+  visibility: visible;
+}
+
+
+@media screen and (max-width: 768px) {
+  .header {
+    max-width: 768px;
+    padding: 32px 32px;
+  }
+  .switch{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .header {
+    max-width: 320px;
+    padding: 24px 24px;
+  }
+  .userName {
+    display: none;
+  }
+  .link{
+    padding: 4px 0 4px 15px;
+    @include text(12px, 12px, 400);
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    z-index: -1;
+  }
+  .model {
+    padding: 20px 15px 20px 15px;
+  }
+  .wrap {
+    flex-direction: column;
+  }
+}
+

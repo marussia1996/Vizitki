@@ -1,0 +1,72 @@
+@use '../../index.scss' as *;
+
+.Quete {
+    width: 100%;
+    display: block;
+    position:relative;
+    margin-top: 180px;
+}
+
+.CommentButton {
+    display: block;
+    margin-left: auto;
+    padding-bottom: 4px;
+    visibility: hidden;
+}
+
+.Quete:hover .CommentButton {
+  visibility: visible;
+}
+
+.Icon {
+    width: 20px;
+    height: 45px;
+    padding: 0 8px 8px 0;
+    margin: 0;
+    stroke: $text-dark;
+}
+
+.Icon:last-child{
+    padding: 0;
+}
+
+.IconRomantic {
+    stroke: $neon-pink;
+}
+
+.IconDaring {
+    stroke: $neon-green;
+}
+
+.Text {
+    display: block;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    padding: 0;
+    margin: 0;
+}
+
+.TextCnt {
+  max-width: 255px;
+}
+
+.TextRomantic {
+    color: $neon-pink;
+}
+
+.TextDaring {
+    color: $neon-green;
+}
+
+@media screen and (max-width: 1250px) {
+  .Quete {
+    margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .CommentButton {
+    visibility: visible;
+  }
+}

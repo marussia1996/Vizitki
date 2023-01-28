@@ -1,0 +1,56 @@
+@use '../../index.scss' as *;
+
+.Table {
+    display: table;
+    font-size: 12px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.Thead {
+    display: table-header-group;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    border-bottom: 1px solid $table-gray;
+    color: $table-gray;
+}
+
+.Tbody {
+    display: table-row-group;
+}
+
+.Th {
+    display: table-cell;
+    font-weight: 400;
+    border-bottom: 1px solid $table-gray;
+    text-align: left;
+    padding: 0 8px 12px;
+    background-color: white;
+}
+
+.Td {
+    display: table-cell;
+    box-sizing: border-box;
+    height: 48px;
+    padding: 8px 8px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.Tr {
+    display: table-row;
+}
+
+.Tr,
+.Tbody {
+    border-bottom: 1px solid $table-gray;
+}
+
+.Table .Thead .Th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

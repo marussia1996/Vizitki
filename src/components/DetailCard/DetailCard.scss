@@ -1,0 +1,76 @@
+@use '../../index.scss' as *;
+
+.card {
+  width: 100%;
+  position: relative;
+}
+
+.line {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 9px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headingCnt {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 3px;
+  padding-right: 18px;
+}
+
+.heading {
+  @include text(14px, 18px, 700);
+  margin: 0;
+}
+
+.commentIcon {
+  visibility: hidden;
+}
+
+.card:hover .commentIcon {
+  visibility: visible;
+}
+
+.image {
+  width: 210px;
+  height: 130px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 16px;
+  filter: grayscale(100%);
+}
+
+.text {
+  @include text(16px, 24px, 400);
+  margin: 0;
+}
+
+.cnt {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .cnt {
+    top: 15px;
+    right: 8px;
+  }
+
+  .commentIcon {
+    visibility: visible;
+  }
+}
+

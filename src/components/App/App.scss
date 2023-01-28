@@ -1,0 +1,28 @@
+@use '../../index.scss' as *;
+
+.app{
+  color: $text-dark;
+  font-family: 'IBMPlexSans', sans-serif;
+  @include text(14px, 18px, 400);
+  background-color: #fff;
+  margin: 0;
+  height: 100vh;
+}
+.main{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100% - 184px);
+}
+@media screen and (max-width: 768px) {
+  .main{
+    min-height: calc(100% - 168px);
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .main{
+    min-height: calc(100% - 152px);
+  }
+}

@@ -1,0 +1,32 @@
+.CellValue {
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    height: 32px;
+    padding: 4px 8px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+
+.CellValue:hover {
+    border: 1px solid #83828F;
+}
+.CellValue:focus {
+  border: 1px solid #100C34;
+}
+
+.CellModifyValue {
+  color: #3B23B7;
+}
+
+.RowModify {
+  border-color: #3B23B7;
+}
+
+.DeleteCell {
+  text-align: end;
+}
