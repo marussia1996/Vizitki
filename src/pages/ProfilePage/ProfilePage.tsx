@@ -72,11 +72,9 @@ export const ProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    console.log('errBirthday');
     setState(prevState => ({...prevState, errBirthday: false}))
   }, [state.birthday])
   useEffect(() => {
-    console.log('errCity');
     setState(prevState => ({...prevState, errCity: false}))
   }, [state.city])
 
@@ -102,7 +100,6 @@ export const ProfilePage = () => {
     setState(obj)
   }
   const validity = () => {
-    console.log('validate');
     if (state.birthday === undefined) {
       setState(prevState => ({...prevState, errBirthday: true}));
     }
@@ -127,7 +124,7 @@ export const ProfilePage = () => {
     } else {
       const uploadData: { profile: ProfileRaw, info: InfoItemsRaw } = {
         profile: {
-          name: user && user.name || '',
+          name: user?.name ? user.name : '',
           photo: state.photo,
           city: {
             name: state.city,

@@ -3,6 +3,7 @@ import { Td, Tr } from "../Table/Table";
 import deleteIcon from '../../images/delete_icon.svg';
 
 import styles from './CommentRowRead.module.scss';
+import DeleteButton from "../../shared/DeleteButton/DeleteButton";
 
 type Props = {
     id: string;
@@ -42,9 +43,7 @@ const CommentRowRead = ({ id, cohort, date, from, to, target, text, onClickDelet
                 <span className={styles.CellTextValue}>{text}</span>
             </Td>
             <Td className={styles.DeleteCell}>
-                <button className={styles.DeleteButton} onClick={handleClickDelete}>
-                    <img src={deleteIcon} alt='Кнопка удаления' />
-                </button>
+                <DeleteButton onClick={handleClickDelete}/>
             </Td>
         </Tr>
     )

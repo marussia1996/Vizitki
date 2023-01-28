@@ -7,13 +7,16 @@ interface Props
     size?: 'Small' | 'Large';
     onClick?: (() => void) | ((e: SyntheticEvent) => void);
     htmlType: 'button' | 'submit' | 'reset';
+    type?: 'default' | 'accept' | 'cancel';
     disabled?: boolean; 
 }
 let cx = classnames.bind(styles);
 
-export const Button: FC<Props> = ({children, size = 'Large', disabled, onClick, htmlType}) => {
+export const Button: FC<Props> = ({children, size = 'Large', disabled, onClick, htmlType ,type = 'default'}) => {
   const cxButton = cx(styles.button, {
     [styles[`button${size}`]]: size,
+    [styles['buttonAccept']]: type === 'accept',
+    [styles['buttonCancel']]: type === 'cancel',
 });
   return (
     <button className={cxButton} disabled={disabled} onClick={onClick} type={htmlType}>{children}</button>

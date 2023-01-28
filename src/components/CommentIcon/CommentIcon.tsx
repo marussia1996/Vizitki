@@ -14,9 +14,9 @@ export const CommentIcon: FC<TProps> = ({ color, handleFeedback, mix, commentsQu
   return (
     <button className={mixButton} onClick={handleFeedback}>
       <img className={styles.icon} src={message} alt='Иконка сообщения' />
-      {commentsQuantity !== 0 && (
-        <div className={color === 'dark' ? styles.countDark : styles.countPink}>
-          <span className={styles.number}>{commentsQuantity}</span>
+      {commentsQuantity !== 0 && commentsQuantity && (
+        <div className={`${styles.count} ${color === 'dark' ? styles.countDark : styles.countPink} ${commentsQuantity > 99 ? styles.countBig : ''}`}>
+          <span className={styles.number}>{commentsQuantity > 99 ? '99+' : commentsQuantity}</span>
         </div>
       )}
     </button>

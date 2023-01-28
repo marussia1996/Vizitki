@@ -49,7 +49,9 @@ const CommentsTable = ({ filter = '' }: Props) => {
                         console.log(err);
                     })
                 }
-            })
+            }).catch(err => {
+              console.log(err);
+          })
         }).catch(err => {
             console.log(err);
         })
@@ -85,7 +87,6 @@ const CommentsTable = ({ filter = '' }: Props) => {
                 {filteredComments.length === 0 ? (
                     <p className={styles.EmptySearch}>Не удалось никого найти. Исправьте запрос или сбросьте фильтр</p>
                 ) : (
-                    <>
                         <Scroll mix={styles.CommentScrollTable}>
                             <Table>
                                 <Thead>
@@ -114,7 +115,6 @@ const CommentsTable = ({ filter = '' }: Props) => {
                                 </Tbody>
                             </Table>
                         </Scroll>
-                    </>
                 )}
             </div>
     )

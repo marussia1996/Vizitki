@@ -40,8 +40,6 @@ const Suggest: FC<TSuggestProps> = (props: TSuggestProps) => {
     const suggestView = new ymaps.SuggestView(suggestId, {
       results: 10,
     });
-    const block = document.querySelector('#id_167473998902993787733')
-    console.log(block)
     suggestView.events.add('select', (e: any) => {
       const {value} = e.get('item');
       if (!value) return;

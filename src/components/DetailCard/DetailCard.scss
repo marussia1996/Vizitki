@@ -28,6 +28,14 @@
   margin: 0;
 }
 
+.commentIcon {
+  visibility: hidden;
+}
+
+.card:hover .commentIcon {
+  visibility: visible;
+}
+
 .image {
   width: 210px;
   height: 130px;
@@ -35,6 +43,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 16px;
+  filter: grayscale(100%);
 }
 
 .text {
@@ -58,6 +67,10 @@
   .cnt {
     top: 15px;
     right: 8px;
+  }
+
+  .commentIcon {
+    visibility: visible;
   }
 }
 

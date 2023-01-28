@@ -59,6 +59,7 @@
   gap: 4px;
   max-width: 248px;
   margin-bottom: 16px;
+  visibility: visible;
 }
 
 .userPhoto {
@@ -66,6 +67,7 @@
   width: 32px;
   border-radius: 50%;
   object-fit: cover;
+  filter: grayscale(100%);
 }
 
 .adminPhoto {
@@ -89,6 +91,7 @@
   right: 0;
   width: 20.5%;
   padding: 40px 24px 32px 24px;
+  visibility: hidden;
 }
 
 .model:hover {
@@ -96,6 +99,7 @@
   background-color: #fff;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 8px 16px rgb(0 0 0 / 8%);
+  visibility: visible;
 }
 
 
@@ -103,6 +107,9 @@
   .header {
     max-width: 768px;
     padding: 32px 32px;
+  }
+  .switch{
+    display: none;
   }
 }
 

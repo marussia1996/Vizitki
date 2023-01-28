@@ -6,10 +6,10 @@
 }
 
 .grid {
-  margin: 8px 40px 0 40px;
-  width: 100%;
+  width: calc(100% - 80px);
+  margin: 8px auto 0;
   display: grid;
-  grid-template-columns: minmax(342px, 443px) minmax(342px, 440px) 1fr;
+  grid-template-columns: minmax(342px, 443px) minmax(342px, 440px) minmax(0px, 325px);
   column-gap: 70px;
   grid-template-areas: 
     'user avatar quote'
@@ -47,7 +47,7 @@
 }
 
 @media screen and (max-width: 1250px) {
-  .section {
+  .grid {
     grid-template-columns: minmax(342px, 443px) minmax(342px, 440px);
     column-gap: 20px;
     grid-template-areas:
@@ -65,8 +65,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .section {
-    margin: 8px 32px 0 32px;
+  .grid {
+    width: calc(100% - 64px);
     grid-template-columns: minmax(272px, 342px) minmax(272px, 342px);
     column-gap: 20px;
     grid-template-areas:
@@ -77,7 +77,6 @@
   .wrapQuete {
     display: flex;
     grid-area: quote;
-
   }
   .posts {
     grid-gap: 40px 20px;
@@ -86,8 +85,8 @@
 }
 
 @media screen and (max-width: 600px) {
-  .section {
-    margin: 8px 24px 0 24px;
+  .grid {
+    width: calc(100% - 48px);
     justify-content: center;
     grid-template-columns: 272px;
     grid-template-areas:
@@ -109,8 +108,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .section {
-    margin: 8px 24px 0 24px;
+  .grid {
     grid-template-columns: 272px;
     grid-template-areas:
         "user"
