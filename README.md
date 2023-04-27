@@ -51,7 +51,7 @@ Cервис для самопрезентации студентов Яндек�
 
 :heavy_check_mark: [Евгений Самойлов](https://github.com/evgsamalex)
 
-:heavy_check_mark: [Мария Широкова](https://github.com/marussia1996)
+:heavy_check_mark: [Мария Щукина](https://github.com/marussia1996)
 
 :heavy_check_mark: [Евгения Костыря](https://github.com/Ev-Kos)
 
